@@ -1,0 +1,120 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Required packages for the LaTeX template
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% for creating hyperlinks (must come before glossaries for proper hyperlinks to work)
+\RequirePackage{hyperref}
+
+% To list and index acronyms			
+\RequirePackage[nomain,nowarn,acronym,style=super,xindy, nonumberlist,nopostdot,toc,nogroupskip] {glossaries} 
+
+% needed for including graphics e.g. EPS, PS, PDF, PNG, JPEG
+\RequirePackage{graphicx}            
+
+% needed for header and footer
+\RequirePackage{fancyhdr}           
+
+% allows control of paper geometry
+\RequirePackage{geometry}
+
+% required for color   			
+\RequirePackage[table]{xcolor}
+
+% allows detailed control of complex tables      
+\RequirePackage{multirow} 
+
+% to thicken table lines           
+\RequirePackage{booktabs}
+
+% for setting table width sizes 			
+\RequirePackage{tabularx}
+
+% to reset counter of figures and tables per section			
+\RequirePackage{chngcntr} 		
+
+% for customizing section titles	
+\RequirePackage{titlesec} 		
+
+% for table of contents material	
+\RequirePackage{titletoc}	
+
+% package to toggle figure, table, and equation captions		
+\RequirePackage{caption}				
+
+% package to add figure sub-captions		
+\RequirePackage{subcaption}
+
+% to help align tables, figures, pages
+\RequirePackage{float}		
+
+% for custom verbatim code definitions - block of code		
+\RequirePackage{fancyvrb}
+
+% for custom verbatim code definitions - inline code			
+\RequirePackage{newverbs}		
+
+% manges hyphenation patterns for a wide range of languages	
+\RequirePackage[english]{babel}
+
+% for creating lists		
+\RequirePackage{enumitem}	
+
+% typesetting of multi-line and other mathematical statements - also loads amsmath package		
+\RequirePackage{mathtools} 
+
+% package used to create math symbols          
+\RequirePackage{amssymb}           	
+
+% fixes issue with quotes being backwards
+\RequirePackage[autostyle, english = american]{csquotes} 
+
+% TOC, LOT, and LOF modification package
+\RequirePackage[titles]{tocloft} 
+
+% to list verbatim source code   
+\RequirePackage{listings}			
+
+% To create bibliographiess
+\RequirePackage[backend=bibtex, firstinits=true]{biblatex} 
+
+% More configurable table options
+\RequirePackage{array}	
+
+% Used to generate dummy text			
+\RequirePackage{lipsum}       		
+
+% Used for tracking version history of document
+\RequirePackage[nochapter]{vhistory}	
+
+% To add appendices to docuemnt
+\RequirePackage[toc]{appendix}
+
+% to list matlab code - formatted
+\RequirePackage[framed,numbered,autolinebreaks]{mcode} 
+
+% For porper text encoding (certain characters dont show up in pdf properly)
+\RequirePackage[T1]{fontenc}
+
+% For drawing manual pictures - i.e flowcharts, block diagrams, etc...
+\RequirePackage{tikz}
+
+% For creating PDF bookmarks in PDF viewer
+\RequirePackage{bookmark}
+
+% For creating custom line spacing
+\RequirePackage{setspace}
+
+% For adding a large letter to beginning of paragraph 
+\RequirePackage{lettrine}
+
+% To indent first paragraph
+\RequirePackage{indentfirst}
+
+% To create multiple column documents
+\RequirePackage{multicol}
+
+% To manage arrays in LaTeX
+\RequirePackage{arrayjob}
+
+% To create for loops
+\RequirePackage{multido}

@@ -1,0 +1,37 @@
+#! /usr/bin/env bash
+# This script creates all the sample PDFs
+
+cp sample.tex sample_temp.tex
+
+# Create AIAA Sample PDF
+var="\\\documentclass[AIAA-Conference]{nasa-latex-docs}"
+sed "1s/.*/$var/" sample_temp.tex > temp.tex
+../makePDF temp.tex -c -o=Sample_AIAA_Conference
+
+# # Create AIAA Sample PDF
+# var="\\\documentclass[AIAA-Journal]{nasa-latex-docs}"
+# sed "1s/.*/$var/" sample_temp.tex > temp.tex
+# ../makePDF temp.tex -c -o=Sample_AIAA_Journal
+
+# # Create IEEE Sample PDF
+# var="\\\documentclass[IEEE]{nasa-latex-docs}"
+# sed "1s/.*/$var/" sample_temp.tex > temp.tex
+# ../makePDF temp.tex -c -o=Sample_IEEE
+
+# # Create Tech-Memo Sample PDF
+# var="\\\documentclass[Tech-Memo]{nasa-latex-docs}"
+# sed "1s/.*/$var/" sample_temp.tex > temp.tex
+# ../makePDF temp.tex -c -o=Sample_Tech_Memo
+
+# # Create Tech-Brief Sample PDF
+# var="\\\documentclass[Tech-Brief]{nasa-latex-docs}"
+# sed "1s/.*/$var/" sample_temp.tex > temp.tex
+# ../makePDF temp.tex -c -o=Sample_Tech_Brief
+
+# # Create Tech-Report Sample PDF
+# var="\\\documentclass[Tech-Report]{nasa-latex-docs}"
+# sed "1s/.*/$var/" sample_temp.tex > temp.tex
+# ../makePDF temp.tex -c -o=Sample_Tech_Report
+
+rm -rf sample_temp.tex
+rm -rf temp.tex

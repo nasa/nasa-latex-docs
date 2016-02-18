@@ -1,0 +1,270 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION: Document Author Parameters
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Define document authors array and default values
+\newarray\docAuthorName
+\newcommand{\defName}[1]{Author \##1}
+\readarray{docAuthorName}{
+      \defName{1}&\defName{2}&\defName{3}&\defName{4}&\defName{5}&
+      \defName{6}&\defName{7}&\defName{8}&\defName{9}&\defName{10}}
+
+% Define document author positions array and default values
+\newarray\docAuthorPosition
+\newcommand{\defPos}[1]{Author \##1 Position}
+\readarray{docAuthorPosition}{
+      \defPos{1}&\defPos{2}&\defPos{3}&\defPos{4}&\defPos{5}&
+      \defPos{6}&\defPos{7}&\defPos{8}&\defPos{9}&\defPos{10}}
+
+% Define document author organizations array and default values
+\newarray\docAuthorOrganization
+\newcommand{\defOrg}[1]{Author \##1 Organization}
+\readarray{docAuthorOrganization}{
+      \defOrg{1}&\defOrg{2}&\defOrg{3}&\defOrg{4}&\defOrg{5}&
+      \defOrg{6}&\defOrg{7}&\defOrg{8}&\defOrg{9}&\defOrg{10}}
+
+% Define document author locations array and default values
+\newarray\docAuthorLocation
+\newcommand{\defLoc}[1]{Author \##1 Location}
+\readarray{docAuthorLocation}{
+      \defLoc{1}&\defLoc{2}&\defLoc{3}&\defLoc{4}&\defLoc{5}&
+      \defLoc{6}&\defLoc{7}&\defLoc{8}&\defLoc{9}&\defLoc{10}}
+
+\newcommand{\docAuthor}[5][99]{
+   \docAuthorName(#1)={#2}
+   \docAuthorPosition(#1)={#3}
+   \docAuthorOrganization(#1)={#4}
+   \docAuthorLocation(#1)={#5}
+   \def\@docAuthor{}
+}\docAuthor{}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION: Document Approver Parameters
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Define document approvers array and default values
+\newarray\docApproverName
+\newcommand{\defNameA}[1]{Approver \##1}
+\readarray{docApproverName}{
+      \defNameA{1}&\defNameA{2}&\defNameA{3}&\defNameA{4}&\defNameA{5}&
+      \defNameA{6}&\defNameA{7}&\defNameA{8}&\defNameA{9}&\defNameA{10}}
+
+% Define document approver positions array and default values
+\newarray\docApproverPosition
+\newcommand{\defPosA}[1]{Approver \##1 Position}
+\readarray{docApproverPosition}{
+      \defPosA{1}&\defPosA{2}&\defPosA{3}&\defPosA{4}&\defPosA{5}&
+      \defPosA{6}&\defPosA{7}&\defPosA{8}&\defPosA{9}&\defPosA{10}}
+
+% Define document approver organizations array and default values
+\newarray\docApproverOrganization
+\newcommand{\defOrgA}[1]{Approver \##1 Organization}
+\readarray{docApproverOrganization}{
+      \defOrgA{1}&\defOrgA{2}&\defOrgA{3}&\defOrgA{4}&\defOrgA{5}&
+      \defOrgA{6}&\defOrgA{7}&\defOrgA{8}&\defOrgA{9}&\defOrgA{10}}
+
+% Define document approver locations array and default values
+\newarray\docApproverLocation
+\newcommand{\defLocA}[1]{Approver \##1 Location}
+\readarray{docApproverLocation}{
+      \defLocA{1}&\defLocA{2}&\defLocA{3}&\defLocA{4}&\defLocA{5}&
+      \defLocA{6}&\defLocA{7}&\defLocA{8}&\defLocA{9}&\defLocA{10}}
+
+\newcommand{\docApprover}[5][99]{
+   \docApproverName(#1)={#2}
+   \docApproverPosition(#1)={#3}
+   \docApproverOrganization(#1)={#4}
+   \docApproverLocation(#1)={#5}
+   \def\@docApprover{}
+}\docApprover{}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION: Document Contributor Parameters
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Define document contributors array and default values
+\newarray\docContributorName
+\newcommand{\defNameC}[1]{Contributor \##1}
+\readarray{docContributorName}{
+      \defNameC{1}&\defNameC{2}&\defNameC{3}&\defNameC{4}&\defNameC{5}&
+      \defNameC{6}&\defNameC{7}&\defNameC{8}&\defNameC{9}&\defNameC{10}}
+
+% Define document contributor positions array and default values
+\newarray\docContributorPosition
+\newcommand{\defPosC}[1]{Contributor \##1 Position}
+\readarray{docContributorPosition}{
+      \defPosC{1}&\defPosC{2}&\defPosC{3}&\defPosC{4}&\defPosC{5}&
+      \defPosC{6}&\defPosC{7}&\defPosC{8}&\defPosC{9}&\defPosC{10}}
+
+% Define document contributor organizations array and default values
+\newarray\docContributorOrganization
+\newcommand{\defOrgC}[1]{Contributor \##1 Organization}
+\readarray{docContributorOrganization}{
+      \defOrgC{1}&\defOrgC{2}&\defOrgC{3}&\defOrgC{4}&\defOrgC{5}&
+      \defOrgC{6}&\defOrgC{7}&\defOrgC{8}&\defOrgC{9}&\defOrgC{10}}
+
+% Define document contributor locations array and default values
+\newarray\docContributorLocation
+\newcommand{\defLocC}[1]{Contributor \##1 Location}
+\readarray{docContributorLocation}{
+      \defLocC{1}&\defLocC{2}&\defLocC{3}&\defLocC{4}&\defLocC{5}&
+      \defLocC{6}&\defLocC{7}&\defLocC{8}&\defLocC{9}&\defLocC{10}}
+
+\newcommand{\docContributor}[5][99]{
+   \docContributorName(#1)={#2}
+   \docContributorPosition(#1)={#3}
+   \docContributorOrganization(#1)={#4}
+   \docContributorLocation(#1)={#5}
+   \def\@docContributor{}
+}\docContributor{}{}
+
+% This is the color (blue-ish) that will be used to indicate user inputs 
+% \definecolor{input}{RGB}{20,20,200}
+
+% % Formatter for default values fo type input (smaller font, no bold, add slash, change to blue)
+% \newcommand{\varInput}[1][input]{{\textnormal{\color{input}\textbackslash #1[\textit{\color{black} input}] }}}
+% \newcommand{\varInputTwo}[2][input]{{\textnormal{\color{input}\textbackslash #1[#2]\{\textit{\color{black} input}\}}}}
+
+% % \newcommand{\varInput}[1][input]{{\fontsize{10pt}{12pt}\textnormal{\color{input}\textbackslash #1[\textit{\color{black} input}] }}}
+% % \newcommand{\varInputTwo}[2][input]{{\fontsize{10pt}{12pt}\textnormal{\color{input}\textbackslash #1[#2]\{\textit{\color{black} input}\}}}}
+
+
+% % Document tracking information
+% \newcommand{\docVersion}   [1][{\varInput[docVersion]}]{\def\@docVersion{#1}}\docVersion{}
+% \newcommand{\docSigned}    [1][No]{\def\@docSigned{#1}}\docSigned{}
+\newcommand{\docAbstract}  [1][{\varInput[docAbstract]}]{\def\@docAbstract{#1}}\docAbstract{}
+% \newcommand{\docNumber}    [1][{\varInput[docNumber]}]{\def\@docNumber{#1}}\docNumber{}
+\newcommand{\docTitle}     [1][{\varInput[docTitle]}]{\def\@docTitle{#1}}\docTitle{}
+% \newcommand{\docDate}      [1][{\varInput[docDate]}]{\def\@docDate{#1}}\docDate{}
+% \newcommand{\docSignDate}  [1][{\varInput[docSignDate]}]{\def\@docSignDate{#1}}\docSignDate{}
+% \newcommand{\docTo}        [1][{\varInput[docTo]}]{\def\@docTo{#1}}\docTo{}
+% \newcommand{\docFrom}      [1][{\varInput[docFrom]}]{\def\@docFrom{#1}}\docFrom{}
+% \newcommand{\docHistory}   [1][{default}]{\def\@docHistory{#1}}\docHistory{}
+
+% % DEFINE: Document author commands
+% \newcommand{\docAuthorI}               [1][{\varInputTwo[docAuthor]{1}}]{\def\@docAuthorI{#1}}\docAuthorI{}
+% \newcommand{\docAuthorPositionI}       [1][{\varInputTwo[docAuthorPosition]{1}}]{\def\@docAuthorPositionI{#1}}\docAuthorPositionI{}
+% \newcommand{\docAuthorOrganizationI}      [1][{\varInputTwo[docAuthorOrganization]{1}}]{\def\@docAuthorOrganizationI{#1}}\docAuthorOrganizationI{}
+% \newcommand{\docAuthorLocationI}       [1][{\varInputTwo[docAuthorLocation]{1}}]{\def\@docAuthorLocationI{#1}}\docAuthorLocationI{}
+
+% \newcommand{\docAuthorII}           [1][{\varInputTwo[docAuthor]{2}}]{\def\@docAuthorII{#1}}\docAuthorII{}
+% \newcommand{\docAuthorPositionII}      [1][{\varInputTwo[docAuthorPosition]{2}}]{\def\@docAuthorPositionII{#1}}\docAuthorPositionII{}
+% \newcommand{\docAuthorOrganizationII}  [1][{\varInputTwo[docAuthorOrganization]{2}}]{\def\@docAuthorOrganizationII{#1}}\docAuthorOrganizationII{}
+% \newcommand{\docAuthorLocationII}      [1][{\varInputTwo[docAuthorLocation]{2}}]{\def\@docAuthorLocationII{#1}}\docAuthorLocationII{}
+
+% % MAP: Document author commands
+% \newcommand{\docAuthor}[2][0]{
+%    \ifnumequal{#1}{1}{\docAuthorI[#2]}{}
+%    \ifnumequal{#1}{2}{\docAuthorII[#2]}{}
+%    \def\@docAuthor{}
+% }\docAuthor{}{}
+
+% \newcommand{\docAuthorPosition}[2][0]{
+%    \ifnumequal{#1}{1}{\docAuthorPositionI[#2]}{}
+%    \ifnumequal{#1}{2}{\docAuthorPositionII[#2]}{}
+%    \def\@docAuthorPosition{}
+% }\docAuthorPosition{}{}
+
+% \newcommand{\docAuthorOrganization}[2][0]{
+%    \ifnumequal{#1}{1}{\docAuthorOrganizationI[#2]}{}
+%    \ifnumequal{#1}{2}{\docAuthorOrganizationII[#2]}{}
+%    \def\@docAuthorOrganization{}
+% }\docAuthorOrganization{}{}
+
+% \newcommand{\docAuthorLocation}[2][0]{
+%    \ifnumequal{#1}{1}{\docAuthorLocationI[#2]}{}
+%    \ifnumequal{#1}{2}{\docAuthorLocationII[#2]}{}
+%    \def\@docAuthorLocation{}
+% }\docAuthorLocation{}{}
+
+% % DEFINE: Document approver commands
+% \newcommand{\docApproverI}          [1][{\varInputTwo[docApprover]{1}}]{\def\@docApproverI{#1}}\docApproverI{}
+% \newcommand{\docApproverPositionI}     [1][{\varInputTwo[docApproverPosition]{1}}]{\def\@docApproverPositionI{#1}}\docApproverPositionI{}
+% \newcommand{\docApproverOrganizationI} [1][{\varInputTwo[docApproverOrganization]{1}}]{\def\@docApproverOrganizationI{#1}}\docApproverOrganizationI{}
+% \newcommand{\docApproverLocationI}     [1][{\varInputTwo[docApproverLocation]{1}}]{\def\@docApproverLocationI{#1}}\docApproverLocationI{}
+
+% \newcommand{\docApproverII}            [1][{\varInputTwo[docApprover]{2}}]{\def\@docApproverII{#1}}\docApproverII{}
+% \newcommand{\docApproverPositionII}    [1][{\varInputTwo[docApproverPosition]{2}}]{\def\@docApproverPositionII{#1}}\docApproverPositionII{}
+% \newcommand{\docApproverOrganizationII}   [1][{\varInputTwo[docApproverOrganization]{2}}]{\def\@docApproverOrganizationII{#1}}\docApproverOrganizationII{}
+% \newcommand{\docApproverLocationII}    [1][{\varInputTwo[docApproverLocation]{2}}]{\def\@docApproverLocationII{#1}}\docApproverLocationII{}
+
+% % MAP: Document approver commands
+% \newcommand{\docApprover}[2][0]{
+%    \ifnumequal{#1}{1}{\docApproverI[#2]}{}
+%    \ifnumequal{#1}{2}{\docApproverII[#2]}{}
+%    \def\@docApprover{}
+% }\docApprover{}{}
+
+% \newcommand{\docApproverPosition}[2][0]{
+%    \ifnumequal{#1}{1}{\docApproverPositionI[#2]}{}
+%    \ifnumequal{#1}{2}{\docApproverPositionII[#2]}{}
+%    \def\@docApproverPosition{}
+% }\docApproverPosition{}{}
+
+% \newcommand{\docApproverOrganization}[2][0]{
+%    \ifnumequal{#1}{1}{\docApproverOrganizationI[#2]}{}
+%    \ifnumequal{#1}{2}{\docApproverOrganizationII[#2]}{}
+%    \def\@docApproverOrganization{}
+% }\docApproverOrganization{}{}
+
+% \newcommand{\docApproverLocation}[2][0]{
+%    \ifnumequal{#1}{1}{\docApproverLocationI[#2]}{}
+%    \ifnumequal{#1}{2}{\docApproverLocationII[#2]}{}
+%    \def\@docApproverLocation{}
+% }\docApproverLocation{}{}
+
+% % DEFINE: Document contributor commands
+% \newcommand{\docContributorI}          [1][{\varInputTwo[docContributor]{1}}]{\def\@docContributorI{#1}}\docContributorI{}
+% \newcommand{\docContributorOrganizationI} [1][{\varInputTwo[docContributorOrganization]{1}}]{\def\@docContributorOrganizationI{#1}}\docContributorOrganizationI{}
+% \newcommand{\docContributorLocationI}     [1][{\varInputTwo[docContributorLocation]{1}}]{\def\@docContributorLocationI{#1}}\docContributorLocationI{}
+
+% \newcommand{\docContributorII}            [1][{\varInputTwo[docContributor]{2}}]{\def\@docContributorII{#1}}\docContributorII{}
+% \newcommand{\docContributorOrganizationII}   [1][{\varInputTwo[docContributorOrganization]{2}}]{\def\@docContributorOrganizationII{#1}}\docContributorOrganizationII{}
+% \newcommand{\docContributorLocationII}    [1][{\varInputTwo[docContributorLocation]{2}}]{\def\@docContributorLocationII{#1}}\docContributorLocationII{}
+
+% \newcommand{\docContributorIII}           [1][{\varInputTwo[docContributor]{3}}]{\def\@docContributorIII{#1}}\docContributorIII{}
+% \newcommand{\docContributorOrganizationIII}  [1][{\varInputTwo[docContributorOrganization]{3}}]{\def\@docContributorOrganizationIII{#1}}\docContributorOrganizationIII{}
+% \newcommand{\docContributorLocationIII}      [1][{\varInputTwo[docContributorLocation]{3}}]{\def\@docContributorLocationIII{#1}}\docContributorLocationIII{}
+
+% \newcommand{\docContributorIV}            [1][{\varInputTwo[docContributor]{4}}]{\def\@docContributorIV{#1}}\docContributorIV{}
+% \newcommand{\docContributorOrganizationIV}   [1][{\varInputTwo[docContributorOrganization]{4}}]{\def\@docContributorOrganizationIV{#1}}\docContributorOrganizationIV{}
+% \newcommand{\docContributorLocationIV}    [1][{\varInputTwo[docContributorLocation]{4}}]{\def\@docContributorLocationIV{#1}}\docContributorLocationIV{}
+
+% \newcommand{\docContributorV}          [1][{\varInputTwo[docContributor]{5}}]{\def\@docContributorV{#1}}\docContributorV{}
+% \newcommand{\docContributorOrganizationV} [1][{\varInputTwo[docContributorOrganization]{5}}]{\def\@docContributorOrganizationV{#1}}\docContributorOrganizationV{}
+% \newcommand{\docContributorLocationV}     [1][{\varInputTwo[docContributorLocation]{5}}]{\def\@docContributorLocationV{#1}}\docContributorLocationV{}
+
+% \newcommand{\docContributorVI}            [1][{\varInputTwo[docContributor]{6}}]{\def\@docContributorVI{#1}}\docContributorVI{}
+% \newcommand{\docContributorOrganizationVI}   [1][{\varInputTwo[docContributorOrganization]{6}}]{\def\@docContributorOrganizationVI{#1}}\docContributorOrganizationVI{}
+% \newcommand{\docContributorLocationVI}    [1][{\varInputTwo[docContributorLocation]{6}}]{\def\@docContributorLocationVI{#1}}\docContributorLocationVI{}
+
+% % MAP: Document contributor commands
+% \newcommand{\docContributor}[2][0]{
+%    \ifnumequal{#1}{1}{\docContributorI[#2]}{}
+%    \ifnumequal{#1}{2}{\docContributorII[#2]}{}
+%    \ifnumequal{#1}{3}{\docContributorIII[#2]}{}
+%    \ifnumequal{#1}{4}{\docContributorIV[#2]}{}
+%    \ifnumequal{#1}{5}{\docContributorV[#2]}{}
+%    \ifnumequal{#1}{6}{\docContributorVI[#2]}{}
+%    \def\@docContributor{}
+% }\docContributor{}{}
+
+% \newcommand{\docContributorOrganization}[2][0]{
+%    \ifnumequal{#1}{1}{\docContributorOrganizationI[#2]}{}
+%    \ifnumequal{#1}{2}{\docContributorOrganizationII[#2]}{}
+%    \ifnumequal{#1}{3}{\docContributorOrganizationIII[#2]}{}
+%    \ifnumequal{#1}{4}{\docContributorOrganizationIV[#2]}{}
+%    \ifnumequal{#1}{5}{\docContributorOrganizationV[#2]}{}
+%    \ifnumequal{#1}{6}{\docContributorOrganizationVI[#2]}{}
+%    \def\@docContributorOrganization{}
+% }\docContributorOrganization{}{}
+
+% \newcommand{\docContributorLocation}[2][0]{
+%    \ifnumequal{#1}{1}{\docContributorLocationI[#2]}{}
+%    \ifnumequal{#1}{2}{\docContributorLocationII[#2]}{}
+%    \ifnumequal{#1}{3}{\docContributorLocationIII[#2]}{}
+%    \ifnumequal{#1}{4}{\docContributorLocationIV[#2]}{}
+%    \ifnumequal{#1}{5}{\docContributorLocationV[#2]}{}
+%    \ifnumequal{#1}{6}{\docContributorLocationVI[#2]}{}
+%    \def\@docContributorLocation{}
+% }\docContributorLocation{}{}

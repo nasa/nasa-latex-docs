@@ -1,0 +1,67 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION: Define document type identifiers
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\docTypeName{AIAA Conference Paper}
+\def\docTypeTitle{Sample AIAA Conference Paper}
+
+\def\docTypeAbstract{Nam dui ligula, fringilla a, euismod sodales, sollicitudin vel, wisi. Morbi auctor lorem non justo. Nam lacus libero, pretium at, lobortis vitae, ultricies et, tellus. Donec aliquet, tortor sed accumsan bibendum, erat ligula aliquet magna, vitae ornare odio metus a mi. Morbi ac orci et nisl hendrerit mollis. Suspendisse ut massa. Cras nec ante. Pellentesque a nulla. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam tincidunt urna. Nulla ullamcorper vestibulum turpis. Pellentesque cursus luctus mauris.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION: Define custom document format
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% AIAA papers are to be in Times New Roman Font
+\RequirePackage{times}
+\RequirePackage{mathptmx}
+
+% Set the depth of the sections
+\setcounter{secnumdepth}{4}
+
+% Define section font styling
+\titleformat{\section}{\centering\normalfont\bfseries\fontsize{11}{12}\selectfont}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\bfseries\fontsize{10}{12}\selectfont}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\itshape\fontsize{10}{12}\selectfont}{\thesubsubsection}{1em}{}
+
+% Renew the commands for proper section numbering
+\renewcommand{\thesection}{\Roman{section}.} 
+\renewcommand{\thesubsection}{\Alph{section}.} 
+\renewcommand{\thesubsubsection}{\arabic{section}.} 
+
+% Define spacing between Section titles and text
+\titlespacing{\section}{0pt}{5pt}{5pt}
+\titlespacing{\subsection}{0pt}{5pt}{5pt}
+\titlespacing{\subsubsection}{0pt}{5pt}{5pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION: Insert the AIAA document parameters - provided by the user
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\AtBeginDocument{
+
+   \begin{center}
+      % Create title: 18pt font, bold, centered 
+      \LARGE\bfseries 
+      \@docTitle
+   \end{center}
+   \hfill
+   \begin{center}
+      % Create authors: 10pt font, centered 
+      \docAuthorName(1) and \docAuthorName(2)
+   \end{center}
+
+   \hfill
+
+   % Create abstract by putting minipage in centered box
+   \noindent\makebox[\textwidth][c]{
+   % Letter paper width - left margin - right margin - 0.5 inch indent on each side (left/right)
+   % 8.5in - 1in - 1in - 0.5in - 0.5in = 5.5 inch width for abstract
+   \begin{minipage}{5.5in} 
+      \normalsize\bfseries
+      \@docAbstract 
+   \end{minipage}}
+
+   % Skip two lines (10pt x 2)
+   \vspace{20pt}
+
+}
