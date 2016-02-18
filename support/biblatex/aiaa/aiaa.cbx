@@ -1,0 +1,18 @@
+%% -----------------------------------------------------------------
+%% Purpose: A biblatex implementation for AIAA Publications
+%% Source:  https://github.com/nasa/nasa-latex-docs
+%% Type:    Biblatex Citation Style
+%% -----------------------------------------------------------------
+
+\ProvidesFile{aiaas.cbx}[2016/04/13 v1.0 biblatex citation style]
+
+\RequireCitationStyle{numeric-comp}
+
+\ExecuteBibliographyOptions
+  {
+    autocite  = superscript,
+    autopunct = false      ,
+    sorting   = none
+  }
+
+%% End of file `aiaas.cbx'.

@@ -1,0 +1,135 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TEMPLATE: Insert the AIAA document parameters - provided by the user
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{tech/format.tex}
+
+% Enable various page flags
+\docTOC[true]
+\docLOF[true]
+\docLOT[true]
+\docLOA[true]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION: Create all the front matter prior to user content
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\AtBeginDocument{
+
+   % Add a PDF bookmark in PDF viewer for all of front matter
+   \pdfbookmark[1]{Front Matter}{front}
+
+   \frontmatter
+
+   \newpage \clearpage \thispagestyle{empty}
+
+   \addtocounter{page}{-1}
+
+   \TitlePageGeometry
+
+   % Add a PDF bookmark in PDF viewer 
+
+   % Create graphics at the top of the page
+   \begin{minipage}{0.25\textwidth}
+      \begin{flushleft}
+         \ifdefstring{\@docLogo}{}{}{\includegraphics[height=1in]{\@docLogo}} 
+      \end{flushleft}
+   \end{minipage}%
+   \begin{minipage}{0.7\textwidth}
+      \centering\textbf{\Large \@docTypeTitle \\ \vspace{6pt} Technical Report}
+   \end{minipage}%
+
+   \vspace{\baselineskip}
+   {\color{black}\hrule height 1pt}
+
+   \vspace{0.5in}
+
+   \raggedright
+   
+   \begin{flushleft}
+      \textbf{\Large \@docTitle} 
+      \setstretch{1.5}
+   \end{flushleft}
+
+   \vspace{24pt}
+
+   \ifdefstring{\@docNumber}{}{}{\textit{\large Document Number: \@docNumber}}   
+
+   \vspace{1in}
+
+   \ifdefstring{\@docVersion}{}{}{\textbf{\large Version: \@docVersion}}   
+   
+   \vspace{12pt}  
+   
+   {\large \@docDate}
+
+    % fill in empty space
+   \vfill
+
+   \ifdefstring{\@docOrgLogo}{}{}{\includegraphics[height=1in]{\@docOrgLogo}} 
+
+   \vspace{-6pt}
+
+   \begin{flushleft}
+
+      \setlength{\parskip}{0pt}
+
+      \@docOrganization
+
+   \end{flushleft}
+
+   \vspace{-12pt}
+
+   \begin{center}
+      \printExportFooter
+   \end{center}
+
+   \vspace{0.25in} 
+
+   % Change the geometry back
+   \restoregeometry
+
+   % Print the export control information section
+   \printExport
+
+   % Print the revision log page
+   \printRevisionLog
+
+   % Print executive summary
+   \printExecutiveSummary
+
+   % Print author page
+   \printAuthorPage
+
+   % Print contributor page
+   \printContributorPage
+
+   % Print the signature page
+   \printApproverPage
+
+   % Change the paragraph skip to something smaller for the TOC/LOF/LOT/Acronyms sections
+   \setlength{\parskip}{3pt}
+
+   % Create the Table of Contents
+   \printTOC
+
+   % Create the List of Tables
+   \printLOT
+
+   % Create the List of Figures
+   \printLOF
+
+   % Create the List of Acronyms
+   \printLOA
+
+   % Create the Nomenclature definition section
+   \printNomenclature
+
+   % Change the paragraph skip back to 12pt
+   \setlength{\parskip}{12pt}
+
+   % remove padding to row height as to no affect other tables
+   \setlength\extrarowheight{0pt} 
+
+   \mainmatter
+}
