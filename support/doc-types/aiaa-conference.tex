@@ -2,10 +2,59 @@
 % SECTION: Define document type identifiers
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\docTypeName{AIAA Conference Paper}
-\def\docTypeTitle{Sample AIAA Conference Paper}
+\iftoggle{AIAA-Journal-Submit}{
+   \def\docTitleDefault{Sample AIAA Journal Manuscript Submission} 
+}{
+   \def\docTitleDefault{Sample AIAA Conference Paper} 
+}
 
-\def\docTypeAbstract{Nam dui ligula, fringilla a, euismod sodales, sollicitudin vel, wisi. Morbi auctor lorem non justo. Nam lacus libero, pretium at, lobortis vitae, ultricies et, tellus. Donec aliquet, tortor sed accumsan bibendum, erat ligula aliquet magna, vitae ornare odio metus a mi. Morbi ac orci et nisl hendrerit mollis. Suspendisse ut massa. Cras nec ante. Pellentesque a nulla. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam tincidunt urna. Nulla ullamcorper vestibulum turpis. Pellentesque cursus luctus mauris.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION: Define custom commands to be used by the AIAA types
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\aiaaTitle}{
+   \begin{center}
+      % Create title: 18pt font, bold, centered 
+      \LARGE\bfseries 
+      \@docTitle \vspace{\baselineskip}
+   \end{center}
+}
+
+\newcommand{\aiaaAuthors}{
+   \begin{center}
+      \multido{\ii=1+1}{10}{%
+         \checkdocAuthorName(\ii)
+         \ifemptydata
+            % \docAuthor not defined for this index, skip
+         \else
+            % Funky workaround to get "\thanks" to ready array - sets value to "\cachedata"\setlength{\leftskip}{0.5\baselineskip}
+            % \checkdocAuthorPosition(\ii) 
+            % \docAuthorName(\ii)\thanks{\small\cachedata}\break
+            \docAuthorName(\ii)\break
+            \textit{\docAuthorOrganization(\ii), \docAuthorLocation(\ii)} \break
+            % Determine if there is an author after the current index to print "and"
+            \edef\iinext{\number\numexpr\ii+1\relax}
+            \checkdocAuthorName(\iinext)
+            \ifemptydata
+               \break
+            \else
+               \\ \vspace{-0.5\baselineskip} \textit{and} \vspace{0.5\baselineskip} \break
+            \fi    
+         \fi   
+      }
+   \end{center}
+}
+
+\newcommand{\aiaaAbstract}{
+   % Create abstract by putting minipage in centered box
+   \noindent\makebox[\textwidth][c]{
+   % Letter paper width - left margin - right margin - 0.5 inch indent on each side (left/right)
+   % 8.5in - 1in - 1in - 0.5in - 0.5in = 5.5 inch width for abstract
+   \begin{minipage}{5.5in} 
+      \normalsize\bfseries
+      \@docAbstract 
+   \end{minipage}}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION: Define custom document format
@@ -16,52 +65,78 @@
 \RequirePackage{mathptmx}
 
 % Set the depth of the sections
-\setcounter{secnumdepth}{4}
+\setcounter{secnumdepth}{3}
 
 % Define section font styling
 \titleformat{\section}{\centering\normalfont\bfseries\fontsize{11}{12}\selectfont}{\thesection}{1em}{}
-\titleformat{\subsection}{\normalfont\bfseries\fontsize{10}{12}\selectfont}{\thesubsection}{1em}{}
-\titleformat{\subsubsection}{\normalfont\itshape\fontsize{10}{12}\selectfont}{\thesubsubsection}{1em}{}
+\titleformat{\subsection}{\normalfont\bfseries\normalsize}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\itshape\normalsize}{\thesubsubsection}{1em}{}
 
 % Renew the commands for proper section numbering
 \renewcommand{\thesection}{\Roman{section}.} 
-\renewcommand{\thesubsection}{\Alph{section}.} 
-\renewcommand{\thesubsubsection}{\arabic{section}.} 
+\renewcommand{\thesubsection}{\Alph{subsection}.} 
+\renewcommand{\thesubsubsection}{\arabic{subsubsection}.} 
 
-% Define spacing between Section titles and text
-\titlespacing{\section}{0pt}{5pt}{5pt}
-\titlespacing{\subsection}{0pt}{5pt}{5pt}
-\titlespacing{\subsubsection}{0pt}{5pt}{5pt}
+% Sets the footnote number styles to symbols - create new symbol to wrap around first 9
+\newalphalph{\fnsymbolwrap}[wrap]{\@fnsymbol}{}
+\renewcommand{\thefootnote}{\fnsymbolwrap{\value{footnote}}}
+
+% Define the distance between footer (page number) and text
+\setlength{\footskip}{2\baselineskip}
+
+% Define the headheight - set to zero, no header in this format
+\setlength{\headheight}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{0pt}
+
+% Modify the header and footer lines - set to zero to remove
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Change all quoting environments to be 9pt font
+\AtBeginEnvironment{quote}{\normalsize}
+\AtBeginEnvironment{quotation}{\small}
+\AtBeginEnvironment{verse}{\small}
+
+% Change the figure and table label separation characters to periods
+\captionsetup[table]{labelsep=period}
+\captionsetup[figure]{labelsep=period}
+
+\docAuthorName(1)={Author \#1 Name\thanks{Author \#1 Position and \texttt{E-Mail Address}}}
+\docAuthorName(2)={Author \#2 Name\thanks{Author \#2 Position and \texttt{E-Mail Address}}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION: Insert the AIAA document parameters - provided by the user
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\iftoggle{twocolumns}{}{% If not twocolumn layout
+   \AtBeginDocument{
+
+      \iftoggle{AIAA-Journal-Submit}{\doublespacing}{}
+
+      \aiaaTitle
+
+      \vspace{\baselineskip}
+
+      \aiaaAuthors
+
+      \aiaaAbstract
+
+      \iftoggle{AIAA-Journal-Submit}{}{\vspace{\baselineskip}} 
+
+      \makeNomenclature
+
+      \saythanks
+   }
+}
+
 \AtBeginDocument{
 
-   \begin{center}
-      % Create title: 18pt font, bold, centered 
-      \LARGE\bfseries 
-      \@docTitle
-   \end{center}
-   \hfill
-   \begin{center}
-      % Create authors: 10pt font, centered 
-      \docAuthorName(1) and \docAuthorName(2)
-   \end{center}
+   % Create the Footer - Clear the current header/footer style
+   \fancyhf{} 
 
-   \hfill
+   % Set the current header/footer style
+   \pagestyle{fancy}
 
-   % Create abstract by putting minipage in centered box
-   \noindent\makebox[\textwidth][c]{
-   % Letter paper width - left margin - right margin - 0.5 inch indent on each side (left/right)
-   % 8.5in - 1in - 1in - 0.5in - 0.5in = 5.5 inch width for abstract
-   \begin{minipage}{5.5in} 
-      \normalsize\bfseries
-      \@docAbstract 
-   \end{minipage}}
-
-   % Skip two lines (10pt x 2)
-   \vspace{20pt}
-
+   \cfoot{\thepage \\ American Institute of Aeronautics and Astronautics}
 }

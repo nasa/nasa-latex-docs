@@ -8,10 +8,15 @@ var="\\\documentclass[AIAA-Conference]{nasa-latex-docs}"
 sed "1s/.*/$var/" sample_temp.tex > temp.tex
 ../makePDF temp.tex -c -o=Sample_AIAA_Conference
 
-# # Create AIAA Sample PDF
-# var="\\\documentclass[AIAA-Journal]{nasa-latex-docs}"
-# sed "1s/.*/$var/" sample_temp.tex > temp.tex
-# ../makePDF temp.tex -c -o=Sample_AIAA_Journal
+# Create AIAA Sample PDF
+var="\\\documentclass[AIAA-Journal]{nasa-latex-docs}"
+sed "1s/.*/$var/" sample_temp.tex > temp.tex
+../makePDF temp.tex -c -o=Sample_AIAA_Journal
+
+# Create AIAA Sample PDF
+var="\\\documentclass[AIAA-Journal-Submit]{nasa-latex-docs}"
+sed "1s/.*/$var/" sample_temp.tex > temp.tex
+../makePDF temp.tex -c -o=Sample_AIAA_Journal_Manuscript_Submission 
 
 # # Create IEEE Sample PDF
 # var="\\\documentclass[IEEE]{nasa-latex-docs}"

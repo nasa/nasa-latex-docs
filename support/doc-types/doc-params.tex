@@ -1,34 +1,39 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION: Default Acronyms
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newacronym{nasa}{NASA}{National Aeronautics and Space Administration}
+\newacronym{aiaa}{AIAA}{American Institute of Aeronautics and Astronautics}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION: Common Definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ % Define common colors
+\definecolor{input}{RGB}{20,20,200}
+
+% % Formatter for default values fo type input
+\newcommand{\varInput}[2]{\textbackslash #1[#2]}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION: Document Author Parameters
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Define document authors array and default values
 \newarray\docAuthorName
-\newcommand{\defName}[1]{Author \##1}
-\readarray{docAuthorName}{
-      \defName{1}&\defName{2}&\defName{3}&\defName{4}&\defName{5}&
-      \defName{6}&\defName{7}&\defName{8}&\defName{9}&\defName{10}}
+\readarray{docAuthorName}{Author \#1 Name&Author \#2 Name&&&&&&&&}
 
 % Define document author positions array and default values
 \newarray\docAuthorPosition
-\newcommand{\defPos}[1]{Author \##1 Position}
-\readarray{docAuthorPosition}{
-      \defPos{1}&\defPos{2}&\defPos{3}&\defPos{4}&\defPos{5}&
-      \defPos{6}&\defPos{7}&\defPos{8}&\defPos{9}&\defPos{10}}
+\readarray{docAuthorPosition}{Author \#1 Position&Author \#2 Position&&&&&&&&}
 
 % Define document author organizations array and default values
 \newarray\docAuthorOrganization
-\newcommand{\defOrg}[1]{Author \##1 Organization}
-\readarray{docAuthorOrganization}{
-      \defOrg{1}&\defOrg{2}&\defOrg{3}&\defOrg{4}&\defOrg{5}&
-      \defOrg{6}&\defOrg{7}&\defOrg{8}&\defOrg{9}&\defOrg{10}}
+\readarray{docAuthorOrganization}{Author \#1 Organization&Author \#2 Organization &&&&&&&&}
 
 % Define document author locations array and default values
 \newarray\docAuthorLocation
-\newcommand{\defLoc}[1]{Author \##1 Location}
-\readarray{docAuthorLocation}{
-      \defLoc{1}&\defLoc{2}&\defLoc{3}&\defLoc{4}&\defLoc{5}&
-      \defLoc{6}&\defLoc{7}&\defLoc{8}&\defLoc{9}&\defLoc{10}}
+\readarray{docAuthorLocation}{Author \#1 Location&Author \#2 Location &&&&&&&&}
 
 \newcommand{\docAuthor}[5][99]{
    \docAuthorName(#1)={#2}
@@ -118,23 +123,22 @@
    \def\@docContributor{}
 }\docContributor{}{}
 
-% This is the color (blue-ish) that will be used to indicate user inputs 
-% \definecolor{input}{RGB}{20,20,200}
-
-% % Formatter for default values fo type input (smaller font, no bold, add slash, change to blue)
-% \newcommand{\varInput}[1][input]{{\textnormal{\color{input}\textbackslash #1[\textit{\color{black} input}] }}}
 % \newcommand{\varInputTwo}[2][input]{{\textnormal{\color{input}\textbackslash #1[#2]\{\textit{\color{black} input}\}}}}
 
 % % \newcommand{\varInput}[1][input]{{\fontsize{10pt}{12pt}\textnormal{\color{input}\textbackslash #1[\textit{\color{black} input}] }}}
 % % \newcommand{\varInputTwo}[2][input]{{\fontsize{10pt}{12pt}\textnormal{\color{input}\textbackslash #1[#2]\{\textit{\color{black} input}\}}}}
 
-
 % % Document tracking information
 % \newcommand{\docVersion}   [1][{\varInput[docVersion]}]{\def\@docVersion{#1}}\docVersion{}
 % \newcommand{\docSigned}    [1][No]{\def\@docSigned{#1}}\docSigned{}
-\newcommand{\docAbstract}  [1][{\varInput[docAbstract]}]{\def\@docAbstract{#1}}\docAbstract{}
+\newcommand{\docAbstract}[1][\varInput{docAbstract}{Document Abstract}]{\def\@docAbstract{#1}}\docAbstract{}
+
+\newcommand{\docNomenclature}[1][]{\def\@docNomenclature{#1}}\docNomenclature{}   
+
+\newcommand{\docNomenclatureScale}[1][1]{\def\@docNomenclatureScale{#1}}\docNomenclatureScale{}   
+
 % \newcommand{\docNumber}    [1][{\varInput[docNumber]}]{\def\@docNumber{#1}}\docNumber{}
-\newcommand{\docTitle}     [1][{\varInput[docTitle]}]{\def\@docTitle{#1}}\docTitle{}
+\newcommand{\docTitle}     [1][\varInput{docTitle}{Document Title}]{\def\@docTitle{#1}}\docTitle{}
 % \newcommand{\docDate}      [1][{\varInput[docDate]}]{\def\@docDate{#1}}\docDate{}
 % \newcommand{\docSignDate}  [1][{\varInput[docSignDate]}]{\def\@docSignDate{#1}}\docSignDate{}
 % \newcommand{\docTo}        [1][{\varInput[docTo]}]{\def\@docTo{#1}}\docTo{}

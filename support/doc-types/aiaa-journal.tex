@@ -4,36 +4,32 @@
 
 \input{aiaa-conference.tex}      
 
-\def\docTypeName{AIAA Journal Paper}
-\def\docTypeTitle{Sample AIAA Journal Paper}
-
-\def\docTypeAbstract{Nam dui ligula, fringilla a, euismod sodales, sollicitudin vel, wisi. Morbi auctor lorem non justo. Nam lacus libero, pretium at, lobortis vitae, ultricies et, tellus. Donec aliquet, tortor sed accumsan bibendum, erat ligula aliquet magna, vitae ornare odio metus a mi. Morbi ac orci et nisl hendrerit mollis. Suspendisse ut massa. Cras nec ante. Pellentesque a nulla. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam tincidunt urna. Nulla ullamcorper vestibulum turpis. Pellentesque cursus luctus mauris.}
-
-\newenvironment{nomenclature}[1][]
-{ %
- % Insert the title if present.
- \ifthenelse{\equal{#1}{}}{ %
-  % Start the tabular environment.
-  \noindent\tabular{@{} p{3.5em} @{\hspace{2pt}=\hspace{1em}} l} %
- }{ %
- % Insert the title.
- \noindent\textit{#1}\\[3pt] %
- % Start the tabular environment.
- \noindent\tabular{@{} p{3.5em} @{\hspace{2pt}=\hspace{1em}} l} %
- }
-}{ %
- % End the tabular environment
- \endtabular %
-}
+\def\docTitleDefault{Sample AIAA Journal Paper}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SECTION: Set wrapper for two-column layout
+% SECTION: Define custom document format
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\AtBeginDocument{
-   \begin{multicols}{2}
-}
+% Define the distance between footer (page number) and text
+\setlength{\footskip}{2.5\baselineskip}
 
-\AtEndDocument{
-   \end{multicols}
-} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION: Set wrapper for two-column layout - END
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\AfterEndPreamble{
+\twocolumn[%
+   \aiaaTitle
+
+   \vspace{\baselineskip}
+
+   \aiaaAuthors
+
+   \aiaaAbstract
+
+   \vspace{2\baselineskip}
+   ]
+   \makeNomenclature
+
+   \saythanks
+}

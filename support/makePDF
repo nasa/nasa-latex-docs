@@ -3,12 +3,57 @@
 # Purpose: Single bash script to cleanly build LaTeX PDF and remove auxiliary files
 
 ###################################################
+# Define function to clean all auxiliary files
+###################################################
+
+clean_aux_files () {
+   rm -rf *.aux;
+   rm -rf *.acn;
+   rm -rf *.acr;
+   rm -rf *.alg;
+   rm -rf *.bbl;
+   rm -rf *.lof;
+   rm -rf *.out;
+   rm -rf *.toc;
+   rm -rf *.xdy;
+   rm -rf *.log;
+   rm -rf *.bib;
+   rm -rf *.lot;
+   rm -rf *.lot;
+   rm -rf *.blg;
+   rm -rf *.xml;
+   rm -rf *.glsdefs;
+   rm -rf *.gz;
+   rm -rf *.hst;
+   rm -rf *.ver;
+}
+
+###################################################
+# Define function rename output
+###################################################
+
+rename_output_pdf () {
+   if [ "$rename_output" = true ]; then
+      output_pdf=${OUTPUT}
+      output_pdf_clean=${output_pdf%.*};
+      mv $input_tex_clean.pdf ${output_pdf_clean}.pdf
+      printf '\e[0;32m PDF printed to \e[1;32m%s\e[0m \n' $output_pdf_clean.pdf;
+   else
+      printf '\e[0;32m PDF printed to \e[1;32m%s\e[0m \n' $input_tex_clean.pdf;
+   fi
+}
+
+
+###################################################
 # Parse the command line inputs
 ###################################################
 
 # Strip the input file name of its extension
 input_tex=$1;
 input_tex_clean=${input_tex%.*};
+
+# Define fast build as false
+fast_build=false
 
 for i in "$@"
 do
@@ -24,6 +69,10 @@ case $i in
    ;;
    -c*|--clean*)
    clean_output=true
+   shift # -c argument=value
+   ;;
+   -f*|--fast*)
+   fast_build=true
    shift # -c argument=value
    ;;
    *)
@@ -59,10 +108,6 @@ else
         PATH=/usr/local/texlive/2015/bin/x86_64-linux:$PATH
         printf  "\t\e[1;34m--- Running TeX Distribution Version 2015 ---\e[0m \n";
     else
-        # Cant find newer distribution - exit and provide current version info
-        if [ "$centosVER" == "CentOS release 5.10 (Final)" ]; then
-           printf '\n\t\e[1;34mPlease Switch to a CentOS 6 Blade (blade 091-098)\e[0m \n';      
-        fi
         printf '\n\t\e[1;31m!!! Outdated TeX Distribution - Please UPDATE !!!\e[0m \n';
         printf "\e[0;34m(Current Version) Environment \$PATH points to: "; which tex; printf "\e[0m";
         tex --version | head -3 | sed 's/^/  /';
@@ -106,56 +151,42 @@ if [ $? = 0 ] ; then
 	# Print first pass successful
 	printf '\e[0;32m PDF built successfully! \e[0m \n';
 
-	# Make the glossaries
-	printf '(Run:\e[0;34m makeglossaries\e[0m) Make Glossaries...';
-	makeglossaries 	$input_tex_clean > /dev/null;
-	printf '\e[0;32m Glossaries built successfully! \e[0m \n';
+   if [ "$fast_build" = true ]; then
+      rename_output_pdf
+      if [ "$clean_output" = true ]; then
+         clean_aux_files
+      fi
+      exit
+   fi
+
+	# Make the glossaries - only if there are acronyms used
+   if [ -s $input_tex_clean.acn ]; then 
+      printf '(Run:\e[0;34m makeglossaries\e[0m) Make Glossaries...';
+      makeglossaries    $input_tex_clean > /dev/null;
+      printf '\e[0;32m Glossaries built successfully! \e[0m \n';
+   fi
 
 	# Build bibliographies
-	printf '(Run:\e[0;34m bibtex\e[0m)     Make Bibliographies...';
+   printf '(Run:\e[0;34m bibtex\e[0m)     Make Bibliographies...';
 	bibtex 			$input_tex_clean > /dev/null;
 	printf '\e[0;32m Bibliographies built successfully! \e[0m \n';
 
 	# Print the final PDF
 	printf '(Run:\e[0;34m pdflatex\e[0m) Print PDF, final pass...';
-	pdflatex -draftmode		$input_tex_clean  > /dev/null;
-	pdflatex 				$input_tex_clean  > /dev/null;
+	pdflatex -draftmode    $input_tex_clean  > /dev/null;
+	pdflatex               $input_tex_clean  > /dev/null;
 
-   if [ "$rename_output" = true ]; then
-      output_pdf=${OUTPUT}
-      output_pdf_clean=${output_pdf%.*};
-      mv $input_tex_clean.pdf ${output_pdf_clean}.pdf
-      printf '\e[0;32m PDF printed to \e[1;32m%s\e[0m \n' $output_pdf_clean.pdf;
-   else
-      printf '\e[0;32m PDF printed to \e[1;32m%s\e[0m \n' $input_tex_clean.pdf;
-   fi
+   # Rename the output
+   rename_output_pdf
 
 	# Remove all auxiliary files created, keeping just the pdf
 	if [ "$clean_output" = true ]; then
-		rm -rf *.aux;
-		rm -rf *.acn;
-		rm -rf *.acr;
-		rm -rf *.alg;
-		rm -rf *.bbl;
-		rm -rf *.lof;
-		rm -rf *.out;
-		rm -rf *.toc;
-		rm -rf *.xdy;
-		rm -rf *.log;
-		rm -rf *.bib;
-		rm -rf *.lot;
-		rm -rf *.lot;
-		rm -rf *.blg;
-		rm -rf *.xml;
-		rm -rf *.glsdefs;
-		rm -rf *.gz;
-		rm -rf *.hst;
-		rm -rf *.ver;
+      clean_aux_files
 	fi
 
 else 
    
 	printf '\e[1;31m  BUILD ERROR \e[0m \n';
 
-	tail -12 makePDF.out
+	tail -15 makePDF.out
 fi

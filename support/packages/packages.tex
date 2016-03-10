@@ -65,7 +65,7 @@
 % package used to create math symbols          
 \RequirePackage{amssymb}           	
 
-% fixes issue with quotes being backwards
+% Fixes issue with quotes being backwards
 \RequirePackage[autostyle, english = american]{csquotes} 
 
 % TOC, LOT, and LOF modification package
@@ -73,9 +73,6 @@
 
 % to list verbatim source code   
 \RequirePackage{listings}			
-
-% To create bibliographiess
-\RequirePackage[backend=bibtex, firstinits=true]{biblatex} 
 
 % More configurable table options
 \RequirePackage{array}	
@@ -118,3 +115,9 @@
 
 % To create for loops
 \RequirePackage{multido}
+
+% Additional package that allows for more than 9 symbols for footnotes
+\RequirePackage{alphalph}
+
+% For saythanks command
+\RequirePackage{abstract}
