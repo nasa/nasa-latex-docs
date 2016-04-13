@@ -6,7 +6,7 @@
 # Define function to clean all auxiliary files
 ###################################################
 
-clean_aux_files () {
+FUNCTION_clean_aux_files () {
    rm -rf *.aux;
    rm -rf *.acn;
    rm -rf *.acr;
@@ -32,7 +32,7 @@ clean_aux_files () {
 # Define function rename output
 ###################################################
 
-rename_output_pdf () {
+FUNCTION_rename_output_pdf () {
    if [ "$rename_output" = true ]; then
       output_pdf=${OUTPUT}
       output_pdf_clean=${output_pdf%.*};
@@ -43,14 +43,42 @@ rename_output_pdf () {
    fi
 }
 
+###################################################
+# Check the current TeX version
+###################################################
+
+# Get TeX version
+tex_version="$(tex --version)";
+
+# Make sure latest version is installed
+if [[ $tex_version == *"2015"* ]]; then
+   printf  "\t\e[1;34m--- Running TeX Distribution Version 2015 ---\e[0m \n";
+else
+   printf '\n\t\e[1;31m!!! Outdated TeX Distribution - Please UPDATE !!!\e[0m \n';
+   printf "\e[0;34m(Current Version) Environment \$PATH points to: "; which tex; printf "\e[0m";
+   tex --version | head -3 | sed 's/^/  /';
+   printf '\n'
+   exit 1;
+fi
 
 ###################################################
-# Parse the command line inputs
+# Check if input file passed in
 ###################################################
 
 # Strip the input file name of its extension
 input_tex=$1;
 input_tex_clean=${input_tex%.*};
+
+# Check if there is a file input, else exit
+if [ -z "$1" ]
+  then
+    printf 'No buildable .tex file supplied as input: e.g.\e[1;34m "./makePDF example.tex"\e[0m \n';
+    exit 1
+fi
+
+###################################################
+# Parse the command line inputs
+###################################################
 
 # Define fast build as false
 fast_build=false
@@ -81,82 +109,53 @@ case $i in
 esac
 done
 
-# Get TeX version
-tex_version="$(tex --version)";
+###################################################
+# Define necessary environment paths
+###################################################
 
-# Get CentOS Version (for AGDL checking)
-if [ -f /etc/redhat-release ]; then
-   centosVER="$(cat /etc/redhat-release)";
-fi
+# Save current internal field separator setting
+SAVEIFS=$IFS
 
-# Get directory of this script
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+# Set internal field separator to be line break instead of space character
+IFS=$'\n'
 
-# Recursively add this directory and its sub folders to TeX search path
-# Also recursively add the current directory and its sub-folders (where the document is being worked on) 
-export TEXINPUTS=$TEXINPUTS:$(find ${DIR} -type d | tr '\n' ':' | sed 's/:$//'):$(find ${PWD} -type d | tr '\n' ':' | sed 's/:$//')
-export TEXMFHOME=$TEXMFHOME:$(find ${DIR} -type d | tr '\n' ':' | sed 's/:$//')
-export BIBINPUTS=$BIBINPUTS:$(find ${DIR} -type d | tr '\n' ':' | sed 's/:$//')
+# Get directory of this script and find all sub-directories
+nasa_latex_docs_pwd="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+subdirs_in_nasa_latex_docs=$(find $nasa_latex_docs_pwd -type d | tr '\n' ':')
 
-# Make sure latest version is installed
-if [[ $tex_version == *"2015"* ]]; then
-    printf  "\t\e[1;34m--- Running TeX Distribution Version 2015 ---\e[0m \n";
-else
-    # This check is here if running on AGDL
-    if [ -d /usr/local/texlive/2015/bin/x86_64-linux ]; then
-        # New distribution exists, add to PATH
-        PATH=/usr/local/texlive/2015/bin/x86_64-linux:$PATH
-        printf  "\t\e[1;34m--- Running TeX Distribution Version 2015 ---\e[0m \n";
-    else
-        printf '\n\t\e[1;31m!!! Outdated TeX Distribution - Please UPDATE !!!\e[0m \n';
-        printf "\e[0;34m(Current Version) Environment \$PATH points to: "; which tex; printf "\e[0m";
-        tex --version | head -3 | sed 's/^/  /';
-        printf '\n'
-        exit 1;
-    fi
-fi
+# Get path of the file being built and find all sub-directories
+subdirs_in_path2file=$(find $PWD -type d | tr '\n' ':')
 
-# Do a pre-clean just to be safe no files are corrupt 
-rm -rf *.aux;
-rm -rf *.acn;
-rm -rf *.acr;
-rm -rf *.alg;
-rm -rf *.bbl;
-rm -rf *.lof;
-rm -rf *.out;
-rm -rf *.toc;
-rm -rf *.xdy;
-rm -rf *.log;
-rm -rf *.bib;
-rm -rf *.lot;
-rm -rf *.lot;
-rm -rf *.blg;
-rm -rf *.xml;
-rm -rf *.glsdefs;
-rm -rf *.gz;
-rm -rf *.hst;
-rm -rf *.ver;
+# Recursively add above paths and sub folders to TeX search path
+export TEXINPUTS=$TEXINPUTS$subdirs_in_nasa_latex_docs$subdirs_in_path2file
+export TEXMFHOME=$TEXMFHOME$subdirs_in_nasa_latex_docs$subdirs_in_path2file
+export BIBINPUTS=$BIBINPUTS$subdirs_in_nasa_latex_docs$subdirs_in_path2file
 
-# Check if there is a file input, else exit
-if [ -z "$1" ]
-  then
-    printf 'No buildable .tex file supplied as input: e.g.\e[1;34m "./makePDF example.tex"\e[0m \n';
-    exit 1
-fi
+# Restore internal field separator setting to previous state
+IFS=$SAVEIFS
+
+###################################################
+# Build the pdf
+###################################################
+
+# Do a pre-clean just to be safe no files are corrupt
+# FUNCTION_clean_aux_files
 
 # Run the first pdf build attempt - check for errors
 printf '(Run:\e[0;34m pdflatex\e[0m) Print PDF, first pass...';
 pdflatex -interaction nonstopmode -halt-on-error -file-line-error $input_tex_clean > makePDF.out; 
+
 if [ $? = 0 ] ; then
-	# Print first pass successful
-	printf '\e[0;32m PDF built successfully! \e[0m \n';
 
    if [ "$fast_build" = true ]; then
-      rename_output_pdf
+      FUNCTION_rename_output_pdf
       if [ "$clean_output" = true ]; then
-         clean_aux_files
+         FUNCTION_clean_aux_files
       fi
       exit
+   else
+      # Print first pass successful
+      printf '\e[0;32m PDF built successfully! \e[0m \n';
    fi
 
 	# Make the glossaries - only if there are acronyms used
@@ -177,11 +176,11 @@ if [ $? = 0 ] ; then
 	pdflatex               $input_tex_clean  > /dev/null;
 
    # Rename the output
-   rename_output_pdf
+   FUNCTION_rename_output_pdf
 
 	# Remove all auxiliary files created, keeping just the pdf
 	if [ "$clean_output" = true ]; then
-      clean_aux_files
+      FUNCTION_clean_aux_files
 	fi
 
 else 
@@ -189,4 +188,5 @@ else
 	printf '\e[1;31m  BUILD ERROR \e[0m \n';
 
 	tail -15 makePDF.out
+
 fi
