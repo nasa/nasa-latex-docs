@@ -7,25 +7,26 @@
 ###################################################
 
 FUNCTION_clean_aux_files () {
-   rm -rf *.aux;
-   rm -rf *.acn;
-   rm -rf *.acr;
-   rm -rf *.alg;
-   rm -rf *.bbl;
-   rm -rf *.lof;
-   rm -rf *.out;
-   rm -rf *.toc;
-   rm -rf *.xdy;
-   rm -rf *.log;
-   rm -rf *.bib;
-   rm -rf *.lot;
-   rm -rf *.lot;
-   rm -rf *.blg;
-   rm -rf *.xml;
-   rm -rf *.glsdefs;
-   rm -rf *.gz;
-   rm -rf *.hst;
-   rm -rf *.ver;
+   rm -f $input_tex_clean*.aux;
+   rm -f $input_tex_clean*.acn;
+   rm -f $input_tex_clean*.acr;
+   rm -f $input_tex_clean*.alg;
+   rm -f $input_tex_clean*.bbl;
+   rm -f $input_tex_clean*.lof;
+   rm -f $input_tex_clean*.out;
+   rm -f $input_tex_clean*.toc;
+   rm -f $input_tex_clean*.xdy;
+   rm -f $input_tex_clean*.log;
+   rm -f $input_tex_clean*.bib;
+   rm -f $input_tex_clean*.lot;
+   rm -f $input_tex_clean*.lot;
+   rm -f $input_tex_clean*.blg;
+   rm -f $input_tex_clean*.xml;
+   rm -f $input_tex_clean*.glsdefs;
+   rm -f $input_tex_clean*.gz;
+   rm -f $input_tex_clean*.hst;
+   rm -f $input_tex_clean*.ver;
+   rm -f makePDF.out;
 }
 
 ###################################################
@@ -72,7 +73,7 @@ input_tex_clean=${input_tex%.*};
 # Check if there is a file input, else exit
 if [ -z "$1" ]
   then
-    printf 'No buildable .tex file supplied as input: e.g.\e[1;34m "./makePDF example.tex"\e[0m \n';
+    printf 'No buildable .tex file supplied as input: e.g.\e[1;34m "support/makePDF template.tex"\e[0m \n';
     exit 1
 fi
 
@@ -96,7 +97,7 @@ case $i in
    shift # -p argument=value
    ;;
    -c*|--clean*)
-   clean_output=true
+   clean_aux=true
    shift # -c argument=value
    ;;
    -f*|--fast*)
@@ -139,7 +140,9 @@ IFS=$SAVEIFS
 ###################################################
 
 # Do a pre-clean just to be safe no files are corrupt
-# FUNCTION_clean_aux_files
+if [ "$fast_build" = false ]; then
+   FUNCTION_clean_aux_files
+fi
 
 # Run the first pdf build attempt - check for errors
 printf '(Run:\e[0;34m pdflatex\e[0m) Print PDF, first pass...';
@@ -149,7 +152,7 @@ if [ $? = 0 ] ; then
 
    if [ "$fast_build" = true ]; then
       FUNCTION_rename_output_pdf
-      if [ "$clean_output" = true ]; then
+      if [ "$clean_aux" = true ]; then
          FUNCTION_clean_aux_files
       fi
       exit
@@ -179,7 +182,7 @@ if [ $? = 0 ] ; then
    FUNCTION_rename_output_pdf
 
 	# Remove all auxiliary files created, keeping just the pdf
-	if [ "$clean_output" = true ]; then
+	if [ "$clean_aux" = true ]; then
       FUNCTION_clean_aux_files
 	fi
 
