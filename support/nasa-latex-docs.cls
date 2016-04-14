@@ -79,11 +79,11 @@
 \ifcase\docType
    \or % matches caseAIAAConference
       \LoadClass[letterpaper,10pt]{article}
-      \RequirePackage[backend=bibtex, firstinits=true, natbib=true, style=phys]{biblatex} 
+      \RequirePackage[backend=bibtex, firstinits=true, natbib=true, style=aiaa, autocite=superscript]{biblatex} 
       \let\cite\autocite
    \or % matches caseAIAAJournal
       \LoadClass[letterpaper,10pt,twoside,twocolumn]{article}
-      \RequirePackage[backend=bibtex, firstinits=true, natbib=true, style=phys]{biblatex} 
+      \RequirePackage[backend=bibtex, firstinits=true, natbib=true, style=aiaa, autocite=superscript]{biblatex} 
       \let\cite\autocite
       \toggletrue{twocolumns}
    \or % matches caseIEEE
