@@ -21,9 +21,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Custom function to quickly declare toggles and set document type values 
-\newcommand{\parseInputType}[2]{
+\newcommand{\parseInputType}[3]{
    \newtoggle{#1}
-   \DeclareOption{#1}{\toggletrue{#1}\let\docType=#2}
+   \DeclareOption{#1}{
+      \toggletrue{#1} 
+      \let\docType=#2 
+      \def\@@ptsize{#3}
+   }
 }
 
 % Define each enumeration value
@@ -38,12 +42,12 @@
 \def\docType{\caseTechReport}       
 
 % Declare the possible document types to pass in as true/false toggles (from: etoolbox)
-\parseInputType{AIAA-Conference}{\caseAIAAConference}
-\parseInputType{AIAA-Journal}{\caseAIAAJournal}
-\parseInputType{IEEE}{\caseIEEE}
-\parseInputType{Tech-Memo}{\caseTechMemo}
-\parseInputType{Tech-Brief}{\caseTechBrief}
-\parseInputType{Tech-Report}{\caseTechReport}
+\parseInputType{AIAA-Conference}{\caseAIAAConference}{10pt}
+\parseInputType{AIAA-Journal}{\caseAIAAJournal}{10pt}
+\parseInputType{IEEE}{\caseIEEE}{10pt}
+\parseInputType{Tech-Memo}{\caseTechMemo}{12pt}
+\parseInputType{Tech-Brief}{\caseTechBrief}{12pt}
+\parseInputType{Tech-Report}{\caseTechReport}{12pt}
 
 % Journal manuscript submission is to be single column - so it inherits from "AIAA-Conference"
 \parseInputType{AIAA-Journal-Submit}{\caseAIAAConference} 
@@ -52,12 +56,14 @@
 % SECTION: Parse all other class options
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Define font-size
-\def\@@ptsize{12pt}
+% Define font-size class input options
+\DeclareOption{8pt}{\def\@@ptsize{5pt}}
 \DeclareOption{9pt}{\def\@@ptsize{9pt}}
 \DeclareOption{10pt}{\def\@@ptsize{10pt}}
 \DeclareOption{11pt}{\def\@@ptsize{11pt}}
 \DeclareOption{12pt}{\def\@@ptsize{12pt}}
+\DeclareOption{13pt}{\def\@@ptsize{13pt}}
+\DeclareOption{14pt}{\def\@@ptsize{14pt}}
 
 \newcommand{\parseInput}[1]{
    \newtoggle{#1}
@@ -78,16 +84,16 @@
 % Toggle class loading based on \docType enumeration
 \ifcase\docType
    \or % matches caseAIAAConference
-      \LoadClass[letterpaper,10pt]{article}
+      \LoadClass[letterpaper,\@@ptsize]{article}
       \RequirePackage[backend=bibtex, firstinits=true, natbib=true, style=aiaa, autocite=superscript]{biblatex} 
       \let\cite\autocite
    \or % matches caseAIAAJournal
-      \LoadClass[letterpaper,10pt,twoside,twocolumn]{article}
+      \LoadClass[letterpaper,\@@ptsize,twoside,twocolumn]{article}
       \RequirePackage[backend=bibtex, firstinits=true, natbib=true, style=aiaa, autocite=superscript]{biblatex} 
       \let\cite\autocite
       \toggletrue{twocolumns}
    \or % matches caseIEEE
-      \LoadClass[letterpaper,10pt]{article}
+      \LoadClass[letterpaper,\@@ptsize]{article}
       \toggletrue{twocolumns}
    \or % matches caseTechMemo
       \LoadClass[letterpaper,\@@ptsize]{article}

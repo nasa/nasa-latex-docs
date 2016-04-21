@@ -7,25 +7,25 @@
 ###################################################
 
 FUNCTION_clean_aux_files () {
-   rm -f $input_tex_clean*.aux;
-   rm -f $input_tex_clean*.acn;
-   rm -f $input_tex_clean*.acr;
-   rm -f $input_tex_clean*.alg;
-   rm -f $input_tex_clean*.bbl;
-   rm -f $input_tex_clean*.lof;
-   rm -f $input_tex_clean*.out;
-   rm -f $input_tex_clean*.toc;
-   rm -f $input_tex_clean*.xdy;
-   rm -f $input_tex_clean*.log;
-   rm -f $input_tex_clean*.bib;
-   rm -f $input_tex_clean*.lot;
-   rm -f $input_tex_clean*.lot;
-   rm -f $input_tex_clean*.blg;
-   rm -f $input_tex_clean*.xml;
-   rm -f $input_tex_clean*.glsdefs;
-   rm -f $input_tex_clean*.gz;
-   rm -f $input_tex_clean*.hst;
-   rm -f $input_tex_clean*.ver;
+   rm -f $input_tex_clean.aux;
+   rm -f $input_tex_clean.acn;
+   rm -f $input_tex_clean.acr;
+   rm -f $input_tex_clean.alg;
+   rm -f $input_tex_clean.bbl;
+   rm -f $input_tex_clean.lof;
+   rm -f $input_tex_clean.out;
+   rm -f $input_tex_clean.toc;
+   rm -f $input_tex_clean.xdy;
+   rm -f $input_tex_clean.log;
+   rm -f $input_tex_clean-blx.bib;
+   rm -f $input_tex_clean.lot;
+   rm -f $input_tex_clean.lot;
+   rm -f $input_tex_clean.blg;
+   rm -f $input_tex_clean.run.xml;
+   rm -f $input_tex_clean.glsdefs;
+   rm -f $input_tex_clean.gz;
+   rm -f $input_tex_clean.hst;
+   rm -f $input_tex_clean.ver;
    rm -f makePDF.out;
 }
 
