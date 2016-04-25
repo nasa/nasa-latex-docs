@@ -58,8 +58,8 @@
 }
 \DeclareFieldFormat{titlecase}{\bbx@colon@search\MakeCapital{#1}}
 \DeclareFieldFormat{sentencecase}{\bbx@colon@search\MakeSentenceCase{#1}}
-\DeclareFieldFormat[online]{title}{#1\isdot}
 \DeclareFieldFormat[report]{title}{\mkbibquote{#1\isdot}}
+\DeclareFieldFormat[online]{title}{\mkbibquote{#1\isdot}}
 \DeclareFieldFormat{url}{\bibstring{url}\addcolon\space\url{#1}}
 
 % Brackets around labels in the bibliography
@@ -85,7 +85,7 @@
   patentus    = U\adddot S\adddot\addspace Patent  ,
   presentedat = presented at the\addspace          ,
   techreport  = ,
-  url         = [Online]\adddot\addspace Available ,
+  url         = [Online] \addspace,
   volume      = Vol\adddot,
   number      = No\adddot,
 }
@@ -736,20 +736,18 @@
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
   \usebibmacro{author/editor+others/translator+others}%
-  \setunit{\adddot\addspace}%
-  \printtext[parens]{\usebibmacro{date}}%
-  \setunit{\adddot\addspace}%
-  \usebibmacro{title}%
-  \setunit{\adddot\addspace}%
+  \newunit
+  \usebibmacro{maintitle+title}%
+  \newunit
   \printlist{language}%
-  \setunit{\adddot\addspace}%
+  \newunit\newblock
+  \usebibmacro{date}%
+  \newunit\newblock
   \usebibmacro{byauthor}%
-  \setunit{\adddot\addspace}%
-  \usebibmacro{byeditor+others}%
-  \setunit{\adddot\addspace}%
+  \newunit\newblock
+  \usebibmacro{bytranslator+others}%
+  \newunit\newblock
   \printfield{version}%
-  \setunit{\adddot\addspace}%
-  \printfield{note}%
   \newunit\newblock
   \printlist{organization}%
   \setunit{\adddot\addspace}%
@@ -785,47 +783,6 @@
   \printfield{note}%
   \newunit\newblock
   \usebibmacro{date}%
-  \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
-  \newunit\newblock
-  \usebibmacro{addendum+pubstate}%
-  \setunit{\bibpagerefpunct}\newblock
-  \usebibmacro{pageref}%
-  \newunit\newblock
-  \usebibmacro{related}%
-  \usebibmacro{finentry}%
-}
-
-\DeclareBibliographyDriver{report}{%
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \usebibmacro{author}%
-  \setunit{\labelnamepunct}\newblock
-  \usebibmacro{title}%
-  \newunit
-  \printlist{language}%
-  \newunit\newblock
-  \usebibmacro{byauthor}%
-  \newunit\newblock
-  \usebibmacro{institution+location}%
-  \newunit\newblock
-  \printfield{type}%
-  \setunit*{\addspace}%
-  \printfield{number}%
-  \newunit\newblock
-  \printfield{version}%
-  \newunit\newblock
-  \usebibmacro{date}%
-  \newunit
-  \printfield{note}%
-  \newunit\newblock
-  \usebibmacro{chapter+pages}%
-  \newunit
-  \printfield{pagetotal}%
-  \newunit\newblock
-  \iftoggle{bbx:isbn}
-    {\printfield{isrn}}
-    {}%
   \newunit\newblock
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock

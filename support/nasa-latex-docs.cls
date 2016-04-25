@@ -185,6 +185,9 @@
 \captionsetup[equation]{font={bf,normalsize},position=right}
 \captionsetup[lstlisting]{font={bf,normalsize},position=above,skip=\baselineskip}
 
+% Define the caption skip parameter
+\setlength{\belowcaptionskip}{-0.25\baselineskip}
+
 % Change list structure spacing
 \setlist[itemize]{itemsep = 0pt}
 \setlist[enumerate]{itemsep = 0pt}
@@ -217,8 +220,8 @@
    % Define autoref for default usage   
    \renewcommand{\autoref}{%
       \def\equationautorefname{Eq.}%
-      \def\figureautorefname{Fig.}%
-      \def\subfigureautorefname{Fig.}%
+      \def\figureautorefname{Figure}%
+      \def\subfigureautorefname{Figure}%
       \def\Itemautorefname{Item}%
       \def\tableautorefname{Table}%
       \def\sectionautorefname{Section}%
