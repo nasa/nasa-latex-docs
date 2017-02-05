@@ -1,0 +1,7 @@
+div.wy-nav-content a {
+   text-decoration: underline;   
+}
+
+div.wy-nav-content a:visited {
+    color: #2980B9;
+}
