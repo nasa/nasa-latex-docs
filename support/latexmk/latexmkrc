@@ -53,11 +53,11 @@ $aux_dir = "tmp";
 $tmpdir  = "tmp";
 $out_dir = 'tmp';
 
-$success_cmd = "$ENV{'BUILDPDF_PATH'} '$ENV{'INPUT_SOURCE_PATH'}' --latexmk-passthrough-success -o '$ENV{'OUTPUT_PDF_NAME'}'";
+$success_cmd = "python $ENV{'BUILDPDF_PATH'} '$ENV{'INPUT_SOURCE_PATH'}' --latexmk-passthrough-success -o '$ENV{'OUTPUT_PDF_NAME'}'";
 
 $compiling_cmd = "";
 
-$failure_cmd = "$ENV{'BUILDPDF_PATH'} '$ENV{'INPUT_SOURCE_PATH'}' --latexmk-passthrough-fail";
+$failure_cmd = "python $ENV{'BUILDPDF_PATH'} '$ENV{'INPUT_SOURCE_PATH'}' --latexmk-passthrough-fail";
 
 # Check if continuous preview watch is enabled
 if ($ENV{'CONTINUOUS_PREVIEW'} == 1) {   
@@ -92,7 +92,7 @@ $pdflatex_silent_switch = '';
 
 sub buildPDF {
    my @args = @_;
-   return system "$ENV{'BUILDPDF_PATH'}","$ENV{'INPUT_SOURCE_PATH'}", "--latexmk-passthrough-build", "-interaction=nonstopmode @args";
+   return system "python", "$ENV{'BUILDPDF_PATH'}","$ENV{'INPUT_SOURCE_PATH'}", "--latexmk-passthrough-build", "-interaction=nonstopmode @args";
 }
 
 # Add dependency to build glossaries

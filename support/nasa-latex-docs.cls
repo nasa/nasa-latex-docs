@@ -19,7 +19,6 @@
 
 \def\docType{99}      
 
-
 \SetupKeyvalOptions{
   family=class,
   prefix=class@
