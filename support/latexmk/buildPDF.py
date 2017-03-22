@@ -10,6 +10,7 @@ import sys
 import shutil
 import inspect
 import argparse
+from tempfile import mkstemp
 from subprocess import Popen, PIPE
 
 ###################################################################
@@ -46,6 +47,19 @@ def delete_file(file_abs_path):
    if os.path.isfile(file_abs_path):
       os.remove(file_abs_path)
 
+def replace_file_line(file_path, pattern, subst):
+   # Create temp file
+   fh, abs_path = mkstemp()
+   with open(abs_path,'w') as new_file:
+      with open(file_path) as old_file:
+         for line in old_file:
+            new_file.write(line.replace(pattern, subst))
+   os.close(fh)
+   # Remove original file
+   os. remove(file_path)
+   # Move new file
+   shutil.move(abs_path, file_path)
+
 ###################################################################
 # Define the main buildPDF class
 ###################################################################
@@ -55,7 +69,7 @@ class buildPDF():
    def __init__(self):
 
       # Define version of script and NASA-LaTeX-Docs
-      self.version = 'March 14, 2017 - v1.0'
+      self.version = 'March 22, 2017 - v1.0'
 
       # Get the current environment variables to pass to subprocess
       self.ENV = os.environ.copy()
@@ -63,14 +77,14 @@ class buildPDF():
       # Define some paths based on the location of this file
       self.buildPDF_abs_path          = os.path.abspath(os.path.abspath(inspect.getfile(inspect.currentframe())))
       self.buildPDF_dir_path          = os.path.dirname(self.buildPDF_abs_path)
-      self.NASA_LaTeX_docs_abs_path   = os.path.abspath(os.path.join(self.buildPDF_dir_path,'..','..'))
-      self.support_abs_path           = os.path.join(self.NASA_LaTeX_docs_abs_path,'support')
-
+      
       # Determine if this script is being used as part of the repo or standalone
-      if os.path.isfile(os.path.join(self.NASA_LaTeX_docs_abs_path,'support','nasa-latex-docs_org.cls')):
+      self.NASA_LaTeX_docs_abs_path   = os.path.abspath(os.path.join(self.buildPDF_dir_path,'..','..'))
+      if os.path.isfile(os.path.join(self.NASA_LaTeX_docs_abs_path,'support','nasa-latex-docs.cls')):
          _repo_path = tc.BOLD+"\nRepo Path: "+tc.ENDC+self.NASA_LaTeX_docs_abs_path
       else:
          _repo_path = ''
+         self.NASA_LaTeX_docs_abs_path = ''
 
       ###################################################################
       # Create the argument parser and parse arguments
@@ -284,22 +298,20 @@ class buildPDF():
             else:
                print_error("User response, '{0}', not recognized".format(response))
       
-      # Create relevant sub-directories
-      os.makedirs(structure_path)   
-      os.makedirs(os.path.join(structure_path,'figs'))
-      os.makedirs(os.path.join(structure_path,'tex'))
-      os.makedirs(os.path.join(structure_path,'bib'))
+      # Copy the entire template directory
+      shutil.copytree(os.path.join(self.buildPDF_dir_path ,'template'), structure_path)
 
-      # Copy the sample template.tex and sample.bib file from NASA_LaTeX_docs_abs_path to given filename
+      # Rename the files with the given user input name
       try: 
-         shutil.copyfile(os.path.join(self.NASA_LaTeX_docs_abs_path,'template.tex'), os.path.join(structure_path,self.input_tex))
-         shutil.copyfile(os.path.join(self.NASA_LaTeX_docs_abs_path,'support','biblatex','sample.bib'), os.path.join(structure_path,'bib',self.input_bare+'.bib'))
+         os.rename(os.path.join(structure_path,'main.tex'), os.path.join(structure_path,self.input_tex))
+         os.rename(os.path.join(structure_path,'bib','main.bib'), os.path.join(structure_path,'bib',self.input_bare+'.bib'))
+         replace_file_line(os.path.join(structure_path,self.input_tex),r'\addbibresource{}',r'\addbibresource{{{0}}}'.format(self.input_bare+'.bib'))
       except: 
          shutil.rmtree(structure_path)
          print_error("Invalid input file name: '{0}'".format(self.input_tex))
       
       # Print path to created template and exit
-      print "Template created in:\n  '{0}'\n\nTo build PDF run:\n  python buildPDF.py {1}".format(tc.BOLD+structure_path+tc.ENDC,tc.BOLD+os.path.join(structure_path,self.input_tex)+tc.ENDC)
+      print "Template created in:\n  '{0}'\n\nTo build PDF run:\n  python {2} {1}".format(tc.BOLD+structure_path+tc.ENDC,tc.BOLD+os.path.join(structure_path,self.input_tex)+tc.ENDC,self.buildPDF_abs_path)
       sys.exit(0) 
 
       return
@@ -359,7 +371,6 @@ class buildPDF():
             self.ENV[tex_env_var] += os.pathsep + os.pathsep.join(tex_search_dirs) + os.pathsep      
 
       # Environment variable to pass to "latexmkrc" config file
-      self.ENV['XDG_CONFIG_HOME']     = self.support_abs_path # Search path for latexmk/latexmkrc
       self.ENV['INPUT_SOURCE_PATH']   = self.input_abs_path
       self.ENV['OUTPUT_PDF_NAME']     = self.output_abs_path
       self.ENV['BUILDPDF_PATH']       = self.buildPDF_abs_path
@@ -399,9 +410,9 @@ class buildPDF():
          if self.args.latexmk_passthrough_fail:
             self.latexmk_returncode = 1
          return
-
+  
       # Make sure that the latexmkrc file exists in the expected location
-      latexmkrc_abs_path = os.path.join(self.support_abs_path,'latexmk','latexmkrc')
+      latexmkrc_abs_path = os.path.join(self.buildPDF_dir_path,'latexmkrc')
       if not os.path.isfile(latexmkrc_abs_path):
          print_error('latexmkrc file not found!\nExpected location: {0}'.format(latexmkrc_abs_path))   
 
@@ -431,9 +442,9 @@ class buildPDF():
       try:
 
          if self.args.force:
-            latexmk = Popen(['latexmk',self.input_bare,'-g'], env=self.ENV)
+            latexmk = Popen(['latexmk',self.input_bare,'-g','-r',latexmkrc_abs_path], env=self.ENV)
          else:
-            latexmk = Popen(['latexmk',self.input_bare], env=self.ENV)
+            latexmk = Popen(['latexmk',self.input_bare,'-r',latexmkrc_abs_path], env=self.ENV)
          latexmk.wait()
 
       except KeyboardInterrupt:

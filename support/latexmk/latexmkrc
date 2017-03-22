@@ -1,5 +1,4 @@
-# Usage: ./buildPDF example.tex
-# Purpose: Custom latexmk configuration for NASA-LaTeX-Docs package
+# Purpose: Custom latexmk configuration for NASA-LaTeX-Docs package builder: buildPDF.py
 
 # Initialize environment variables if not already defined
 # These should be getting defined through the buildPDF script
