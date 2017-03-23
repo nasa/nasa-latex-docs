@@ -6,7 +6,7 @@
 \definecolor{input}{RGB}{61, 98, 233}
 
 % % Formatter for default values fo type input
-\newcommand{\varInput}[2]{{\normalfont\small\textbf{\color{input}\textbackslash{#1}}[{\normalfont#2}]}}
+\newcommand{\varInput}[2]{{\normalfont\footnotesize\textbf{\color{input}\textbackslash{#1}}[{\normalfont#2}]}}
 \newcommand{\authorInput}[2]{\normalfont\footnotesize\textbf{\color{input}\textbackslash{#1}}=\{{\normalfont#2}\}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -138,6 +138,8 @@
 \newcommand{\docFooter}     [1][\varInput{docFooter}{input}]{\def\@docFooter{#1}}\docFooter{}
 
 \newcommand{\docOrganization}     [1][\varInput{docOrganization}{Organization Location Info}]{\def\@docOrganization{#1}}\docOrganization{}
+
+\newcommand{\docRevision}     [1][\varInput{docRevision}{input}]{\def\@docRevision{#1}}\docRevision{}
 
 
 \newcommand{\docRevisionLog}     [1][default]{\def\@docRevisionLog{#1}}\docRevisionLog{}
