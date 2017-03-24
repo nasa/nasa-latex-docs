@@ -10,7 +10,7 @@ With this LaTeX package, the formatting is all handled internally so that report
 
 The build script is located in the following directory and can be used to build **any LaTeX document**:
 
-    nasa-latex-docs/support/latexmk/buildPDF.py
+    nasa-latex-docs/buildPDF.py
 
 It may be invoked through the command line as follows:
 

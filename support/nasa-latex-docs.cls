@@ -50,7 +50,28 @@
 % SECTION: Load document command shortcuts
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\input{doc-shortcuts.tex}
+%% ----- MATH COMMANDS ---------------------------------------------------------
+% Command for Leibniz notation of derivatives
+\newcommand{\dd}[2]{\frac{d#1}{d#2}}
+% Command for Leibniz notation of partial derivatives
+\newcommand{\pd}[2]{\frac{\partial#1}{\partial#2}}
+% Command for norm
+\newcommand{\norm}[1]{\lVert#1\rVert}
+% Command for absolute value
+\newcommand{\abs}[1]{\lvert#1\rvert}
+
+
+%% ----- TEXT COMMANDS ---------------------------------------------------------
+% Command for 'and others'
+\newcommand{\etal}{{et al.}\thinspace}
+% Command for 'for example'
+\newcommand{\eg}{{e.g.}\thinspace}
+% Command for 'that is'
+\newcommand{\ie}{{i.e.}\thinspace}
+% Command for 'and the rest'
+\newcommand{\etc}{{etc.}\thinspace}
+
+\newcommand{\rom}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION: Load document parameters
@@ -254,12 +275,14 @@
    \ifdefstring{\@docTOC}{true}{
       % Create the TOC
       \newpage
+      \setlength{\parskip}{0.5\baselineskip}
       % Add a PDF bookmark in PDF viewer 
       \phantomsection
       \renewcommand\contentsname{Table of Contents}
       \pdfbookmark[2]{Table of Contents}{ToC}
       % Create the ToC 
       \tableofcontents
+      \setlength{\parskip}{\baselineskip}
    }{}
 }
 
@@ -417,7 +440,7 @@
    % Add the bibliography source file
    \DeclareNameAlias{sortname}{last-first}
    \DeclareNameAlias{default}{last-first}
-
+   
    % Rename the original \printbibliography command
    \let\oldprintbibliography\printbibliography
 
@@ -425,8 +448,6 @@
    \renewcommand{\printbibliography}[1]{
       \phantomsection
       \addcontentsline{toc}{section}{References}
-
-      \renewcommand*{\bibfont}{\small}
       
       \PREprintbibliography
 

@@ -2,12 +2,14 @@
 % Required packages for the LaTeX template
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% used to obtain a list of the external dependencies of the document
+\RequirePackage{snapshot}
+
 % for creating hyperlinks (must come before glossaries for proper hyperlinks to work)
 \RequirePackage[pdfencoding=auto,psdextra,hyperfootnotes=false]{hyperref}
 
 % To list and index acronyms			
 \RequirePackage[nomain,nowarn,acronym,style=super,xindy, nonumberlist,nopostdot,toc,nogroupskip] {glossaries} 
-
 % needed for including graphics e.g. EPS, PS, PDF, PNG, JPEG
 \RequirePackage{graphicx}            
 
@@ -64,6 +66,9 @@
 
 % package used to create math symbols          
 \RequirePackage{amssymb}           	
+
+% Fixes issue with quotes not rendering
+\RequirePackage[utf8]{inputenc}
 
 % Fixes issue with quotes being backwards
 \RequirePackage[autostyle, english = american]{csquotes} 
