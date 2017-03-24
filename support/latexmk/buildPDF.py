@@ -60,6 +60,31 @@ def replace_file_line(file_path, pattern, subst):
    # Move new file
    shutil.move(abs_path, file_path)
 
+def add_path_recursive(self, dir_path_list, tex_env_var):
+
+   tex_search_dirs = []
+
+   # Get directory of this script and find all sub-directories
+   for search_path in dir_path_list:
+      for root, dirs, files in os.walk(search_path):
+         dirs[:] = [d for d in dirs if not d.startswith('.')]
+         for dir in dirs:
+            if self.ENV['TMPDIR'] in os.path.join(root, dir):
+               continue # Don't include tmp/ on any path
+            else: 
+               tex_search_dirs.append(os.path.join(root, dir))
+
+   # Make sure the last entry is the location of document base
+   tex_search_dirs.append(self.input_dir_path)
+
+   # Add search paths to various TeX recognized environment variables         
+   if tex_env_var not in self.ENV:
+      self.ENV[tex_env_var] = os.pathsep.join(tex_search_dirs) + os.pathsep
+   else:
+      self.ENV[tex_env_var] += os.pathsep + os.pathsep.join(tex_search_dirs) + os.pathsep  
+
+   return self   
+
 ###################################################################
 # Define the main buildPDF class
 ###################################################################
@@ -221,7 +246,7 @@ class buildPDF():
       return
 
    ###################################################################
-   # METHOD: 
+   # METHOD: get all the various file forms for input tex and output pdf
    ###################################################################
 
    def _get_file_forms(self, texfile2build):
@@ -265,7 +290,7 @@ class buildPDF():
       return
 
    ###################################################################
-   # METHOD: 
+   # METHOD: Creates a boilerplate document template
    ###################################################################
 
    def _create_doc_structure(self):
@@ -317,7 +342,7 @@ class buildPDF():
       return
 
    ###################################################################
-   # METHOD: 
+   # METHOD: determines if there is user comment at top of file for "TEX Root"
    ###################################################################
 
    def _get_tex_root(self):
@@ -338,7 +363,7 @@ class buildPDF():
       return
 
    ###################################################################
-   # METHOD: 
+   # METHOD: sets all the appropriate environment variables and paths
    ###################################################################
 
    def _set_environment(self):
@@ -347,28 +372,9 @@ class buildPDF():
       self.ENV['TEXMFOUTPUT']         = os.path.join(self.input_dir_path,'tmp')
       self.ENV['TMPDIR']              = os.path.join(self.input_dir_path,'tmp')
 
-      # Search for all directories in relevant paths and add to TeX search path
-      tex_search_dirs = []   
-
-      # Get directory of this script and find all sub-directories
-      for search_path in [self.NASA_LaTeX_docs_abs_path,self.input_dir_path]:
-         for root, dirs, files in os.walk(search_path):
-            dirs[:] = [d for d in dirs if not d.startswith('.')]
-            for dir in dirs:
-               if self.ENV['TMPDIR'] in os.path.join(root, dir):
-                  continue # Don't include tmp/ on any path
-               else: 
-                  tex_search_dirs.append(os.path.join(root, dir))
-
-      # Make sure the last entry is the location of document base
-      tex_search_dirs.append(self.input_dir_path)
-
-      # Add search paths to various TeX recognized environment variables         
-      for tex_env_var in ['TEXINPUTS','TEXMFHOME','BIBINPUTS']:
-         if tex_env_var not in self.ENV:
-            self.ENV[tex_env_var] = os.pathsep.join(tex_search_dirs) + os.pathsep
-         else:
-            self.ENV[tex_env_var] += os.pathsep + os.pathsep.join(tex_search_dirs) + os.pathsep      
+      self = add_path_recursive(self,[self.NASA_LaTeX_docs_abs_path,self.input_dir_path], 'TEXINPUTS')
+      self = add_path_recursive(self,[self.NASA_LaTeX_docs_abs_path,self.input_dir_path], 'TEXMFHOME')
+      self = add_path_recursive(self,[self.NASA_LaTeX_docs_abs_path,self.input_dir_path], 'BIBINPUTS') 
 
       # Environment variable to pass to "latexmkrc" config file
       self.ENV['INPUT_SOURCE_PATH']   = self.input_abs_path
@@ -396,10 +402,12 @@ class buildPDF():
             print_warn("User defined TEXINPUTS entry does not exist: '{0}'".format(texinputs_abs_path))
          else:
             self.ENV['TEXINPUTS'] += os.pathsep + texinputs_abs_path + os.pathsep
+            self = add_path_recursive(self,[texinputs_abs_path], 'TEXINPUTS')
+
       return
 
    ###################################################################
-   # METHOD: 
+   # METHOD: runs the wrapper latexmk call 
    ###################################################################
 
    def _run_latexmk(self):
@@ -469,7 +477,7 @@ class buildPDF():
       return
 
    ###################################################################
-   # METHOD: 
+   # METHOD: runs the passthrough pdflatex build calls from latexmk
    ###################################################################
 
    def _run_pdflatex(self):
@@ -485,6 +493,7 @@ class buildPDF():
 
       # Run pdflatex command with all the appropriate options
       # Wrap call to pdflatex with texfot in order to generate texfot error/warning log file
+      print self.args.latexmk_passthrough_build
       pdflatex = Popen("max_print_line=999  texfot --tee='{0}' pdflatex -synctex=1 -file-line-error --shell-escape {1} '{2}' > '{3}'".format(pdflatex_out,self.args.latexmk_passthrough_build,self.input_abs_path,texfot_out), env=self.ENV, shell=True, stdout=PIPE, stderr=PIPE)
       pdflatex.wait()
 
@@ -499,7 +508,7 @@ class buildPDF():
       return
 
    ###################################################################
-   # METHOD: 
+   # METHOD: prints log summary of errors and warnings
    ###################################################################
 
    def _print_texfot(self, buildFailFlag):
@@ -571,7 +580,7 @@ class buildPDF():
       return
 
    ###################################################################
-   # METHOD: Class main run method to execute functional code
+   # METHOD: class main run method to execute functional code
    ###################################################################
 
    def run(self):
@@ -591,8 +600,9 @@ class buildPDF():
       # Redefine input to the user specified TeX Root
       self._get_file_forms(self.TeX_Root)
 
-      # Set the environment variables used by latexmk
-      self._set_environment()
+      # Set the environment variables used by latexmk (not on passthrough)
+      if not self.latexmk_passthrough:
+         self._set_environment()
 
       # Check for existence of tmp/build.out to initialize self.latexmk_returncode
       try: 
