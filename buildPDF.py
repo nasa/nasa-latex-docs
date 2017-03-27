@@ -353,8 +353,8 @@ class buildPDF():
                else:
                   tex_search_dirs.append(os.path.join(root, dir))
 
-      # Make sure the last entry is the location of document base
-      tex_search_dirs.append(self.input_dir_path)
+      # Make sure the first entry is the location of document base
+      tex_search_dirs.insert(0, self.input_dir_path)
 
       # Add search paths to various TeX recognized environment variables         
       if tex_env_var not in self.ENV:
@@ -368,17 +368,13 @@ class buildPDF():
 
    def _set_environment(self):
 
-      # Do not run on a passthrough build, environment is already setup from latexmk call
-      if self.latexmk_passthrough:
-         return
-
       # Define the tmp/ directory where all build output files will be piped to
       self.ENV['TEXMFOUTPUT']         = os.path.join(self.input_dir_path,'tmp')
       self.ENV['TMPDIR']              = os.path.join(self.input_dir_path,'tmp')
 
-      self._add_path_recursive([self.buildPDF_dir_path,self.input_dir_path], 'TEXINPUTS')
-      self._add_path_recursive([self.buildPDF_dir_path,self.input_dir_path], 'TEXMFHOME')
-      self._add_path_recursive([self.buildPDF_dir_path,self.input_dir_path], 'BIBINPUTS') 
+      self._add_path_recursive([self.input_dir_path,self.buildPDF_dir_path], 'TEXINPUTS')
+      self._add_path_recursive([self.input_dir_path,self.buildPDF_dir_path], 'TEXMFHOME')
+      self._add_path_recursive([self.input_dir_path,self.buildPDF_dir_path], 'BIBINPUTS') 
 
       # Environment variable to pass to "latexmkrc" config file
       self.ENV['INPUT_SOURCE_PATH']   = self.input_abs_path
@@ -762,7 +758,7 @@ class buildPDF():
       # Redefine input to the user specified TeX Root
       self._get_file_forms(self.TeX_Root)
 
-      # Set the environment variables used by latexmk (not on passthrough)
+      # Set the environment variables used by latexmk (even on passthrough)
       self._set_environment()
 
       # Delete the tmp/ directory if this is an archive run   
