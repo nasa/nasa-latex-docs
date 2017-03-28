@@ -105,11 +105,11 @@
 \AtEndEnvironment{center}{\vspace{-\baselineskip}}
 
 % This piece of code centers all float environments "[H]"
-\AtEndPreamble{
-   \makeatletter
-   \g@addto@macro\@floatboxreset\centering
-   \makeatother
-}
+% \AtEndPreamble{
+%    \makeatletter
+%    \g@addto@macro\@floatboxreset\centering
+%    \makeatother
+% }
 
 % Command to fix issue with outter quotation marks being the wrong direction
 \MakeOuterQuote{"}
