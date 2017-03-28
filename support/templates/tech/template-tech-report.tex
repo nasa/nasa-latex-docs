@@ -107,9 +107,6 @@
    % Print the signature page
    \printApproverPage
 
-   % Change the paragraph skip to something smaller for the TOC/LOF/LOT/Acronyms sections
-   \setlength{\parskip}{3pt}
-
    % Create the Table of Contents
    \printTOC
 
@@ -125,15 +122,15 @@
    % Create the Nomenclature definition section
    \printNomenclature
 
-   % Change the paragraph skip back to 12pt
-   \setlength{\parskip}{12pt}
-
    % remove padding to row height as to no affect other tables
    \setlength\extrarowheight{0pt} 
 
    \mainmatter
 
-   % Make all text justified
-   \justifying
+   % Make all text justified and normalsize
+   \justifying\normalsize
+
+   % Set paragraph indent to zero
+   \setlength{\parindent}{0pt}
 
 }

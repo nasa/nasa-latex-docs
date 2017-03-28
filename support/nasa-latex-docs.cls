@@ -275,7 +275,7 @@
    \ifdefstring{\@docTOC}{true}{
       % Create the TOC
       \newpage
-      \setlength{\parskip}{0.5\baselineskip}
+      \setlength{\parskip}{0.4\baselineskip}
       % Add a PDF bookmark in PDF viewer 
       \phantomsection
       \renewcommand\contentsname{Table of Contents}
@@ -290,11 +290,13 @@
    \ifdefstring{\@docLOT}{true}{
       % Create a Table of Contents Entry for LOT
       \newpage
+      \setlength{\parskip}{0.4\baselineskip}
       \phantomsection
       \bookmarksetupnext{level=subsection}
       \addcontentsline{toc}{section}{List of Tables}
       % Create LOT
       \listoftables
+      \setlength{\parskip}{\baselineskip}
    }{}
 }
 
@@ -302,11 +304,13 @@
    \ifdefstring{\@docLOF}{true}{
       % Create a Table of Contents Entry for LOF
       \newpage
+      \setlength{\parskip}{0.4\baselineskip}
       \phantomsection
       \bookmarksetupnext{level=subsection}
       \addcontentsline{toc}{section}{List of Figures}
       % Creat LOF
       \listoffigures
+      \setlength{\parskip}{\baselineskip}
    }{}
 }
 
@@ -315,11 +319,13 @@
       % Change the glossary title to nothing, we will create our own
       \renewcommand{\glossarysection}[2][]{}
       \newpage
+      \setlength{\parskip}{0.25\baselineskip}
       \phantomsection
       \bookmarksetupnext{level=subsection}
       \addcontentsline{toc}{section}{Acronyms}
       \section*{Acronyms}
-      \printglossary[style=alttree,type=\acronymtype] 
+      \printglossary[style=alttree,type=\acronymtype]
+      \setlength{\parskip}{\baselineskip} 
    }{}
 }
 

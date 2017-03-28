@@ -94,11 +94,11 @@ sub buildPDF {
    return system "python", "$ENV{'BUILDPDF_PATH'}","$ENV{'INPUT_SOURCE_PATH'}", "--latexmk-passthrough-build", "-interaction=nonstopmode @args";
 }
 
-# Add dependency to build glossaries
+# Add glossary dependency to build glossaries
 add_cus_dep('glo', 'gls', 0, 'makeglossaries');
 
-# The below is commented out because it causes erroneous build failures (likely not needed)
-# add_cus_dep('acn', 'acr', 0, 'makeglossaries');
+# Add acronym dependency to build glossaries
+add_cus_dep('acn', 'acr', 0, 'makeglossaries');
 
 sub makeglossaries {
    my ($base_name, $path) = fileparse( $_[0] );

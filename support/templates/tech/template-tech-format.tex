@@ -42,6 +42,12 @@
 \counterwithin{table}{section}
 \counterwithin{equation}{section}
 
+% Define spacing between Section titles and text
+\titlespacing{\section}{0pt}{0.25\baselineskip}{0\baselineskip}
+\titlespacing{\subsection}{0pt}{0.25\baselineskip}{0\baselineskip}
+\titlespacing{\subsubsection}{0pt}{0.25\baselineskip}{0\baselineskip}
+\titlespacing{\paragraph}{0pt}{0.25\baselineskip}{0\baselineskip}
+
 % This little function splits the last page computation between:
    % roman: frontmatter
    % arabic: mainmatter
@@ -69,8 +75,17 @@
 \usetagform{brackets}
 
 % Remove space after figure and table environments
-\AtEndEnvironment{table}{\vspace{-0.5\baselineskip}}
-\AtEndEnvironment{figure}{\vspace{-0.5\baselineskip}}
+\AfterEndEnvironment{table}{\vspace{-1\baselineskip}}
+\AfterEndEnvironment{figure}{\vspace{-1\baselineskip}}
+\AtBeginEnvironment{quote}{\vspace{-\baselineskip}}
+\AtEndEnvironment{quote}{\vspace{-\baselineskip}}
+\AtBeginEnvironment{center}{\vspace{-0.5\baselineskip}}
+\AtEndEnvironment{center}{\vspace{-0.5\baselineskip}}
+\AtBeginEnvironment{itemize}{\vspace{-0.5\baselineskip}}
+\AtEndEnvironment{itemize}{\vspace{-0.5\baselineskip}}
+\AtBeginEnvironment{enumerate}{\vspace{-0.5\baselineskip}}
+\AtEndEnvironment{enumerate}{\vspace{-0.5\baselineskip}}
+\AtEndEnvironment{listing}{\vspace{-\baselineskip}}
 
 % % Define the headheight - set to zero, no header in this format
 \setlength{\headheight}{60pt}
@@ -130,7 +145,7 @@
 % This command adds dots in TOC for all entries (sections didnt have them)
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 % This command adds "Figure" to front of LoF entries
-\renewcommand{\cftfigfont}{Figure }
+% \renewcommand{\cftfigfont}{Figure }
 % This command adds "Table" to front of LoT entries
 %\renewcommand{\cfttabfont}{Table }
 
@@ -153,18 +168,20 @@
 % Add some spacing so the figure or table number and title dont overlap in LOF ot LOT
 \setlength\cftfignumwidth{42pt}
 \setlength\cfttabnumwidth{42pt}
+\setlength\cftbeforefigskip{0pt}
+\setlength\cftbeforetabskip{0pt}
 
 % Create List of Tables section separators
-\renewcommand\cfttabfont\small
-\preto\table{%
-  \ifnum\value{table}=0\addtocontents{lot}{{\vskip\baselineskip}}\fi
-}
+% \renewcommand\cfttabfont\small
+% \preto\table{%
+%   \ifnum\value{table}=0\addtocontents{lot}{{\vskip\baselineskip}}\fi
+% }
 
-% Create List of Figures section separators
-\renewcommand\cftfigfont\small
-\preto\figure{%
-  \ifnum\value{figure}=0\addtocontents{lof}{{\vskip\baselineskip}}\fi
-}
+% % Create List of Figures section separators
+% \renewcommand\cftfigfont\small
+% \preto\figure{%
+%   \ifnum\value{figure}=0\addtocontents{lof}{{\vskip\baselineskip}}\fi
+% }
 
 % Make the list of acronyms
 \renewcommand{\glsnamefont}[1]{\textbf{#1}} % Set aronyms back to bold
@@ -268,7 +285,7 @@
           {\small\textnormal{\color{input}\textbackslash docSignDate[{\color{black} date}]}}  
        }  
        \vspace{6pt} \hrule \vspace{5pt}
-       \textbf{\docAuthorName(\ii)} \hfill \textbf{Date} \break
+       \small\textbf{\docAuthorName(\ii)} \hfill \textbf{Date} \break
        \docAuthorPosition(\ii) \hfill \break
        \docAuthorOrganization(\ii) \hfill \break
        \docAuthorLocation(\ii) \hfill 
@@ -291,7 +308,7 @@
             {\small\textnormal{\color{input}\textbackslash docSignDate[{\color{black} date}]}} 
           }  
             \vspace{6pt} \hrule \vspace{5pt}
-            \textbf{\docAuthorName(\iinext)} \hfill \textbf{Date} \break
+            \small\textbf{\docAuthorName(\iinext)} \hfill \textbf{Date} \break
             \docAuthorPosition(\iinext) \hfill \break
             \docAuthorOrganization(\iinext) \hfill \break
             \docAuthorLocation(\iinext) \hfill 
@@ -332,7 +349,7 @@
        {\small\textnormal{\color{input}\textbackslash docSignDate[{\color{black} date}]}}  
     }  
     \vspace{6pt} \hrule \vspace{5pt}
-    \textbf{\docApproverName(\ii)} \hfill \textbf{Date} \break
+    \small\textbf{\docApproverName(\ii)} \hfill \textbf{Date} \break
     \docApproverPosition(\ii) \hfill \break
     \docApproverOrganization(\ii) \hfill \break
     \docApproverLocation(\ii) \hfill 
@@ -355,7 +372,7 @@
          {\small\textnormal{\color{input}\textbackslash docSignDate[{\color{black} date}]}} 
        }  
          \vspace{6pt} \hrule \vspace{5pt}
-         \textbf{\docApproverName(\iinext)} \hfill \textbf{Date} \break
+         \small\textbf{\docApproverName(\iinext)} \hfill \textbf{Date} \break
          \docApproverPosition(\iinext) \hfill \break
          \docApproverOrganization(\iinext) \hfill \break
          \docApproverLocation(\iinext) \hfill 
