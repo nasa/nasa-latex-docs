@@ -73,9 +73,17 @@ if ($ENV{'PREVIEW_PDF'} == 1) {
 
    # Check to see if there is a defined viewer program to use
    if ($ENV{'PREVIEW_PROGRAM'} ne "DEFAULT") {
-      # -g option keeps the focus on the window which called the build
-      # -a option to specify what application to use
-      $pdf_previewer="start open -g -a $ENV{'PREVIEW_PROGRAM'}";
+      if ($^O =~ /darwin/) { # Mac
+         # -g option keeps the focus on the window which called the build
+         # -a option to specify what application to use
+         $pdf_previewer="start open -g -a $ENV{'PREVIEW_PROGRAM'}";
+      } elsif ($^O =~ /MSWin32/) { # Windows
+         # Use the windows start command
+         $pdf_previewer="cmd /c start $ENV{'PREVIEW_PROGRAM'}";
+      } elsif ($^O =~ /linux/) { # Linux
+         # Call the program directly
+         $pdf_previewer="$ENV{'PREVIEW_PROGRAM'}";
+      }
    }
    if ($ENV{'SILENT'} ==0) { print "DIAGNOSTICS = Preview ENABLED with Program: $ENV{'PREVIEW_PROGRAM'}\n"; }
 
