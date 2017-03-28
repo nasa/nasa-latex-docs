@@ -116,9 +116,9 @@ class buildPDF():
          help="Removes the tmp/ directory after successful build\n ")
       argParser.add_argument("-x",  "--export", action="store_true", 
          help="Creates a standalone version of the document with \nminimum required dependencies and input files\n ")
-      argParser.add_argument("-lp",  "--latexpath", type=str, metavar=tc.BLUE+'LATEX_PATH'+tc.ENDC, 
+      argParser.add_argument("-l",  "--latexpath", type=str, metavar=tc.BLUE+'LATEX_PATH'+tc.ENDC, 
          help="LaTeX installation on computer to add to PATH environment\nExample: Mac location = /Library/TeX/texbin,\notherwise will use the current PATH environment\n ")
-      argParser.add_argument("-tp",  "--texinputs", type=str, metavar=tc.BLUE+'TEXINPUTS_PATH'+tc.ENDC, 
+      argParser.add_argument("-t",  "--texinputs", type=str, metavar=tc.BLUE+'TEXINPUTS_PATH'+tc.ENDC, 
          help="User defined directory path to append to TEXINPUTS environment\nTEXINPUTS controls where LaTeX searches for input files\n ")
       argParser.add_argument("-o",  "--output", type=str, metavar=tc.BLUE+'OUTPUT_PDF_NAME'+tc.ENDC, 
          help="Rename the output pdf with a user specified name/location,\notherwise will build texfile.tex to texfile.pdf\n ")
@@ -195,7 +195,7 @@ class buildPDF():
          if not os.path.isdir(latexpath_abs_path):
             print_warn("User defined LATEX_PATH entry does not exist: '{0}'".format(latexpath_abs_path))
          else:
-            self.ENV['PATH'] += os.pathsep + self.args.latexpath + os.pathsep
+            self.ENV['PATH'] = self.args.latexpath + os.pathsep + self.ENV['PATH']
 
       # Attempt to get the TeX version with command line call   
       get_tex = Popen(['tex --version'], env=self.ENV, shell=True, stdout=PIPE, stderr=PIPE)
