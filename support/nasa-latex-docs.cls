@@ -385,7 +385,7 @@
           \begin{center}
               \fbox{
               \begin{minipage}{5.5in}
-                  {\footnotesize\input{export/sbu.tex}}
+                  {\footnotesize\input{sbu.tex}}
               \end{minipage}
               }
           \end{center}
@@ -396,7 +396,7 @@
           \begin{center}
               \fbox{
               \begin{minipage}{5.5in}
-                  {\footnotesize\input{export/itar.tex}}
+                  {\footnotesize\input{itar.tex}}
               \end{minipage}
               }
           \end{center}
