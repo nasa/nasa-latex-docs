@@ -1,7 +1,7 @@
 NASA-LaTeX-Docs
 ================
 
-Please refer to the official guide: [NASA-LaTeX-Docs Guide](https://nasa.github.io/nasa-latex-docs/build/html)
+Please refer to the official guide: https://nasa.github.io/nasa-latex-docs/build/html
 
 Usage:
 -------
