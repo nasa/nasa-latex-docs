@@ -78,8 +78,8 @@ if ($ENV{'PREVIEW_PDF'} == 1) {
          # -a option to specify what application to use
          $pdf_previewer="start open -g -a $ENV{'PREVIEW_PROGRAM'}";
       } elsif ($^O =~ /MSWin32/) { # Windows
-         # Use the windows start command
-         $pdf_previewer="cmd /c start $ENV{'PREVIEW_PROGRAM'}";
+         # Use the windows start command to call expected location of SumatraPDF
+         $pdf_previewer='start "c:/Program Files/SumatraPDF/SumatraPDF.exe" %O %S';
       } elsif ($^O =~ /linux/) { # Linux
          # Call the program directly
          $pdf_previewer="$ENV{'PREVIEW_PROGRAM'}";

@@ -273,7 +273,7 @@ class buildPDF():
 
       # Get the folder name by the user, else default to 'TexDocument'  
       if self.args.structure == None:
-         structure_dir = 'TexDocument'
+         structure_dir = self.input_bare
       else: 
          structure_dir = self.args.structure
 
