@@ -114,7 +114,7 @@ class buildPDF():
          help="Enables continuous builds on any file changes\n ")
       argParser.add_argument("-c",  "--clean", action="store_true", 
          help="Removes the tmp/ directory after successful build\n ")
-      argParser.add_argument("-x",  "--export", action="store_true", 
+      argParser.add_argument("-e",  "--export", action="store_true", 
          help="Creates a standalone version of the document with \nminimum required dependencies and input files\n ")
       argParser.add_argument("-l",  "--latexpath", type=str, metavar=tc.BLUE+'LATEX_PATH'+tc.ENDC, 
          help="LaTeX installation on computer to add to PATH environment\nExample: Mac location = /Library/TeX/texbin,\notherwise will use the current PATH environment\n ")
