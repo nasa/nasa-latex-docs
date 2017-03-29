@@ -19,7 +19,7 @@ It may be invoked through the command line as follows:
 System Requirements:
 -------
 
-- TeX Live Distribution 2015+
+- TeX Live Distribution 2015+ (with latest updates)
 - Python 2.6+
 
 License
