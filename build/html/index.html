@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="NASA-LaTeX-Docs  documentation" href="#"/>
-        <link rel="next" title="Quick Start Guide" href="quick.html"/> 
+        <link rel="next" title="General Document Architecture" href="architecture.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -85,11 +85,18 @@
           
             
             
-                <p class="caption"><span class="caption-text">Contents:</span></p>
+                <p class="caption"><span class="caption-text">Navigation Pane:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">NASA-LaTeX-Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">General Document Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="buildPDF.html">Using buildPDF.py Script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Document Templates Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template_aiaa.html">AIAA Template Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template_ieee.html">IEEE Template Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template_tech.html">Tech Template Details</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quick.html">Quick Start Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples_figures.html">Examples: LaTeX Figures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples_tables.html">Examples: LaTeX Tables</a></li>
 </ul>
 
             
@@ -134,13 +141,66 @@
             
   <div class="section" id="nasa-latex-docs">
 <h1>NASA-LaTeX-Docs<a class="headerlink" href="#nasa-latex-docs" title="Permalink to this headline">¶</a></h1>
-<p>Further documentation coming soon!</p>
-<p>Reference: <a class="reference external" href="https://github.com/nasa/nasa-latex-docs">https://github.com/nasa/nasa-latex-docs</a></p>
+<p>With this LaTeX package, the formatting is all handled internally. Helps to alleviate a lot of the hassle associated with re-creating document template formats and in turns allows the end user to focus on the more important task of content creation.</p>
+<ul>
+<li><p class="first">An OS independent python build script: <code class="code docutils literal"><span class="pre">buildPDF.py</span></code></p>
+<blockquote>
+<div><ul class="simple">
+<li>Can be used to build any LaTeX document</li>
+<li>Works with <code class="code docutils literal"><span class="pre">latexmk</span></code> under the hood</li>
+<li>Efficiently builds document, bibliography, glossaries, and acronyms</li>
+<li>Provides warning and error log summaries after each build</li>
+<li>Comes with a variety of user options of enhanced capability</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Built in Templates:</p>
+<blockquote>
+<div><ul class="simple">
+<li>AIAA Journal</li>
+<li>AIAA Conference</li>
+<li>AIAA Journal Submission</li>
+<li>Generic technical document templates</li>
+<li>Ability to create new templates using existing document hooks</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
 <div class="section" id="get-the-repository">
 <h2>Get the repository<a class="headerlink" href="#get-the-repository" title="Permalink to this headline">¶</a></h2>
+<p>GitHub Location: <a class="reference external" href="https://github.com/nasa/nasa-latex-docs">https://github.com/nasa/nasa-latex-docs</a></p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">nasa</span><span class="o">/</span><span class="n">nasa</span><span class="o">-</span><span class="n">latex</span><span class="o">-</span><span class="n">docs</span>
 </pre></div>
 </div>
+<p>This repository is constantly being updated and improved. Be sure to pull the latest changes often to make sure that your clone of the repository is up to date:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">nasa</span><span class="o">-</span><span class="n">latex</span><span class="o">-</span><span class="n">docs</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">pull</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="system-requirements">
+<h2>System Requirements<a class="headerlink" href="#system-requirements" title="Permalink to this headline">¶</a></h2>
+<p>Two programs are required prior to using this repository: a compatible TeX distribution and a Python installation. These may already be installed on your computer, for example most Mac OS installations come with Python pre-installed.</p>
+<ul>
+<li><p class="first"><strong>TeX Distribution 2015+</strong> (with latest updates)</p>
+<blockquote>
+<div><ul class="simple">
+<li>Mac OSX: TexLive (MacTeX) Distribution: <a class="reference external" href="https://tug.org/mactex/mactex-download.html">TexLive MacTeX</a></li>
+<li>Linux: TexLive Distribution: <a class="reference external" href="http://www.tug.org/texlive/">TexLive Linux</a></li>
+<li>Windows: proTeXt (based on MiKTeX) Distribution: <a class="reference external" href="https://www.tug.org/protext/">TexLive proTeXt</a></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><strong>Python 2.6+</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li>Anaconda Python Distribution: <a class="reference external" href="https://www.continuum.io/downloads">Anaconda</a></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
 <div class="toctree-wrapper compound">
 </div>
 </div>
@@ -153,7 +213,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="quick.html" class="btn btn-neutral float-right" title="Quick Start Guide" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="architecture.html" class="btn btn-neutral float-right" title="General Document Architecture" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
@@ -186,7 +246,8 @@
             VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

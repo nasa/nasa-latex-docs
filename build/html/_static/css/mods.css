@@ -5,3 +5,7 @@ div.wy-nav-content a {
 div.wy-nav-content a:visited {
     color: #2980B9;
 }
+
+.wy-nav-content {
+    max-width: 1000px !important;
+}
