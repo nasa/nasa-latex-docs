@@ -634,9 +634,8 @@ class buildPDF():
       
       # Determine the absolute path for the standalone version of document
       export_path    = os.path.join(self.input_dir_path, self.input_bare+'_standalone')  
-      doc_path       = os.path.join(export_path,'doc')  
       support_path   = os.path.join(export_path,'support')
-      bib_path       = os.path.join(doc_path,'bib')  
+      bib_path       = os.path.join(export_path,'bib')  
       print_status("\nExporting Document To",export_path)  
 
       # Go to directory where input TeX file is located
@@ -654,11 +653,10 @@ class buildPDF():
       doc_folders = []
       for folder, subfolders, files in os.walk(self.input_dir_path):
          if self.ENV['TMPDIR'] not in folder and folder != self.input_dir_path: 
-            doc_folders.append(folder.replace(self.input_dir_path,doc_path))     
+            doc_folders.append(folder.replace(self.input_dir_path,export_path))     
 
       # Create the necessary directories
       os.makedirs(export_path)
-      os.makedirs(doc_path) 
       os.makedirs(support_path)
       for item in doc_folders:
          os.makedirs(item)
@@ -701,8 +699,8 @@ class buildPDF():
                continue
             
             if self.input_dir_path in line:
-               line.replace(self.input_dir_path,doc_path)
-               shutil.copyfile(line,line.replace(self.input_dir_path,doc_path))
+               line.replace(self.input_dir_path,export_path)
+               shutil.copyfile(line,line.replace(self.input_dir_path,export_path))
             else:
                shutil.copyfile(line,os.path.join(support_path,os.path.basename(line)))
 
