@@ -68,9 +68,10 @@ Two programs are required prior to using this repository: a compatible TeX distr
    architecture
    buildPDF
    templates
-   template_aiaa
-   template_ieee
-   template_tech
    quick
    examples_figures
    examples_tables
+   template_aiaa
+   template_ieee
+   template_tech
+   creating_templates

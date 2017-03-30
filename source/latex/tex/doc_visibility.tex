@@ -1,0 +1,69 @@
+% !TEX Root = ../samples.tex
+
+
+\tikzstyle{directory2}=[directory]
+
+\newlength{\dsep}
+\setlength{\dsep}{35pt}
+
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows.meta}
+
+\definecolor{maindirectorynld}{RGB}{0, 77, 0}
+\definecolor{texinputsdir}{RGB}{128, 128, 128}
+
+\tikzstyle{mypath} = [line width=0.6mm, dashed, -{Latex[length=3.5mm,width=4mm]}, color=black!50!red]
+
+
+\begin{tikzpicture}[%
+  grow via three points={one child at (0.5,-0.9) and
+  two children at (0.5,-0.9) and (0.5,-3)},
+  edge from parent path={[line width=0.4mm] (\tikzparentnode.south) |- (\tikzchildnode.west)}]
+  \node [maindirectory] (main) {\color{white}\ttfamily\textbf{Document Folder/}}
+    child { node [tree] {\ttfamily Root TeX File}}    
+    child { node (bib) [yshift=35pt,directory] {\texttt{bib/}}}
+    child { node (fig) [yshift=65pt,directory] {\texttt{fig/}}}
+    child { node (tex) [yshift=95pt,directory] {\texttt{tex/}}}
+    child { node (etc) [yshift=125pt,directory] {\texttt{\ldots}}};
+
+    % \node [right of=main,node distance=1.4in] {\includegraphics[scale=0.045]{stock_folder}};
+    \node [right of=bib,node distance=0.6in] {\includegraphics[scale=0.045]{stock_folder}};
+    \node [right of=fig,node distance=0.6in] {\includegraphics[scale=0.045]{stock_folder}};
+    \node [right of=tex,node distance=0.6in] {\includegraphics[scale=0.045]{stock_folder}};
+
+    \draw[color=maindirectory,line width=2pt] ($(main.north west)+(-0.3,0.4)$) rectangle ($(etc.south east)+(1.4,-0.4)$);
+
+  % \node [maindirectoryd, left of=main, yshift=4.25in, xshift=-2in, fill=maindirectorynld] (nld) {\color{white}\ttfamily\textbf{nasa-latex-docs/}}
+  %   child { node [tree] {\ttfamily buildPDF.py}}    
+  %   child { node (support) [yshift=35pt,directory] {\texttt{support/}}
+  %     child { node [directory] {\texttt{biblatex}}}
+  %     child { node [directory,yshift=1\dsep] {\texttt{boilderplate}}}
+  %     child { node [directory,yshift=2\dsep] {\texttt{export}}}
+  %     child { node [directory,yshift=3\dsep] {\texttt{images}}}
+  %     child { node [directory,yshift=4\dsep] {\texttt{latexmk}}}
+  %     child { node [tree,yshift=5\dsep] {\texttt{nasa-latex-docs.cls}}}
+  %     child { node [directory,yshift=6\dsep] {\texttt{packages}}}
+  %     child { node (lastnld) [directory,yshift=7\dsep] {\texttt{templates}}}
+  %   };
+
+  \node [maindirectorynld, left of=main, yshift=2in, xshift=-1.33in, fill=maindirectorynld] (nld) {\color{white}\ttfamily\textbf{nasa-latex-docs/}}
+    child { node [tree] {\ttfamily buildPDF.py}}    
+    child { node (support) [yshift=35pt,directory] {\texttt{support/}}
+      child { node (lastnld) [directory] {\texttt{\ldots}}}
+    };
+
+    \node [right of=support,node distance=0.6in] {\includegraphics[scale=0.045]{stock_folder}};
+
+\node [maindirectory, right of=nld, xshift=3.5in, fill=texinputsdir] (texinputs) {\color{white}\ttfamily\textbf{-{}-texinputs}}
+    child { node (commontex) [tree] {\texttt{common\_tex.tex}}}    
+    child { node (commonbib) [yshift=1\dsep,tree] {\texttt{common\_bib.bib}}}
+    child { node (lasttex) [yshift=2\dsep,directory] {\texttt{\ldots}}}
+    ;
+    
+    \draw[color=maindirectorynld,line width=2pt] ($(nld.north west)+(-0.3,0.4)$) rectangle ($(lastnld.south east)+(0.4,-0.4)$);
+    \draw[color=texinputsdir,line width=2pt] ($(texinputs.north west)+(-0.3,0.4)$) rectangle ($(lasttex.south east)+(1.7,-0.4)$);
+
+    \draw[mypath] ($(nld.south)+(0,-3.1)$) |- ($(fig.west)+(-2.7,0)$);
+    \draw[mypath] ($(texinputs.south)+(0,-3.1)$) |- ($(fig.east)+(1.39,0)$);
+
+\end{tikzpicture}

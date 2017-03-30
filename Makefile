@@ -36,6 +36,8 @@ full:
 	@mv $(FIGPATH)/samples-4.png $(FIGPATH)/table.png
 	@mv $(FIGPATH)/samples-5.png $(FIGPATH)/table_column.png
 	@mv $(FIGPATH)/samples-6.png $(FIGPATH)/table_row.png
+	@mv $(FIGPATH)/samples-7.png $(FIGPATH)/doc_tree_quick.png
+	@mv $(FIGPATH)/samples-8.png $(FIGPATH)/doc_visibility.png
 	@make html 
 
 

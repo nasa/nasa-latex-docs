@@ -8,9 +8,10 @@ The fastest and most efficient way to start a new document is utilize the :code:
 
    ./buildPDF.py XYZ_Conference_Paper.tex -s XYZ_Conference_Paper_2017
 
-This will create a document with the same structure as described in the `General Document Architecture <architecture.html#general-document-architecture>`_ section.
+This will create a document with the same structure as described in the general document `architecture <architecture.html#general-document-architecture>`_ section as well as some sample files that can be used as starting points for expanding the document and placeholder `Lorem Ipsum <http://www.lipsum.com/>`_ text.
 
-.. note:: TODO: Add image of document tree.
+.. image:: latex/figs/doc_tree_quick.png
+   :align: center
 
 The Root TeX File
 ===========================================
@@ -26,4 +27,32 @@ Currently, the document will be built with no template and in turn no pre-define
    
    \documentclass[template=aiaa-conference]{nasa-latex-docs}
 
-Text
+We can now build the entire document via:
+
+::
+
+   ./buildPDF.py XYZ_Conference_Paper.tex
+
+From here more content can be added and the document can grow as required.  
+
+
+Declaring the Root Tex File
+===========================================
+
+A neat feature of :code:`buildPDF.py` is that it can pick up "magic" comments that are used by some other document compilers. Specifically, a magic comment can be placed at the top of each content file (located in the :code:`tex/` directory) so that the TeX root document can be explicitly defined. Suppose we create a new file within :code:`tex/` named :code:`introduction.tex` with the following:
+
+.. code-block:: latex
+
+   %!TEX root = ../XYZ_Conference_Paper.tex
+
+   \section{Introduction}
+
+   This is my introduction section.
+
+We can either use :code:`buildPDF.py` to build the root :code:`XYZ_Conference_Paper.tex` file directly as described above, or we can build :code:`introduction.tex` directly and :code:`buildPDF.py` will know to point to the root document.
+
+::
+
+   ./buildPDF.py tex/introduction.tex
+
+This is useful for any custom defined build shortcuts (example a keyboard shortcut to directly call :code:`buildPDF.py`) that users may come up with. By placing the :code:`%!TEX root =` comment at the top of each file it allows users to utilize the shortcuts to build the document without having to physically switch back to the root document.  

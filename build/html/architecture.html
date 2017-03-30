@@ -95,12 +95,13 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="buildPDF.html">Using buildPDF.py Script</a></li>
 <li class="toctree-l1"><a class="reference internal" href="templates.html">Document Templates Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="template_aiaa.html">AIAA Template Details</a></li>
-<li class="toctree-l1"><a class="reference internal" href="template_ieee.html">IEEE Template Details</a></li>
-<li class="toctree-l1"><a class="reference internal" href="template_tech.html">Tech Template Details</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quick.html">Quick Start Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples_figures.html">Examples: LaTeX Figures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples_tables.html">Examples: LaTeX Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template_aiaa.html">AIAA Template Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template_ieee.html">IEEE Template Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template_tech.html">Tech Template Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_templates.html">Creating a Custom Template</a></li>
 </ul>
 
             
@@ -149,10 +150,43 @@
 <p class="first admonition-title">Note</p>
 <p class="last">Although this generic document architecture is not required to build a document, it is generally good practice to adhere to these structure principals for both clarity and ease of use when document complexity grows.</p>
 </div>
-<p>Text</p>
+<p>It is good practice to create a new folder (project directory) for each new LaTeX document. The folder structure for a project architecture has many possibilities, but <code class="code docutils literal"><span class="pre">nasa-latex-docs</span></code> will present a basic one that can be generated using <code class="code docutils literal"><span class="pre">buildPDF.py</span></code> (as described <a class="reference external" href="buildPDF.html#option-details-structure">here</a>).</p>
+<p>This document structure is summarized below:</p>
+<ul>
+<li><p class="first">Project Directory (where all document content is housed)</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="first docutils">
+<dt><code class="code docutils literal"><span class="pre">root.tex</span></code></dt>
+<dd><ul class="first last">
+<li>This is the root level <code class="code docutils literal"><span class="pre">.tex</span></code> file that is used to build the document</li>
+<li>Contains the <code class="code docutils literal"><span class="pre">\documentclass[]{}</span></code> definition</li>
+<li>Contains any document preamble content</li>
+<li>Contains any <code class="code docutils literal"><span class="pre">nasa-latex-docs</span></code> template <a class="reference external" href="templates.html#document-parameters">document parameters</a></li>
+<li>Contains the <code class="code docutils literal"><span class="pre">\begin{document}</span></code> and <code class="code docutils literal"><span class="pre">\end{document}</span></code> directives</li>
+<li>Contains the <code class="code docutils literal"><span class="pre">\input{}</span></code> or <code class="code docutils literal"><span class="pre">\include{}</span></code> directives for all other document <code class="code docutils literal"><span class="pre">.tex</span></code> file(s)</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><code class="code docutils literal"><span class="pre">bib/</span></code> : Contains the bibliography file(s) for referencing</li>
+<li><code class="code docutils literal"><span class="pre">fig/</span></code> : Contains all figures and images used within the document</li>
+<li><code class="code docutils literal"><span class="pre">tex/</span></code> : Contains the actual document content in the form of separate <code class="code docutils literal"><span class="pre">.tex</span></code> file(s)</li>
+<li>Any other folders that the user finds useful for their own document architecture</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
 <div class="section" id="document-search-path-visibility">
 <h2>Document Search Path Visibility<a class="headerlink" href="#document-search-path-visibility" title="Permalink to this headline">¶</a></h2>
-<p>Text</p>
+<p>When using the <code class="code docutils literal"><span class="pre">buildPDF.py</span></code> script, it is important to understand what is going on under the hood with regards to the user&#8217;s environment and where document content is searched for. When using the <code class="code docutils literal"><span class="pre">buildPDF.py</span></code> script, the user&#8217;s environment is <strong>automatically configured</strong> to add the following to the search path environment variable, <code class="code docutils literal"><span class="pre">TEXINPUTS</span></code>, that is used by LaTeX to search for content:</p>
+<ul class="simple">
+<li>All folders and files under the <code class="code docutils literal"><span class="pre">nasa-latex-docs/</span></code> repository folder</li>
+<li>All folders and files at or under the level of the root TeX file that is being built.</li>
+<li>All folders and files that are passed to <code class="code docutils literal"><span class="pre">buildPDF.py</span></code> using the <code class="code docutils literal"><span class="pre">--texinputs</span></code> <a class="reference external" href="buildPDF.html#option-details-texinputs">option</a></li>
+</ul>
+<p>The <code class="code docutils literal"><span class="pre">--texinputs</span></code> option to <code class="code docutils literal"><span class="pre">buildPDF.py</span></code> is useful for end users to define a custom location on their computer where they can place TeX documents that are common to all of their documents. Examples of common files include a comprehensive bibliography list, an acronyms database, or even their own <a class="reference external" href="creating_templates.html#creating-a-custom-template">custom defined templates</a>.</p>
+<img alt="_images/doc_visibility.png" class="align-center" src="_images/doc_visibility.png" />
 </div>
 </div>
 

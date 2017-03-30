@@ -37,7 +37,7 @@
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="NASA-LaTeX-Docs  documentation" href="index.html"/>
         <link rel="next" title="Examples: LaTeX Figures" href="examples_figures.html"/>
-        <link rel="prev" title="Tech Template Details" href="template_tech.html"/> 
+        <link rel="prev" title="Document Templates Overview" href="templates.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -92,15 +92,17 @@
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">General Document Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="buildPDF.html">Using buildPDF.py Script</a></li>
 <li class="toctree-l1"><a class="reference internal" href="templates.html">Document Templates Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="template_aiaa.html">AIAA Template Details</a></li>
-<li class="toctree-l1"><a class="reference internal" href="template_ieee.html">IEEE Template Details</a></li>
-<li class="toctree-l1"><a class="reference internal" href="template_tech.html">Tech Template Details</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start Guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#the-root-tex-file">The Root TeX File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#declaring-the-root-tex-file">Declaring the Root Tex File</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="examples_figures.html">Examples: LaTeX Figures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples_tables.html">Examples: LaTeX Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template_aiaa.html">AIAA Template Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template_ieee.html">IEEE Template Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template_tech.html">Tech Template Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_templates.html">Creating a Custom Template</a></li>
 </ul>
 
             
@@ -149,11 +151,8 @@
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">buildPDF</span><span class="o">.</span><span class="n">py</span> <span class="n">XYZ_Conference_Paper</span><span class="o">.</span><span class="n">tex</span> <span class="o">-</span><span class="n">s</span> <span class="n">XYZ_Conference_Paper_2017</span>
 </pre></div>
 </div>
-<p>This will create a document with the same structure as described in the <a class="reference external" href="architecture.html#general-document-architecture">General Document Architecture</a> section.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">TODO: Add image of document tree.</p>
-</div>
+<p>This will create a document with the same structure as described in the general document <a class="reference external" href="architecture.html#general-document-architecture">architecture</a> section as well as some sample files that can be used as starting points for expanding the document and placeholder <a class="reference external" href="http://www.lipsum.com/">Lorem Ipsum</a> text.</p>
+<img alt="_images/doc_tree_quick.png" class="align-center" src="_images/doc_tree_quick.png" />
 <div class="section" id="the-root-tex-file">
 <h2>The Root TeX File<a class="headerlink" href="#the-root-tex-file" title="Permalink to this headline">¶</a></h2>
 <p>Once the new document folder is created, it will contain your <code class="code docutils literal"><span class="pre">XYZ_Conference_Paper.tex</span></code> file with the following contents:</p>
@@ -181,7 +180,27 @@
 <div class="highlight-default"><div class="highlight"><pre><span></span>\<span class="n">documentclass</span><span class="p">[</span><span class="n">template</span><span class="o">=</span><span class="n">aiaa</span><span class="o">-</span><span class="n">conference</span><span class="p">]{</span><span class="n">nasa</span><span class="o">-</span><span class="n">latex</span><span class="o">-</span><span class="n">docs</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>Text</p>
+<p>We can now build the entire document via:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">buildPDF</span><span class="o">.</span><span class="n">py</span> <span class="n">XYZ_Conference_Paper</span><span class="o">.</span><span class="n">tex</span>
+</pre></div>
+</div>
+<p>From here more content can be added and the document can grow as required.</p>
+</div>
+<div class="section" id="declaring-the-root-tex-file">
+<h2>Declaring the Root Tex File<a class="headerlink" href="#declaring-the-root-tex-file" title="Permalink to this headline">¶</a></h2>
+<p>A neat feature of <code class="code docutils literal"><span class="pre">buildPDF.py</span></code> is that it can pick up &#8220;magic&#8221; comments that are used by some other document compilers. Specifically, a magic comment can be placed at the top of each content file (located in the <code class="code docutils literal"><span class="pre">tex/</span></code> directory) so that the TeX root document can be explicitly defined. Suppose we create a new file within <code class="code docutils literal"><span class="pre">tex/</span></code> named <code class="code docutils literal"><span class="pre">introduction.tex</span></code> with the following:</p>
+<div class="highlight-latex"><div class="highlight"><pre><span></span><span class="c">%!TEX root = ../XYZ_Conference_Paper.tex</span>
+
+<span class="k">\section</span><span class="nb">{</span>Introduction<span class="nb">}</span>
+
+This is my introduction section.
+</pre></div>
+</div>
+<p>We can either use <code class="code docutils literal"><span class="pre">buildPDF.py</span></code> to build the root <code class="code docutils literal"><span class="pre">XYZ_Conference_Paper.tex</span></code> file directly as described above, or we can build <code class="code docutils literal"><span class="pre">introduction.tex</span></code> directly and <code class="code docutils literal"><span class="pre">buildPDF.py</span></code> will know to point to the root document.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">buildPDF</span><span class="o">.</span><span class="n">py</span> <span class="n">tex</span><span class="o">/</span><span class="n">introduction</span><span class="o">.</span><span class="n">tex</span>
+</pre></div>
+</div>
+<p>This is useful for any custom defined build shortcuts (example a keyboard shortcut to directly call <code class="code docutils literal"><span class="pre">buildPDF.py</span></code>) that users may come up with. By placing the <code class="code docutils literal"><span class="pre">%!TEX</span> <span class="pre">root</span> <span class="pre">=</span></code> comment at the top of each file it allows users to utilize the shortcuts to build the document without having to physically switch back to the root document.</p>
 </div>
 </div>
 
@@ -195,7 +214,7 @@
         <a href="examples_figures.html" class="btn btn-neutral float-right" title="Examples: LaTeX Figures" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="template_tech.html" class="btn btn-neutral" title="Tech Template Details" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="templates.html" class="btn btn-neutral" title="Document Templates Overview" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

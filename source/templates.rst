@@ -38,3 +38,6 @@ The following templates are currently available:
 | :code:`template=tech-memo`        | *Coming soon*                                                          |
 +-----------------------------------+------------------------------------------------------------------------+
 
+
+Document Parameters
+===========================================

@@ -1,0 +1,32 @@
+% !TEX Root = ../samples.tex
+
+\usetikzlibrary{trees}
+
+\definecolor{directory}{RGB}{215, 225, 244}
+\definecolor{maindirectory}{RGB}{26, 51, 101}
+
+\tikzstyle{tree}=[thick,anchor=west]
+\tikzstyle{directory}=[tree,draw=black,fill=directory,minimum width=0.7in,minimum height=0.25in]
+\tikzstyle{maindirectory}=[tree,draw=black,fill=maindirectory]
+
+\begin{tikzpicture}[%
+  grow via three points={one child at (0.5,-0.9) and
+  two children at (0.5,-0.9) and (0.5,-3)},
+  edge from parent path={[line width=0.4mm] (\tikzparentnode.south) |- (\tikzchildnode.west)}]
+  \node [maindirectory] (main) {\color{white}\ttfamily\textbf{XYZ\_Conference\_Paper\_2017/}}
+    child { node [tree] {\ttfamily XYZ\_Conference\_Paper.tex}}    
+    child { node (bib) [yshift=35pt,directory] {\texttt{bib/}}
+      child { node [tree] {\texttt{XYZ\_Conference\_Paper.bib}}}
+    }
+    child { node (fig) [yshift=45pt,directory] {\texttt{fig/}}
+      child { node [tree] {\texttt{sample\_graph.png}}}
+    }
+    child { node (tex) [yshift=55pt,directory] {\texttt{tex/}}
+      child { node [tree] {\texttt{sample\_content.tex}}}
+    };
+
+    \node [right of=bib,node distance=0.6in] {\includegraphics[scale=0.045]{stock_folder}};
+    \node [right of=fig,node distance=0.6in] {\includegraphics[scale=0.045]{stock_folder}};
+    \node [right of=tex,node distance=0.6in] {\includegraphics[scale=0.045]{stock_folder}};
+
+\end{tikzpicture}
