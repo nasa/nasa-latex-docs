@@ -12,6 +12,7 @@ import shutil
 import inspect
 import argparse
 import mimetypes
+import fnmatch
 from tempfile import mkstemp
 from subprocess import Popen, PIPE
 
@@ -71,7 +72,7 @@ class buildPDF():
    def __init__(self):
 
       # Define version of script and NASA-LaTeX-Docs
-      self.version = 'March 24, 2017 - v1.0'
+      self.version = 'March 30, 2017 - v1.0'
 
       # Get the current environment variables to pass to subprocess
       self.ENV = os.environ.copy()
@@ -422,7 +423,16 @@ class buildPDF():
       # Make sure that the latexmkrc file exists in the expected location
       self.latexmkrc_abs_path = os.path.join(self.buildPDF_dir_path,'support','latexmk','latexmkrc')
       if not os.path.isfile(self.latexmkrc_abs_path):
-         print_error('latexmkrc file not found!\nExpected location: {0}'.format(self.latexmkrc_abs_path))   
+         matches = []
+         for root, dirnames, filenames in os.walk(self.buildPDF_dir_path):
+            for filename in fnmatch.filter(filenames, 'latexmkrc'):
+               matches.append(os.path.join(root, filename))
+         if len(matches) > 1:
+            print_error('Multiple latexmkrc file matches found on path!\n {0}'.format(matches)) 
+         elif len(matches) < 1:
+            print_error('latexmkrc file not found anywhere on search path!\nExpected NASA-LaTeX-Docs location: nasa-latex-docs/support/latexmk/latexmkrc')                  
+         else:
+            self.latexmkrc_abs_path = matches[0]
 
       print_status("Building from TeX Root  ",self.input_abs_path) 
 
@@ -730,7 +740,7 @@ class buildPDF():
       self._run_arlatex(support_path)
 
       # Copy over this build script to export_path (using copy2 to keep permissions during copy)
-      shutil.copy2(self.buildPDF_abs_path,os.path.join(export_path,'buildPDF.py'))
+      shutil.copy2(self.buildPDF_abs_path,os.path.join(support_path,'buildPDF.py'))
       shutil.copytree(os.path.dirname(self.latexmkrc_abs_path), os.path.join(support_path,'latexmk'))
 
       return   
