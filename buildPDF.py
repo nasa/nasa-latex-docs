@@ -504,7 +504,6 @@ class buildPDF():
 
       # Run pdflatex command with all the appropriate options
       # Wrap call to pdflatex with texfot in order to generate texfot error/warning log file
-      print self.args.latexmk_passthrough_build
       pdflatex = Popen("max_print_line=999  texfot --tee='{0}' pdflatex -synctex=1 -file-line-error --shell-escape {1} '{2}' > '{3}'".format(pdflatex_out,self.args.latexmk_passthrough_build,self.input_abs_path,texfot_out), env=self.ENV, shell=True, stdout=PIPE, stderr=PIPE)
       pdflatex.wait()
 
