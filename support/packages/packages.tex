@@ -116,7 +116,10 @@
 \RequirePackage{multicol}
 
 % To manage arrays in LaTeX
-\RequirePackage{arrayjob}
+% IMPORTANT: http://tex.stackexchange.com/questions/65073/latex-doesnt-recognize-endarray
+% Errors occure when 'arrayjob' package and 'amsmath' package are used because of \array
+% Using 'arrayjobx' resolves the issue by defining \arrayx macro instead of conflicting \array
+\RequirePackage{arrayjobx}
 
 % To create for loops
 \RequirePackage{multido}
