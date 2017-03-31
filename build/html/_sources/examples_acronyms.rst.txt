@@ -49,32 +49,32 @@ To print the the plural form of the defined term:
 
 .. code-block:: latex
    
-   \glspl{nasa} -> NASAs
+   \glspl{nasa} results in: NASAs
 
 To print the singular form of the term with the first character converted to upper case:
 
 .. code-block:: latex
    
-   \Gls{nasa} -> NASA
+   \Gls{nasa} results in: NASA
 
 To print the plural form of the term with the first character converted to upper case:
 
 .. code-block:: latex
    
-   \Glspl{nasa} -> NASA
+   \Glspl{nasa} results in: NASA
 
 To link acronym but use alternate text:
 
 .. code-block:: latex
    
-   \glslink{nasa}{the NASA} -> the NASA
+   \glslink{nasa}{the NASA} results in: the NASA
 
 
 Force the print out of the long form, not matter if it has been defined already:
 
 .. code-block:: latex
    
-   \acrlong{nasa} -> National Aeronautics and Space Administration
+   \acrlong{nasa} results in: National Aeronautics and Space Administration
 
 Force the print out of the full form, not matter if it has been defined already:
 
@@ -86,7 +86,7 @@ Force the print out of the short form, not matter if it has not been defined yet
 
 .. code-block:: latex
    
-   \acrshort{nasa} -> NASA         
+   \acrshort{nasa} results in: NASA         
 
 .. +--------------------------------+------------------------------------+----------------------------------------------+
 .. | **LaTeX Code**                 | **Description**                    | **Output**                                   |

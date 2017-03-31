@@ -1,6 +1,11 @@
-\documentclass{nasa-latex-docs}
+\documentclass{article}
+
+\input{packages.tex}
+
 
 \def\newpdf{\newpage\clearpage\thispagestyle{empty}}
+
+\setlength{\parindent}{0in}
 
 \begin{document}
 
@@ -21,5 +26,13 @@
 \newpdf\input{doc_tree_quick.tex}
 
 \newpdf\input{doc_visibility.tex}
+
+\newpdf\input{equation_1.tex}
+
+\newpdf\input{equation_2.tex}
+
+\newpdf\input{equation_matrix.tex}
+
+\newpdf\input{equation_split.tex}
 
 \end{document}
