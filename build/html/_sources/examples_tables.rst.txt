@@ -7,7 +7,7 @@ Examples: LaTeX Tables
 General Notes Regarding Tables
 ===========================================
 
-Text
+Useful reference: `Wiki Link <https://en.wikibooks.org/wiki/LaTeX/Tables>`_.
 
 Referencing Tables
 ===========================================

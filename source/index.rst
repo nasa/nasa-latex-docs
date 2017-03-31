@@ -71,6 +71,7 @@ Two programs are required prior to using this repository: a compatible TeX distr
    quick
    examples_figures
    examples_tables
+   examples_acronyms
    template_aiaa
    template_ieee
    template_tech

@@ -7,7 +7,7 @@ Examples: LaTeX Figures
 General Notes Regarding Figures
 ===========================================
 
-Text
+Useful reference: `Wiki Link <https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions>`_.
 
 Referencing Figures
 ===========================================
