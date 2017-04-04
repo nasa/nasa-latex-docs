@@ -8,8 +8,8 @@ SPHINXPROJ    	= NASA-LaTeX-Docs
 SOURCEDIR     	= source
 BUILDDIR      	= build
 
-LATEXPATH 		= source/latex
-FIGPATH 			= source/latex/figs
+LATEXPATH 		= source/examples/latex
+FIGPATH 			= source/examples/latex/figs
 
 # Define a custom convert command for all images
 convert_cmd 	:= convert -define pdf:use-cropbox=true -density 150 -scale 80% -trim

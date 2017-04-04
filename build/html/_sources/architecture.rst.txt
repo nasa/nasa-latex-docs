@@ -34,5 +34,5 @@ When using the :code:`buildPDF.py` script, it is important to understand what is
 
 The :code:`--texinputs` option to :code:`buildPDF.py` is useful for end users to define a custom location on their computer where they can place TeX documents that are common to all of their documents. Examples of common files include a comprehensive bibliography list, an acronyms database, or even their own `custom defined templates <creating_templates.html#creating-a-custom-template>`_.
 
-.. image:: latex/figs/doc_visibility.png
+.. image:: examples/latex/figs/doc_visibility.png
    :align: center

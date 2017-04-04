@@ -10,7 +10,7 @@ The fastest and most efficient way to start a new document is utilize the :code:
 
 This will create a document with the same structure as described in the general document `architecture <architecture.html#general-document-architecture>`_ section as well as some sample files that can be used as starting points for expanding the document and placeholder `Lorem Ipsum <http://www.lipsum.com/>`_ text.
 
-.. image:: latex/figs/doc_tree_quick.png
+.. image:: examples/latex/figs/doc_tree_quick.png
    :align: center
 
 The Root TeX File
@@ -18,7 +18,7 @@ The Root TeX File
 
 Once the new document folder is created, it will contain your :code:`XYZ_Conference_Paper.tex` file with the following contents:
 
-.. literalinclude:: latex/XYZ_Conference_Paper_2017/XYZ_Conference_Paper.tex
+.. literalinclude:: examples/latex/XYZ_Conference_Paper_2017/XYZ_Conference_Paper.tex
    :language: latex
 
 Currently, the document will be built with no template and in turn no pre-defined formatting. We can specify that we would like to create an AIAA conference paper by calling that :code:`aiaa-conference` template as follows:
