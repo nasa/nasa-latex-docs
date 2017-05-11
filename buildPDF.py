@@ -16,6 +16,11 @@ import fnmatch
 from tempfile import mkstemp
 from subprocess import Popen, PIPE
 
+try:
+   input = raw_input #python 3.x
+except NameError:
+   pass # python 2.x
+
 ###################################################################
 # Define class to house terminal text options (tc)
 ###################################################################
