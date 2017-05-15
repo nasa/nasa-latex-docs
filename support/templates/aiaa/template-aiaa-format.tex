@@ -54,9 +54,18 @@
 \renewcommand{\thesubsection}{\Alph{subsection}.} 
 \renewcommand{\thesubsubsection}{\arabic{subsubsection}.} 
 
+% This command is supposed to add period after sections (instead of above) - BUT it is not working for some reason.
+\renewcommand\@seccntformat[1]{\csname the#1\endcsname.\quad}
+
 % Sets the footnote number styles to symbols - create new symbol to wrap around first 9
 \newalphalph{\fnsymbolwrap}[wrap]{\@fnsymbol}{}
 \renewcommand{\thefootnote}{\fnsymbolwrap{\value{footnote}}}
+
+% Define spacing between Section titles and text
+\titlespacing{\section}{0pt}{0.25\baselineskip}{0\baselineskip}
+\titlespacing{\subsection}{0pt}{0.25\baselineskip}{0\baselineskip}
+\titlespacing{\subsubsection}{0pt}{0.25\baselineskip}{0\baselineskip}
+\titlespacing{\paragraph}{0pt}{0.25\baselineskip}{0\baselineskip}
 
 % Define the distance between footer (page number) and text
 \setlength{\footskip}{2\baselineskip}
@@ -81,6 +90,10 @@
 
 % Make the references fontsize small
 \renewcommand*{\bibfont}{\small}
+
+% Make sure the type-writer font uses computer modern instead of times new roman
+\let\OldTexttt\texttt
+\renewcommand{\texttt}[1]{\OldTexttt{\fontfamily{lmtt}\selectfont #1}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TEMPLATE: Define document header and footer settings
