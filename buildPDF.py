@@ -16,6 +16,11 @@ import fnmatch
 from tempfile import mkstemp
 from subprocess import Popen, PIPE
 
+try:
+   input = raw_input #python 3.x
+except NameError:
+   pass # python 2.x
+
 ###################################################################
 # Define class to house terminal text options (tc)
 ###################################################################
@@ -35,16 +40,16 @@ class tc:
 ###################################################################
 
 def print_error(message, pre='', exit=True):
-   print pre + tc.BOLD + tc.RED + "\nERROR: " + tc.ENDC + message + tc.ENDC
+   print(pre + tc.BOLD + tc.RED + "\nERROR: " + tc.ENDC + message + tc.ENDC)
    if exit:
-      print tc.BOLD+"\nExiting buildPDF.py ..."+tc.ENDC
+      print(tc.BOLD+"\nExiting buildPDF.py ..."+tc.ENDC)
       sys.exit(1)
 
 def print_status(title, message, pre=''):
-   print pre + tc.BOLD + title + tc.ENDC + ' : ' + message
+   print(pre + tc.BOLD + title + tc.ENDC + ' : ' + message)
 
 def print_warn(message, pre=''):
-   print pre + tc.BOLD + tc.BLUE + "WARNING: " + tc.ENDC + message + tc.ENDC
+   print(pre + tc.BOLD + tc.BLUE + "WARNING: " + tc.ENDC + message + tc.ENDC)
 
 def delete_file(file_abs_path):
    if os.path.isfile(file_abs_path):
@@ -149,9 +154,9 @@ class buildPDF():
          if self.args.structure != False:
             print_error('Provide a save name for main TeX file in structure template, example:',exit=False)
             if self.args.structure == None:
-               print tc.BOLD + "  python buildPDF.py texfile.tex -s" + tc.ENDC
+               print(tc.BOLD + "  python buildPDF.py texfile.tex -s" + tc.ENDC)
             else:
-               print tc.BOLD + "  python buildPDF.py texfile.tex -s {0}".format(self.args.structure) + tc.ENDC
+               print(tc.BOLD + "  python buildPDF.py texfile.tex -s {0}".format(self.args.structure) + tc.ENDC)
             sys.exit(1)
          else:
             print_error('No buildable .tex file provided',exit=False)
@@ -209,10 +214,10 @@ class buildPDF():
          self.ENV['TEX_VERSION']  = get_tex.stdout.read().splitlines()[0].strip()
 
       # Make sure the TeX distribution installed is at least from 2015+
-      if any(x in self.ENV['TEX_VERSION'] for x in ['2015','2016','2017','2018','2019','2020']):    
+      if any(x in str(self.ENV['TEX_VERSION']) for x in ['2015','2016','2017','2018','2019','2020']):
          if not self.latexmk_passthrough:
             print_status("buildPDF.py file Version    ",self.version) 
-            print_status("TeX Distribution Version",self.ENV['TEX_VERSION'])  
+            print_status("TeX Distribution Version",str(self.ENV['TEX_VERSION']))
       else:
          print_error('Outdated TeX Distribution: {0}\n  NASA-LaTeX-Docs requires TeX distribution versions of 2015+'.format(self.ENV['TEX_VERSION']))
 
@@ -287,9 +292,9 @@ class buildPDF():
       else:
          if self.args.structure == None:
             print_warn("No folder name provided, will create new directory structure in:\n  {0}".format(tc.BOLD+structure_path+tc.ENDC), pre='\n') 
-            response = raw_input("\nAre you sure you want to create new document folder here?\n  Please respond y/n: ")       
+            response = input("\nAre you sure you want to create new document folder here?\n  Please respond y/n: ")
             if response.lower() == 'no' or response.lower() == 'n':
-               print tc.BOLD+"\nExiting buildPDF.py ..."+tc.ENDC 
+               print(tc.BOLD+"\nExiting buildPDF.py ..."+tc.ENDC)
                sys.exit(1)
             elif response.lower() == 'yes' or response.lower() == 'y':
                pass
@@ -309,7 +314,7 @@ class buildPDF():
          print_error("Invalid input file name: '{0}'".format(self.input_tex))
       
       # Print path to created template and exit
-      print "Template created in:\n  '{0}'\n\nTo build PDF run:\n  python {2} {1}".format(tc.BOLD+structure_path+tc.ENDC,tc.BOLD+os.path.join(structure_path,self.input_tex)+tc.ENDC,self.buildPDF_abs_path)
+      print("Template created in:\n  '{0}'\n\nTo build PDF run:\n  python {2} {1}".format(tc.BOLD+structure_path+tc.ENDC,tc.BOLD+os.path.join(structure_path,self.input_tex)+tc.ENDC,self.buildPDF_abs_path))
       sys.exit(0) 
 
       return
@@ -550,7 +555,7 @@ class buildPDF():
       else:
          log_sum_str = tc.BOLD+"="*25+" Log Summary "+"="*25+tc.ENDC
 
-      print '\n'+log_sum_str
+      print('\n'+log_sum_str)
 
       with open(os.path.join(self.ENV['TMPDIR'],'texfot.out')) as texfot:
          i = 0
@@ -581,15 +586,15 @@ class buildPDF():
 
             if line.strip():
                something_to_print = True
-               print line.strip()
+               print(line.strip())
 
       if not something_to_print:
-         print "  No warnings or errors to report"
+         print("  No warnings or errors to report")
       
       if buildFailFlag:
-         print log_sum_str + '\n'
+         print(log_sum_str + '\n')
       else:
-         print log_sum_str
+         print(log_sum_str)
       return
 
    ###################################################################
@@ -614,7 +619,7 @@ class buildPDF():
       support_file_keep = []
       for support_file in support_file_list:
          filename, file_extension = os.path.splitext(support_file)
-         print "  Archiving Dependency: " + support_file
+         print("  Archiving Dependency: " + support_file)
          if any(x in file_extension.lower() for x in ['pdf','png','jpeg','jpg','gif']):
             support_file_keep.append(support_file)
          else:

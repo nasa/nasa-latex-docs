@@ -20,7 +20,7 @@ System Requirements:
 -------
 
 - TeX Live Distribution 2015+ (with latest updates)
-- Python 2.6+
+- Python 2.6+, Python 3+
 
 License
 -------
