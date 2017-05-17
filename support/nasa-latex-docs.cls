@@ -159,6 +159,7 @@
       \def\sectionautorefname{Section}%
       \def\subsectionautorefname{Section}%
       \def\subsubsectionautorefname{Section}%
+      \def\paragraphautorefname{Section}%
       \def\chapterautorefname{Section}%
       \def\partautorefname{Section}%
       \orgautoref}
@@ -173,6 +174,7 @@
       \def\sectionautorefname{Section}%
       \def\subsectionautorefname{Section}%
       \def\subsubsectionautorefname{Section}%
+      \def\paragraphautorefname{Section}%
       \def\chapterautorefname{Section}%
       \def\partautorefname{Section}%
       \orgautoref}
