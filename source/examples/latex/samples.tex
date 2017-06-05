@@ -1,7 +1,6 @@
-\documentclass{article}
+\documentclass[12pt]{article}
 
 \input{packages.tex}
-
 
 \def\newpdf{\newpage\clearpage\thispagestyle{empty}}
 
@@ -34,5 +33,9 @@
 \newpdf\input{equation_matrix.tex}
 
 \newpdf\input{equation_split.tex}
+
+\setcounter{figure}{0} 
+
+\newpdf\input{tikz_block.tex}
 
 \end{document}

@@ -11,3 +11,4 @@ LaTeX Example Snippets
    examples/tables
    examples/acronyms
    examples/equations  
+   examples/graphics  

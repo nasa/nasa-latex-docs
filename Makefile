@@ -52,6 +52,7 @@ full:
 	@$(convert_cmd) $(LATEXPATH)/samples.pdf[16] $(FIGPATH)/equation_vmatrix2.png
 	@$(convert_cmd) $(LATEXPATH)/samples.pdf[17] $(FIGPATH)/equation_smallmatrix.png
 	@$(convert_cmd) $(LATEXPATH)/samples.pdf[18] $(FIGPATH)/equation_split.png
+	@$(convert_cmd) $(LATEXPATH)/samples.pdf[19] $(FIGPATH)/tikz_block.png
 
 	# Call the make html command to publish the latest results
 	@make html 
