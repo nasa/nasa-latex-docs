@@ -99,6 +99,9 @@
 \renewcommand{\PREprintbibliography}{\newpage}  
 \renewcommand{\PREprintNomenclature}{\newpage}  
 
+% Make the references fontsize small
+\renewcommand*{\bibfont}{\small}
+
 \newcommand{\TitlePageGeometry}{\newgeometry{top=0.75in,left=1in,right=1in,bottom=0.75in}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -136,7 +139,7 @@
 \lfoot{\printExportFooter}
 
 % Right Footer
-\rfoot{\hfsize Page: \thepage \hspace{2pt} of \hspace{2pt} \computelastpage}
+\rfoot{\hfsize Page: \thepage \hspace{2pt} of \hspace{2pt} \begingroup\hypersetup{linkcolor=black}\computelastpage\endgroup}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TEMPLATE: Settings for TOC, LOF, LOT, Acronyms

@@ -283,7 +283,10 @@
       \renewcommand\contentsname{Table of Contents}
       \pdfbookmark[2]{Table of Contents}{ToC}
       % Create the ToC 
+      \begingroup
+      \hypersetup{linkcolor=black}
       \tableofcontents
+      \endgroup
       \setlength{\parskip}{\baselineskip}
    }{}
 }
@@ -455,10 +458,14 @@
    % Renew the original \printbibliography command with some other settings
    \renewcommand{\printbibliography}[1]{
       \phantomsection
-      \addcontentsline{toc}{section}{References}
       
       \PREprintbibliography
 
+      % For numbered bibliograpy section:
+      %\oldprintbibliography[title={References},heading=bibnumbered]
+
+      % For non-numbered bibliography section:
+      \addcontentsline{toc}{section}{References}
       \oldprintbibliography
 
       % Command to reset glossary defs (avoids the need to delete .glsdefs each time)
