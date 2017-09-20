@@ -319,6 +319,21 @@
    }{}
 }
 
+\newcommand{\printLOL}{
+   \ifdefstring{\@docLOL}{true}{
+      % Create a Table of Contents Entry for LOL
+      \newpage
+      \setlength{\parskip}{0.4\baselineskip}
+      \phantomsection
+      \renewcommand{\lstlistlistingname}{List of Code Listings\vspace{0.25\baselineskip}}
+      \bookmarksetupnext{level=subsection}
+      \addcontentsline{toc}{section}{List of Code Listings}
+      % Creat LOL
+      \lstlistoflistings
+      \setlength{\parskip}{\baselineskip}
+   }{}
+}
+
 \newcommand{\printLOA}{
    \ifdefstring{\@docLOA}{true}{
       % Change the glossary title to nothing, we will create our own

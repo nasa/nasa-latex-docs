@@ -41,6 +41,8 @@
 \counterwithin{figure}{section}
 \counterwithin{table}{section}
 \counterwithin{equation}{section}
+% Note: counterwithin for lstlisting needs to happen after \begin{document}
+\AtBeginDocument{\counterwithin{lstlisting}{section}}
 
 % Define spacing between Section titles and text
 \titlespacing{\section}{0pt}{0.25\baselineskip}{0\baselineskip}
@@ -167,12 +169,24 @@
 \setlength\cftsecnumwidth{35pt}
 \setlength\cftsubsecnumwidth{40pt}
 \setlength\cftsubsubsecnumwidth{40pt}
+\setlength{\cftbeforetoctitleskip}{1in}
 
 % Add some spacing so the figure or table number and title dont overlap in LOF ot LOT
 \setlength\cftfignumwidth{42pt}
 \setlength\cfttabnumwidth{42pt}
 \setlength\cftbeforefigskip{0pt}
 \setlength\cftbeforetabskip{0pt}
+
+% Code listings have to be modified in a diffrent manner to match LOF and LOT format
+\AtBeginDocument{%
+\renewcommand\lstlistoflistings{\bgroup
+  \let\contentsname\lstlistlistingname
+  \def\l@lstlisting##1##2{\@dottedtocline{1}{1.5em}{42pt}{##1}{##2}}
+  \let\lst@temp\@starttoc \def\@starttoc##1{\lst@temp{lol}}%
+  \tableofcontents \egroup}
+}
+
+
 
 % Create List of Tables section separators
 % \renewcommand\cfttabfont\small
