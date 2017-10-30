@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Tech Template Details &mdash; NASA-LaTeX-Docs  documentation</title>
+  <title>Examples: LaTeX Code Listings &mdash; NASA-LaTeX-Docs  documentation</title>
   
 
   
@@ -38,9 +38,8 @@
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="NASA-LaTeX-Docs  documentation" href="../index.html"/>
-        <link rel="up" title="Document Templates Overview" href="../templates.html"/>
-        <link rel="next" title="Creating a Custom Template" href="creating_templates.html"/>
-        <link rel="prev" title="IEEE Template Details" href="template_ieee.html"/> 
+        <link rel="up" title="LaTeX Example Snippets" href="../examples.html"/>
+        <link rel="prev" title="Examples: LaTeX Graphics" href="graphics.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -98,21 +97,20 @@
 <li class="toctree-l1"><a class="reference internal" href="../index.html">NASA-LaTeX-Docs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../architecture.html">General Document Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../buildPDF.html">Using buildPDF.py Script</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../templates.html">Document Templates Overview</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="template_params.html">Document Parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="template_aiaa.html">AIAA Template Details</a></li>
-<li class="toctree-l2"><a class="reference internal" href="template_ieee.html">IEEE Template Details</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Tech Template Details</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#technical-report">Technical Report</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#technical-brief">Technical Brief</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#technical-memo">Technical Memo</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="creating_templates.html">Creating a Custom Template</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../templates.html">Document Templates Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quick.html">Quick Start Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">LaTeX Example Snippets</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../examples.html">LaTeX Example Snippets</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="figures.html">Examples: LaTeX Figures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tables.html">Examples: LaTeX Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="acronyms.html">Examples: LaTeX Acronyms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="equations.html">Examples: LaTeX Equations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graphics.html">Examples: LaTeX Graphics</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Examples: LaTeX Code Listings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#general-notes-regarding-latex-graphics">General Notes Regarding LaTeX Graphics</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             
@@ -157,9 +155,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../templates.html">Document Templates Overview</a> &raquo;</li>
+          <li><a href="../examples.html">LaTeX Example Snippets</a> &raquo;</li>
         
-      <li>Tech Template Details</li>
+      <li>Examples: LaTeX Code Listings</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -176,20 +174,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="tech-template-details">
-<h1>Tech Template Details<a class="headerlink" href="#tech-template-details" title="Permalink to this headline">¶</a></h1>
-<p>Generic Technical Documents</p>
-<div class="section" id="technical-report">
-<h2>Technical Report<a class="headerlink" href="#technical-report" title="Permalink to this headline">¶</a></h2>
-<p>Text for <code class="code docutils literal"><span class="pre">template=tech-report</span></code></p>
+  <div class="section" id="examples-latex-code-listings">
+<h1>Examples: LaTeX Code Listings<a class="headerlink" href="#examples-latex-code-listings" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>All of these examples assume that your document is employing the <code class="code docutils literal"><span class="pre">nasa-latex-docs</span></code> class which loads all the necessary packages and defines the format settings. You should be able to recreate all of these examples by simply copying and pasting the code snippets below into your document <code class="code docutils literal"><span class="pre">.tex</span></code> file.</p>
+<p>Outside of the <code class="code docutils literal"><span class="pre">nasa-latex-docs</span></code> class, all of these examples maybe recreated by simply including the same package list as defined in <code class="code docutils literal"><span class="pre">nasa-latex-docs/support/packages/packages.tex</span></code>. An example is provided below:</p>
+<div class="last highlight-latex"><div class="highlight"><pre><span></span><span class="k">\documentclass</span><span class="na">[12pt]</span><span class="nb">{</span>article<span class="nb">}</span>
+
+<span class="c">% document preamble</span>
+<span class="k">\input</span><span class="nb">{</span>nasa-latex-docs/support/packages/packages.tex<span class="nb">}</span>
+
+<span class="k">\begin</span><span class="nb">{</span>document<span class="nb">}</span>
+
+<span class="c">% document content</span>
+
+<span class="k">\end</span><span class="nb">{</span>document<span class="nb">}</span>
+</pre></div>
 </div>
-<div class="section" id="technical-brief">
-<h2>Technical Brief<a class="headerlink" href="#technical-brief" title="Permalink to this headline">¶</a></h2>
-<p>Coming soon: <code class="code docutils literal"><span class="pre">template=tech-brief</span></code></p>
 </div>
-<div class="section" id="technical-memo">
-<h2>Technical Memo<a class="headerlink" href="#technical-memo" title="Permalink to this headline">¶</a></h2>
-<p>Coming soon: <code class="code docutils literal"><span class="pre">template=tech-memo</span></code></p>
+<div class="section" id="general-notes-regarding-latex-graphics">
+<h2>General Notes Regarding LaTeX Graphics<a class="headerlink" href="#general-notes-regarding-latex-graphics" title="Permalink to this headline">¶</a></h2>
+<p>Graphics within LaTeX may be generated using portable graphics format (PGF) and TikZ command layers (<a class="reference external" href="https://en.wikibooks.org/wiki/LaTeX/PGF/TikZ">Wiki Link</a>). Although the syntax can be complex at times, it offers a very powerful method for generating portable graphics directly within the LaTeX document.</p>
 </div>
 </div>
 
@@ -203,10 +209,8 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="creating_templates.html" class="btn btn-neutral float-right" title="Creating a Custom Template" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-      
-        <a href="template_ieee.html" class="btn btn-neutral" title="IEEE Template Details" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="graphics.html" class="btn btn-neutral" title="Examples: LaTeX Graphics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

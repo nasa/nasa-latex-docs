@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -46,6 +48,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -86,7 +89,10 @@
           
             
             
-                <p class="caption"><span class="caption-text">Navigation Pane:</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Navigation Pane:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">NASA-LaTeX-Docs</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">General Document Architecture</a><ul>
@@ -109,8 +115,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">NASA-LaTeX-Docs</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NASA-LaTeX-Docs</a>
+        
       </nav>
 
 
@@ -119,21 +127,38 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>General Document Architecture</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>General Document Architecture</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -174,7 +199,7 @@
 </ul>
 <div class="section" id="document-search-path-visibility">
 <h2>Document Search Path Visibility<a class="headerlink" href="#document-search-path-visibility" title="Permalink to this headline">¶</a></h2>
-<p>When using the <code class="code docutils literal"><span class="pre">buildPDF.py</span></code> script, it is important to understand what is going on under the hood with regards to the user&#8217;s environment and where document content is searched for. When using the <code class="code docutils literal"><span class="pre">buildPDF.py</span></code> script, the user&#8217;s environment is <strong>automatically configured</strong> to add the following to the search path environment variable, <code class="code docutils literal"><span class="pre">TEXINPUTS</span></code>, that is used by LaTeX to search for content:</p>
+<p>When using the <code class="code docutils literal"><span class="pre">buildPDF.py</span></code> script, it is important to understand what is going on under the hood with regards to the user’s environment and where document content is searched for. When using the <code class="code docutils literal"><span class="pre">buildPDF.py</span></code> script, the user’s environment is <strong>automatically configured</strong> to add the following to the search path environment variable, <code class="code docutils literal"><span class="pre">TEXINPUTS</span></code>, that is used by LaTeX to search for content:</p>
 <ul class="simple">
 <li>All folders and files under the <code class="code docutils literal"><span class="pre">nasa-latex-docs/</span></code> repository folder</li>
 <li>All folders and files at or under the level of the root TeX file that is being built.</li>
@@ -187,15 +212,18 @@
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="buildPDF.html" class="btn btn-neutral float-right" title="Using buildPDF.py Script" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="buildPDF.html" class="btn btn-neutral float-right" title="Using buildPDF.py Script" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="NASA-LaTeX-Docs" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="NASA-LaTeX-Docs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -234,7 +262,7 @@
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

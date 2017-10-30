@@ -70,3 +70,18 @@ Two programs are required prior to using this repository: a compatible TeX distr
    templates
    quick
    examples
+
+Updating LaTeX
+===========================================
+
+Each distribution year may be updated. First the package manager is updated by:
+
+::
+
+   tlmgr update --self
+
+Then the actual packages may be updated by:
+
+::
+
+   tlmgr update --all

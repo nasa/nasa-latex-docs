@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -46,6 +48,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -86,7 +89,10 @@
           
             
             
-                <p class="caption"><span class="caption-text">Navigation Pane:</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">Navigation Pane:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">NASA-LaTeX-Docs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">General Document Architecture</a></li>
@@ -126,8 +132,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">NASA-LaTeX-Docs</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NASA-LaTeX-Docs</a>
+        
       </nav>
 
 
@@ -136,21 +144,38 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Using buildPDF.py Script</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Using buildPDF.py Script</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -219,7 +244,7 @@
 </table>
 <div class="section" id="option-details-help">
 <h3>Option Details: <code class="code docutils literal"><span class="pre">--help</span></code><a class="headerlink" href="#option-details-help" title="Permalink to this headline">¶</a></h3>
-<p>Prints a simple version of the option descriptions to the user&#8217;s screen for quick reference. Whenever this option is passed, no other option is enabled and a <strong>build will not take place</strong>.</p>
+<p>Prints a simple version of the option descriptions to the user’s screen for quick reference. Whenever this option is passed, no other option is enabled and a <strong>build will not take place</strong>.</p>
 </div>
 <div class="section" id="option-details-verbose">
 <h3>Option Details: <code class="code docutils literal"><span class="pre">--verbose</span></code><a class="headerlink" href="#option-details-verbose" title="Permalink to this headline">¶</a></h3>
@@ -249,7 +274,7 @@
 <li>A copy of anything within the <code class="code docutils literal"><span class="pre">nasa-latex-docs</span></code> repository that was linked</li>
 <li>A copy of the <code class="code docutils literal"><span class="pre">buildPDF.py</span></code> script and <code class="code docutils literal"><span class="pre">latexmkrc</span></code> configuration file</li>
 </ul>
-<p>When appropriate, all files from within the <code class="code docutils literal"><span class="pre">nasa-latex-docs</span></code> repository will be &#8220;archived&#8221; into a single file to reduce the amount of files copied. This archiving only takes place if the <code class="code docutils literal"><span class="pre">nasa-latex-docs</span></code> class is called at the top of the document, i.e. <code class="code docutils literal"><span class="pre">\documentclass{nasa-latex-docs}</span></code>. A list of archived files will be printed on the screen if archiving is possible.</p>
+<p>When appropriate, all files from within the <code class="code docutils literal"><span class="pre">nasa-latex-docs</span></code> repository will be “archived” into a single file to reduce the amount of files copied. This archiving only takes place if the <code class="code docutils literal"><span class="pre">nasa-latex-docs</span></code> class is called at the top of the document, i.e. <code class="code docutils literal"><span class="pre">\documentclass{nasa-latex-docs}</span></code>. A list of archived files will be printed on the screen if archiving is possible.</p>
 </div>
 </div>
 <div class="section" id="script-user-options-inputs">
@@ -330,15 +355,18 @@
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="templates.html" class="btn btn-neutral float-right" title="Document Templates Overview" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="templates.html" class="btn btn-neutral float-right" title="Document Templates Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="architecture.html" class="btn btn-neutral" title="General Document Architecture" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="architecture.html" class="btn btn-neutral" title="General Document Architecture" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -377,7 +405,7 @@
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
