@@ -202,6 +202,38 @@ class buildPDF():
             print_warn("User defined LATEX_PATH entry does not exist: '{0}'".format(latexpath_abs_path))
          else:
             self.ENV['PATH'] = self.args.latexpath + os.pathsep + self.ENV['PATH']
+      else:
+         # Prior to throwing error - attempt to see if binaries are installed in default location
+         if sys.platform == "linux" or sys.platform == "linux2":
+            # Possible Linux Install Location(s)
+            default_tex_location = [
+            '/usr/local/texlive/2018/bin/x86_64-linux',
+            '/usr/local/texlive/2017/bin/x86_64-linux',
+            '/usr/local/texlive/2016/bin/x86_64-linux',
+            '/usr/local/texlive/2015/bin/x86_64-linux',
+            ]
+         elif sys.platform == "darwin":
+            # Possible Mac Install Location(s)
+            default_tex_location = [
+            '/usr/local/texlive/2018/bin/x86_64-darwin',
+            '/usr/local/texlive/2017/bin/x86_64-darwin',
+            '/usr/local/texlive/2016/bin/x86_64-darwin',
+            '/usr/local/texlive/2015/bin/x86_64-darwin',
+            ]
+         elif sys.platform == "win32" or sys.platform == 'cygwin':
+            # Possible Mac Install Location(s)
+            default_tex_location = [
+            'C:\Program Files (x86)\MiKTeX 2.9\miktex\bin',
+            ]
+
+         # Loop through paths to make sure they are on environment system PATH
+         for a in default_tex_location:
+            # Get the fully resolved path name
+            a = os.path.abspath(a)
+            # See if path exists and is not on current path - if so, add and return
+            if os.path.isdir(a) and a not in self.ENV['PATH'].split(os.pathsep):
+               print("PATH environment variable updated to include {0}".format(a))
+               self.ENV['PATH'] = a + os.pathsep + self.ENV['PATH']
 
       # Attempt to get the TeX version with command line call   
       get_tex = Popen(['tex --version'], env=self.ENV, shell=True, stdout=PIPE, stderr=PIPE)
@@ -216,9 +248,10 @@ class buildPDF():
       # Make sure the TeX distribution installed is at least from 2015+
       if any(x in str(self.ENV['TEX_VERSION']) for x in ['2015','2016','2017','2018','2019','2020']):
          if not self.latexmk_passthrough:
-            print_status("buildPDF.py file Version    ",self.version) 
+            print_status("buildPDF.py file Version",self.version) 
             print_status("TeX Distribution Version",str(self.ENV['TEX_VERSION']))
       else:
+
          print_error('Outdated TeX Distribution: {0}\n  NASA-LaTeX-Docs requires TeX distribution versions of 2015+'.format(self.ENV['TEX_VERSION']))
 
       return
