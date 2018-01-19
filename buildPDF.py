@@ -234,9 +234,10 @@ class buildPDF():
             if os.path.isdir(a) and a not in self.ENV['PATH'].split(os.pathsep):
                print("PATH environment variable updated to include {0}".format(a))
                self.ENV['PATH'] = a + os.pathsep + self.ENV['PATH']
+               break
 
       # Attempt to get the TeX version with command line call   
-      get_tex = Popen(['tex','--version'], env=self.ENV, shell=True, stdout=PIPE, stderr=PIPE)
+      get_tex = Popen(['tex --version'], env=self.ENV, shell=True, stdout=PIPE, stderr=PIPE)
       get_tex.wait()
       
       # Check the return status of the TeX version call
