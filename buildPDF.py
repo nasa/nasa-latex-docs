@@ -221,9 +221,9 @@ class buildPDF():
             '/usr/local/texlive/2015/bin/x86_64-darwin',
             ]
          elif sys.platform == "win32" or sys.platform == 'cygwin':
-            # Possible Mac Install Location(s)
+            # Possible Windows Install Location(s)
             default_tex_location = [
-            'C:\Program Files (x86)\MiKTeX 2.9\miktex\bin',
+            'C:\texlive\2017\bin\win32',
             ]
 
          # Loop through paths to make sure they are on environment system PATH
@@ -236,14 +236,14 @@ class buildPDF():
                self.ENV['PATH'] = a + os.pathsep + self.ENV['PATH']
 
       # Attempt to get the TeX version with command line call   
-      get_tex = Popen(['tex --version'], env=self.ENV, shell=True, stdout=PIPE, stderr=PIPE)
+      get_tex = Popen(['tex','--version'], env=self.ENV, shell=True, stdout=PIPE, stderr=PIPE)
       get_tex.wait()
       
       # Check the return status of the TeX version call
       if get_tex.returncode > 0:
          print_error('No TeX distribution installation found, check PATH environment')
       else:
-         self.ENV['TEX_VERSION']  = get_tex.stdout.read().splitlines()[0].strip()
+         self.ENV['TEX_VERSION']  = str(get_tex.stdout.read().splitlines()[0].strip(),'utf-8')
 
       # Make sure the TeX distribution installed is at least from 2015+
       if any(x in str(self.ENV['TEX_VERSION']) for x in ['2015','2016','2017','2018','2019','2020']):
@@ -542,7 +542,7 @@ class buildPDF():
 
       # Run pdflatex command with all the appropriate options
       # Wrap call to pdflatex with texfot in order to generate texfot error/warning log file
-      pdflatex = Popen("max_print_line=999  texfot --tee='{0}' pdflatex -synctex=1 -file-line-error --shell-escape {1} '{2}' > '{3}'".format(pdflatex_out,self.args.latexmk_passthrough_build,self.input_abs_path,texfot_out), env=self.ENV, shell=True, stdout=PIPE, stderr=PIPE)
+      pdflatex = Popen("texfot --tee=\"{0}\" pdflatex -synctex=1 -file-line-error --shell-escape {1} \"{2}\" > \"{3}\"".format(pdflatex_out,self.args.latexmk_passthrough_build,self.input_abs_path,texfot_out), env=self.ENV, shell=True, stdout=PIPE, stderr=PIPE)
       pdflatex.wait()
 
       # For persistence across interim builds, write the exit status to file
