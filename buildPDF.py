@@ -230,7 +230,12 @@ class buildPDF():
          for a in default_tex_location:
             # Get the fully resolved path name
             a = os.path.abspath(a)
-            # See if path exists and is not on current path - if so, add and return
+            
+            # See if path exists and is already on current path - if so break loop
+            if os.path.isdir(a) and a in self.ENV['PATH'].split(os.pathsep):
+               break
+            
+            # See if path exists and is not on current path - if so break loop
             if os.path.isdir(a) and a not in self.ENV['PATH'].split(os.pathsep):
                print("PATH environment variable updated to include {0}".format(a))
                self.ENV['PATH'] = a + os.pathsep + self.ENV['PATH']
@@ -244,7 +249,7 @@ class buildPDF():
       if get_tex.returncode > 0:
          print_error('No TeX distribution installation found, check PATH environment')
       else:
-         self.ENV['TEX_VERSION']  = str(get_tex.stdout.read().splitlines()[0].strip(),'utf-8')
+         self.ENV['TEX_VERSION']  = str(get_tex.stdout.read().splitlines()[0].strip())
 
       # Make sure the TeX distribution installed is at least from 2015+
       if any(x in str(self.ENV['TEX_VERSION']) for x in ['2015','2016','2017','2018','2019','2020']):
