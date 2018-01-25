@@ -162,6 +162,7 @@
       \def\paragraphautorefname{Section}%
       \def\chapterautorefname{Section}%
       \def\partautorefname{Section}%
+      \def\Appendixautorefname{Appendix}%
       \orgautoref}
 
    % Define autoref for default usage   
@@ -177,6 +178,7 @@
       \def\paragraphautorefname{Section}%
       \def\chapterautorefname{Section}%
       \def\partautorefname{Section}%
+      \def\Appendixautorefname{Appendix}%
       \orgautoref}
 
    % Pass the "\ref" command to \autoref
