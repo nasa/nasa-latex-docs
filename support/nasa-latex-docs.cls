@@ -144,6 +144,45 @@
 \hypersetup{urlcolor=cyan}
 
 \AtBeginDocument{
+
+    % begin appendix autoref patch 
+    % [\autoref subsections in appendix](https://tex.stackexchange.com/questions/149807/autoref-subsections-in-appendix)
+    \makeatletter
+    \patchcmd{\hyper@makecurrent}{%
+        \ifx\Hy@param\Hy@chapterstring
+            \let\Hy@param\Hy@chapapp
+        \fi
+    }{%
+        \iftoggle{inappendix}{%true-branch
+            % list the names of all sectioning counters here
+            \@checkappendixparam{chapter}%
+            \@checkappendixparam{section}%
+            \@checkappendixparam{subsection}%
+            \@checkappendixparam{subsubsection}%
+            \@checkappendixparam{paragraph}%
+            \@checkappendixparam{subparagraph}%
+        }{}%
+    }{}{\errmessage{failed to patch}}
+
+    \newcommand*{\@checkappendixparam}[1]{%
+        \def\@checkappendixparamtmp{#1}%
+        \ifx\Hy@param\@checkappendixparamtmp
+            \let\Hy@param\Hy@appendixstring
+        \fi
+    }
+    \makeatletter
+
+    \newtoggle{inappendix}
+    \togglefalse{inappendix}
+
+    \apptocmd{\appendix}{\toggletrue{inappendix}}{}{\errmessage{failed to patch}}
+    \apptocmd{\subappendices}{\toggletrue{inappendix}}{}{\errmessage{failed to patch}}
+    
+    % The above patch only works with \appendix applied. Make sure this is called before call to appendices environment
+    \BeforeBeginEnvironment{appendices}{\appendix} 
+    % end appendix autoref patch
+
+
    % Place here in order to capture any abstract referencing to sections
    % Allow the autoref package (within hyperref to take care of appending "Figure" "Section" and "Table" to labels)
    % Save the original autoref definition - use "let" instead of def
