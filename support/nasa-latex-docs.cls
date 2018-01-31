@@ -8,7 +8,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Package with programming tools geared primarily towards LaTeX class and package authors 
-\RequirePackage{etoolbox}  			
+\RequirePackage{etoolbox}       
 \RequirePackage{kvoptions}
 
 % Must indicate that we are using LaTeX2e (LaTeX2e is the latest stable release of LaTeX)
@@ -26,6 +26,7 @@
 
 \DeclareStringOption[none]{template}
 \DeclareBoolOption[false]{showframe}
+\DeclareBoolOption[false]{standalone}
 \ProcessKeyvalOptions*
 
 % Process the options - they are now 'live' in the class file
