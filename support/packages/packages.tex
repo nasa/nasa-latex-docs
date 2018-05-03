@@ -31,6 +31,11 @@
 % for setting table width sizes 			
 \RequirePackage{tabularx}
 
+% Solution for Latex 2018 error due to chngcntr package update
+% https://tex.stackexchange.com/questions/425600/latex-error-command-counterwithout-already-defined?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+\let\counterwithout\relax
+\let\counterwithin\relax
+
 % to reset counter of figures and tables per section			
 \RequirePackage{chngcntr} 		
 
