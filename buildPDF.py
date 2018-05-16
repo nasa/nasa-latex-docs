@@ -77,7 +77,7 @@ class buildPDF():
    def __init__(self):
 
       # Define version of script and NASA-LaTeX-Docs
-      self.version = 'March 30, 2017 - v1.0'
+      self.version = 'May 16, 2018 - v1.1'
 
       # Get the current environment variables to pass to subprocess
       self.ENV = os.environ.copy()
@@ -203,6 +203,8 @@ class buildPDF():
          else:
             self.ENV['PATH'] = self.args.latexpath + os.pathsep + self.ENV['PATH']
       else:
+         # Set default system command for texlive version
+         texcmd = ['tex --version']
          # Prior to throwing error - attempt to see if binaries are installed in default location
          if sys.platform == "linux" or sys.platform == "linux2":
             # Possible Linux Install Location(s)
@@ -221,9 +223,12 @@ class buildPDF():
             '/usr/local/texlive/2015/bin/x86_64-darwin',
             ]
          elif sys.platform == "win32" or sys.platform == 'cygwin':
+            # Override system command for tex live version for Windows
+            texcmd = ['cmd','/c'] + texcmd
+         
             # Possible Windows Install Location(s)
             default_tex_location = [
-            'C:\texlive\2017\bin\win32',
+            'C:\\texlive\\2017\\bin\\win32',
             ]
 
          # Loop through paths to make sure they are on environment system PATH
@@ -241,8 +246,8 @@ class buildPDF():
                self.ENV['PATH'] = a + os.pathsep + self.ENV['PATH']
                break
 
-      # Attempt to get the TeX version with command line call   
-      get_tex = Popen(['tex --version'], env=self.ENV, shell=True, stdout=PIPE, stderr=PIPE)
+      # Attempt to get the TeX version with command line call
+      get_tex = Popen(texcmd, env=self.ENV, shell=True, stdout=PIPE, stderr=PIPE)
       get_tex.wait()
       
       # Check the return status of the TeX version call
@@ -257,7 +262,6 @@ class buildPDF():
             print_status("buildPDF.py file Version",self.version) 
             print_status("TeX Distribution Version",str(self.ENV['TEX_VERSION']))
       else:
-
          print_error('Outdated TeX Distribution: {0}\n  NASA-LaTeX-Docs requires TeX distribution versions of 2015+'.format(self.ENV['TEX_VERSION']))
 
       return
