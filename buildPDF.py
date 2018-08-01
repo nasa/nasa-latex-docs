@@ -195,6 +195,9 @@ class buildPDF():
 
    def _get_tex_ver(self):
 
+      # Set default system command for texlive version
+      texcmd = ['tex --version']
+
       # Update the path information if --latexpath provided
       if self.args.latexpath:
          latexpath_abs_path = os.path.abspath(self.args.latexpath)
@@ -203,8 +206,6 @@ class buildPDF():
          else:
             self.ENV['PATH'] = self.args.latexpath + os.pathsep + self.ENV['PATH']
       else:
-         # Set default system command for texlive version
-         texcmd = ['tex --version']
          # Prior to throwing error - attempt to see if binaries are installed in default location
          if sys.platform == "linux" or sys.platform == "linux2":
             # Possible Linux Install Location(s)
