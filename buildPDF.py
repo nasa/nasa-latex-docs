@@ -120,8 +120,6 @@ class buildPDF():
          help="Enables continuous builds on any file changes\n ")
       argParser.add_argument("-c",  "--clean", action="store_true", 
          help="Removes the tmp/ directory after successful build\n ")
-      argParser.add_argument("-e",  "--export", action="store_true", 
-         help="Creates a standalone version of the document with \nminimum required dependencies and input files\n ")
       argParser.add_argument("-l",  "--latexpath", type=str, metavar=tc.BLUE+'LATEX_PATH'+tc.ENDC, 
          help="LaTeX installation on computer to add to PATH environment\nExample: Mac location = /Library/TeX/texbin,\notherwise will use the current PATH environment\n ")
       argParser.add_argument("-t",  "--texinputs", type=str, metavar=tc.BLUE+'TEXINPUTS_PATH'+tc.ENDC, 
@@ -130,8 +128,8 @@ class buildPDF():
          help="Rename the output pdf with a user specified name/location,\notherwise will build texfile.tex to texfile.pdf\n ")
       argParser.add_argument("-p",  "--preview", action='store', nargs='?', default=False, metavar=tc.BLUE+'PROGRAM_NAME'+tc.ENDC, 
          help="Option to open pdf viewer program after build\nDefault: Mac=Preview, Linux=Evince, Windows=gsview32\n ")
-      argParser.add_argument("-s",  "--structure", action="store", nargs='?', default=False, metavar=tc.BLUE+'FOLDER_NAME'+tc.ENDC, 
-         help="Creates document structure, with minimum .tex and .bib files\nDefault: If no name provided, will create in 'TexDocument/'")
+      argParser.add_argument("-n",  "--new", action="store", nargs='?', default=False, metavar=tc.BLUE+'FOLDER_NAME'+tc.ENDC, 
+         help="Creates new document structure, with minimum .tex, .bib, and supporting nasa-latex-docs files\nDefault: A folder named NASA_Latex_Document/ will be created\n ")
 
       # Hidden options that are used for interim latexmk builds
       argParser.add_argument("--latexmk-passthrough-build", nargs='?', help=argparse.SUPPRESS)
@@ -150,18 +148,16 @@ class buildPDF():
       # Error checking for input TeX file and --structure option
       ###################################################################
 
+      if self.args.new is None:
+         self.args.new = 'NASA_Latex_Document'
+
+      if not self.args.texfile and self.args.new:
+         self.args.texfile = self.args.new.split('.')[0]
+
       if not self.args.texfile:
-         if self.args.structure != False:
-            print_error('Provide a save name for main TeX file in structure template, example:',exit=False)
-            if self.args.structure == None:
-               print(tc.BOLD + "  python buildPDF.py texfile.tex -s" + tc.ENDC)
-            else:
-               print(tc.BOLD + "  python buildPDF.py texfile.tex -s {0}".format(self.args.structure) + tc.ENDC)
-            sys.exit(1)
-         else:
-            print_error('No buildable .tex file provided',exit=False)
-            argParser.print_usage()
-            sys.exit(1)
+         print_error('No buildable .tex file provided\n',exit=False)
+         argParser.print_usage()
+         sys.exit(1)       
 
       ###################################################################
       # Determine if this is a pass-through build called by latexmk
@@ -284,7 +280,7 @@ class buildPDF():
       self.input_tex          = os.path.basename(texfile_input_tex)
 
       # Make sure the input TeX file exits
-      if not os.path.isfile(self.input_abs_path) and self.args.structure == False:
+      if not os.path.isfile(self.input_abs_path) and self.args.new == False:
          print_error("Input TeX file was not found: '{0}'".format(self.input_abs_path))
 
       # Define the output file format names    
@@ -318,14 +314,14 @@ class buildPDF():
    def _create_doc_structure(self):
 
       # If structure option not given, exit
-      if self.args.structure == False:
+      if self.args.new == False:
          return
 
       # Get the folder name by the user, else default to 'TexDocument'  
-      if self.args.structure == None:
+      if self.args.new == None:
          structure_dir = self.input_bare
       else: 
-         structure_dir = self.args.structure
+         structure_dir = self.args.new
 
       # Determine the path where document structure will be created   
       structure_path = os.path.abspath(structure_dir)
@@ -334,7 +330,7 @@ class buildPDF():
       if os.path.isdir(structure_path):
          print_error(tc.BOLD + structure_path + tc.ENDC + ": directory already exists!")
       else:
-         if self.args.structure == None:
+         if self.args.new == None:
             print_warn("No folder name provided, will create new directory structure in:\n  {0}".format(tc.BOLD+structure_path+tc.ENDC), pre='\n') 
             response = input("\nAre you sure you want to create new document folder here?\n  Please respond y/n: ")
             if response.lower() == 'no' or response.lower() == 'n':
@@ -346,7 +342,18 @@ class buildPDF():
                print_error("User response, '{0}', not recognized".format(response))
       
       # Copy the entire template directory
+      structure_path_support = os.path.join(structure_path,'support')
+      print(structure_path_support)
       shutil.copytree(os.path.join(self.buildPDF_dir_path ,'support','boilderplate'), structure_path)
+      os.makedirs(structure_path_support)
+      shutil.copy(os.path.join(self.buildPDF_dir_path,'buildPDF.py'), structure_path_support)
+      shutil.copy(os.path.join(self.buildPDF_dir_path,'support','nasa-latex-docs.cls'), structure_path_support)
+      shutil.copy(os.path.join(self.buildPDF_dir_path,'support','packages','packages.tex'), structure_path_support)
+      shutil.copytree(os.path.join(self.buildPDF_dir_path,'support','templates'), os.path.join(structure_path_support,'templates'))
+      shutil.copytree(os.path.join(self.buildPDF_dir_path,'support','biblatex'), os.path.join(structure_path_support,'biblatex'))
+      shutil.copytree(os.path.join(self.buildPDF_dir_path,'support','export'), os.path.join(structure_path_support,'export'))
+      shutil.copytree(os.path.join(self.buildPDF_dir_path,'support','latexmk'), os.path.join(structure_path_support,'latexmk'))
+      shutil.copytree(os.path.join(self.buildPDF_dir_path,'support','packages','mcode'), os.path.join(structure_path_support,'mcode'))
 
       # Rename the files with the given user input name
       try: 
@@ -358,7 +365,8 @@ class buildPDF():
          print_error("Invalid input file name: '{0}'".format(self.input_tex))
       
       # Print path to created template and exit
-      print("Template created in:\n  '{0}'\n\nTo build PDF run:\n  python {2} {1}".format(tc.BOLD+structure_path+tc.ENDC,tc.BOLD+os.path.join(structure_path,self.input_tex)+tc.ENDC,self.buildPDF_abs_path))
+      print("\nTemplate created in:\n  {0}\n\nTo build PDF run the following from {0}:\n\n  \033[1m./support/buildPDF.py {1}\033[0m\n".format(tc.BLUE+structure_path+tc.ENDC,self.input_tex))
+
       sys.exit(0) 
 
       return
@@ -683,117 +691,6 @@ class buildPDF():
       return
 
    ###################################################################
-   # METHOD: runs the export method for creating standalone document
-   ###################################################################
-
-   def _export_document(self):
-      if not self.args.export:
-         return
-      
-      # Determine the absolute path for the standalone version of document
-      export_path    = os.path.join(self.input_dir_path, self.input_bare+'_standalone')  
-      support_path   = os.path.join(export_path,'support')
-      bib_path       = os.path.join(export_path,'bib')  
-      print_status("\nExporting Document To",export_path)  
-
-      # Go to directory where input TeX file is located
-      os.chdir(self.input_dir_path)
-
-      # Make sure that the recorder file exists in tmp/
-      reorder_file_path = os.path.join(self.ENV['TMPDIR'],self.input_bare+'.fls')
-      if not os.path.isfile(reorder_file_path):
-         print_error("Recorder file not found in expected location:\n  {0}".format(reorder_file_path))
-
-      # Remove any existing directory 
-      if os.path.isdir(export_path):
-         shutil.rmtree(export_path)
-
-      doc_folders = []
-      for folder, subfolders, files in os.walk(self.input_dir_path):
-         if self.ENV['TMPDIR'] not in folder and folder != self.input_dir_path: 
-            doc_folders.append(folder.replace(self.input_dir_path,export_path))     
-
-      # Create the necessary directories
-      os.makedirs(export_path)
-      os.makedirs(support_path)
-      for item in doc_folders:
-         os.makedirs(item)
-      if not os.path.isdir(bib_path):
-         os.makedirs(bib_path)
-      
-      # Parse through the recorder file
-      req_files = []
-      with open(reorder_file_path) as reorder_file:
-         for line in reorder_file:
-            
-            # Strip the line of any spaces
-            line = line.strip()          
-            
-            # Ignore files from TeX distribution install and any file labeled as "OUTPUT" or "PWD"
-            if any(x in line.lower() for x in ['texlive','miktex','output','pwd']):
-               continue
-
-            # Remove the INPUT key designator from remaining lines
-            line = line.replace('INPUT','').strip()   
-
-            # Make sure each line points to a file that exists, i.e. an absolute path
-            if not os.path.isfile(line): 
-               continue
-            else:
-               line =  os.path.abspath(line)
-
-            # Remove any file that is located in self.ENV['TMPDIR']
-            if self.ENV['TMPDIR'] in line:  
-               continue
-
-            # Add list of required files to list if they are not there yet
-            if line not in req_files:
-               req_files.append(line)
-            else:
-               continue   
-            
-            if line == self.input_abs_path:
-               shutil.copyfile(line,os.path.join(export_path,self.input_tex))
-               continue
-            
-            if self.input_dir_path in line:
-               line.replace(self.input_dir_path,export_path)
-               shutil.copyfile(line,line.replace(self.input_dir_path,export_path))
-            else:
-               shutil.copyfile(line,os.path.join(support_path,os.path.basename(line)))
-
-      # Make sure any bib files are picked up because recorder option does not show them
-      bib_files = []
-      bib_files_copy_location = []
-      for root, dirs, files in os.walk(self.input_dir_path):
-         for file in files:
-            if file.endswith(".bib") and self.ENV['TMPDIR'] not in root:
-               bib_files.append(os.path.join(root,file))
-               bib_files_copy_location.append(os.path.join(bib_path,file))
-      # Copy each of the bib files found to their standalone location 
-      for bib_file, bib_loc in zip(bib_files,bib_files_copy_location):
-         shutil.copyfile(bib_file,bib_loc) 
-       
-      # Prior to exiting, delete any empty directories that are not needed
-      for root, dirs, files in os.walk(export_path,topdown=False):
-         for name in dirs:
-            fname = os.path.join(root,name)
-            try:
-               if not os.listdir(fname): #to check wither the dir is empty
-                   os.removedirs(fname)
-            except:
-               pass
-               
-      # This last portion will attempt to archive everything in support/ using arlatex
-      self._run_arlatex(support_path)
-
-      # Copy over this build script to export_path (using copy2 to keep permissions during copy)
-      shutil.copy2(self.buildPDF_abs_path,os.path.join(support_path,'buildPDF.py'))
-      shutil.copytree(os.path.dirname(self.latexmkrc_abs_path), os.path.join(support_path,'latexmk'))
-
-      return   
-
-   ###################################################################
    # METHOD: class main run method to execute functional code
    ###################################################################
 
@@ -816,13 +713,6 @@ class buildPDF():
 
       # Set the environment variables used by latexmk (even on passthrough)
       self._set_environment()
-
-      # Delete the tmp/ directory if this is an archive run   
-      export_path    = os.path.join(self.input_dir_path, self.input_bare+'_standalone') 
-      # if self.args.export and os.path.isdir(self.ENV['TMPDIR']):
-      #    shutil.rmtree(self.ENV['TMPDIR'])
-      if self.args.export and os.path.isdir(export_path):
-         shutil.rmtree(export_path)
 
       # Check for existence of tmp/build.out to initialize self.latexmk_returncode
       try: 
@@ -849,9 +739,6 @@ class buildPDF():
          print_error("No PDF created on last build attempt", exit=False)
          self._print_texfot(True)
          sys.exit(self.latexmk_returncode)
-
-      # Call the export document method  
-      self._export_document()
 
       # Delete the tmp/ directory if user specifies   
       if self.args.clean:
