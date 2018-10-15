@@ -354,6 +354,7 @@ class buildPDF():
       shutil.copytree(os.path.join(self.buildPDF_dir_path,'support','export'), os.path.join(structure_path_support,'export'))
       shutil.copytree(os.path.join(self.buildPDF_dir_path,'support','latexmk'), os.path.join(structure_path_support,'latexmk'))
       shutil.copytree(os.path.join(self.buildPDF_dir_path,'support','packages','mcode'), os.path.join(structure_path_support,'mcode'))
+      shutil.copytree(os.path.join(self.buildPDF_dir_path,'support','images'), os.path.join(structure_path_support,'templates','images'))
 
       # Rename the files with the given user input name
       try: 

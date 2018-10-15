@@ -166,14 +166,20 @@
 \renewcommand\cftsubparafont     {\fontsize{10pt}{6pt}\selectfont}
 
 % Add some spacing so the section number and title dont overlap in TOC
-\setlength\cftsecnumwidth{35pt}
-\setlength\cftsubsecnumwidth{40pt}
-\setlength\cftsubsubsecnumwidth{40pt}
+\setlength\cftsecnumwidth{30pt}
+\setlength\cftsubsecnumwidth{32pt}
+\setlength\cftsubsubsecnumwidth{32pt}
 \setlength{\cftbeforetoctitleskip}{1in}
 
+% Change font sizes in LoF and LoT
+\renewcommand\cftfigfont         {\fontsize{10pt}{6pt}\selectfont}
+\renewcommand\cfttabfont         {\fontsize{10pt}{6pt}\selectfont}
+
 % Add some spacing so the figure or table number and title dont overlap in LOF ot LOT
-\setlength\cftfignumwidth{42pt}
-\setlength\cfttabnumwidth{42pt}
+\setlength\cftfignumwidth{35pt}
+\setlength\cfttabnumwidth{35pt}
+\setlength\cftfigindent{0pt}
+\setlength\cfttabindent{0pt}
 \setlength\cftbeforefigskip{0pt}
 \setlength\cftbeforetabskip{0pt}
 
@@ -268,6 +274,8 @@
       \begin{center}
          \textbf{EXECUTIVE SUMMARY}
       \end{center}
+
+      \vspace{\baselineskip}
 
       \@docAbstract      
    }
