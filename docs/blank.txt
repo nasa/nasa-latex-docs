@@ -1,1 +1,0 @@
-placeholder, if you delete this and nothing is in docs folder the docs folder will go away too. 
