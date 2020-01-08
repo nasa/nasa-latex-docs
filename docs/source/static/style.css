@@ -6,3 +6,8 @@ div.wy-nav-content a:visited {
 div.version a:visited, div.version a{
     color: white;
 }
+
+/* Set the width of the main content */
+.wy-nav-content {
+    max-width: 1250px !important;
+}
