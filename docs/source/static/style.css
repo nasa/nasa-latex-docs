@@ -1,0 +1,8 @@
+/* Make sure that links don't change color after clicking on them */
+div.wy-nav-content a:visited {
+    color: #2980B9;
+}
+
+div.version a:visited, div.version a{
+    color: white;
+}
