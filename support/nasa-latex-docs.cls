@@ -245,7 +245,7 @@
 
 \newenvironment{nomenclature}[1][]
 {
-   \noindent\tabular{@{} p{\@docNomenclatureScale\docNomenclatureVarWidthDefault} @{\hspace{2pt}=\hspace{0.5em}} l} %
+   \noindent\tabular{@{} p{\@docNomenclatureScale\docNomenclatureVarWidthDefault} @{\hspace{2pt}\@docNomenclatureSeparator\hspace{0.5em}} l} %
 }{
    \endtabular
 }
