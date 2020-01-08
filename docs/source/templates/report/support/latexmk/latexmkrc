@@ -1,0 +1,121 @@
+# Purpose: Custom latexmk configuration for NASA-LaTeX-Docs package builder: buildPDF.py
+
+# Initialize environment variables if not already defined
+# These should be getting defined through the buildPDF script
+$ENV{'PREVIEW_PDF'} //= 0;
+$ENV{'CONTINUOUS_PREVIEW'} //= 0;
+$ENV{'OUTPUT_PDF_NAME'} //= %S;
+$ENV{'SILENT'} //= 1;
+
+if ($^O =~ /darwin/) {
+   if ($ENV{'SILENT'} ==0) { print "DIAGNOSTICS = Operating System Detected: Mac OSX\n"; }
+   $ENV{'PREVIEW_PROGRAM'} //= 'preview';
+   $filesep = '/'
+} elsif ($^O =~ /MSWin32/) {
+   if ($ENV{'SILENT'} ==0) { print "DIAGNOSTICS = Operating System: Windows\n"; }
+   $ENV{'PREVIEW_PROGRAM'} //= 'gsview32';
+   $filesep = '\\'
+} elsif ($^O =~ /linux/) {
+   if ($ENV{'SILENT'} ==0) { print "DIAGNOSTICS = Operating System: Linux\n"; }
+   $ENV{'PREVIEW_PROGRAM'} //= 'evince';
+   $filesep = '/'
+}
+
+# Final check if PDF viewer is not defined
+# Place dummy value, latexmk will attempt default viewer from OS
+$ENV{'PREVIEW_PROGRAM'} //= 'DEFAULT';
+
+# Create file containing a list of the files that these programs have read and written
+# For better source file detection
+$recorder   = 1;
+
+# Generate a pdf version of the document using pdflatex
+$pdf_mode   = 1;
+
+# Run latexmk silently, not output to text
+$silent     = $ENV{'SILENT'};
+$quiet      = $ENV{'SILENT'};
+
+# Use bibtex if an appropriate *.bib file exists
+$bibtex_use = 1;
+
+# If nonzero, continue processing past minor latex errors including unrecognized cross references
+$force_mode = 0;
+
+# Pass specific options to bibtex
+$bibtex     = "bibtex %S > '$ENV{'TMPDIR'}'${filesep}bibtex.out";
+# $bibtex     = "bibtex %S";
+
+# Define all output directories to be "tmp"
+# All build files will now be placed in this directory
+$aux_dir = "tmp";
+$tmpdir  = "tmp";
+$out_dir = 'tmp';
+
+$success_cmd = "python $ENV{'BUILDPDF_PATH'} '$ENV{'INPUT_SOURCE_PATH'}' --latexmk-passthrough-success -o '$ENV{'OUTPUT_PDF_NAME'}'";
+
+$compiling_cmd = "";
+
+$failure_cmd = "python $ENV{'BUILDPDF_PATH'} '$ENV{'INPUT_SOURCE_PATH'}' --latexmk-passthrough-fail";
+
+# Check if continuous preview watch is enabled
+if ($ENV{'CONTINUOUS_PREVIEW'} == 1) {   
+   $preview_continuous_mode=1;
+   if ($ENV{'SILENT'} ==0) { print "DIAGNOSTICS = Continuous Preview ENABLED\n"; }
+} else {
+   $preview_continuous_mode = 0;
+}
+
+if ($ENV{'PREVIEW_PDF'} == 1) { 
+   if ($ENV{'CONTINUOUS_PREVIEW'} == 0) { 
+      $preview_mode = 1;
+   }
+
+   # Check to see if there is a defined viewer program to use
+   if ($ENV{'PREVIEW_PROGRAM'} ne "DEFAULT") {
+      if ($^O =~ /darwin/) { # Mac
+         # -g option keeps the focus on the window which called the build
+         # -a option to specify what application to use
+         $pdf_previewer="start open -g -a $ENV{'PREVIEW_PROGRAM'}";
+      } elsif ($^O =~ /MSWin32/) { # Windows
+         # Use the windows start command to call default PDF viewer
+         $pdf_previewer='start "" /max %O %S';
+      } elsif ($^O =~ /linux/) { # Linux
+         # Call the program directly
+         $pdf_previewer="$ENV{'PREVIEW_PROGRAM'}";
+      }
+   }
+   if ($ENV{'SILENT'} ==0) { print "DIAGNOSTICS = Preview ENABLED with Program: $ENV{'PREVIEW_PROGRAM'}\n"; }
+
+   # Type of file to view
+   $view="pdf";
+} else {
+   $preview_mode = 0;
+   $view="none";
+}
+
+$pdflatex = 'internal buildPDF %O %S';
+$pdflatex_silent_switch = '';
+
+sub buildPDF {
+   my @args = @_;
+   return system "python", "$ENV{'BUILDPDF_PATH'}","$ENV{'INPUT_SOURCE_PATH'}", "--latexmk-passthrough-build", "-interaction=nonstopmode @args";
+}
+
+# Add glossary dependency to build glossaries
+add_cus_dep('glo', 'gls', 0, 'makeglossaries');
+
+# Add acronym dependency to build glossaries
+add_cus_dep('acn', 'acr', 0, 'makeglossaries');
+
+sub makeglossaries {
+   my ($base_name, $path) = fileparse( $_[0] );
+   pushd $path;
+   if ( $silent ) {
+      my $return = system "makeglossaries -q $base_name";
+   } else {
+      my $return = system "makeglossaries $base_name";
+   };
+   popd;
+   return $return;
+}

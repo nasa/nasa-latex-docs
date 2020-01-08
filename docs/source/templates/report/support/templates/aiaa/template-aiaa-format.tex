@@ -1,0 +1,157 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TEMPLATE: Define bibliography options
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Define the options for bibliography and load biblatex package
+\RequirePackage[
+   backend     = bibtex8, 
+   giveninits  = true, 
+   natbib      = true, 
+   style       = aiaa, 
+   autocite    = superscript, 
+   bibwarn     = false, 
+   biblabel    = superscript]{biblatex}
+
+% Allows cite command to control autocite
+\let\cite\autocite
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TEMPLATE: Define document format settings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Set the geometry for each page
+\geometry{margin=1in,includefoot} 
+
+% Load times package to change document font to Times New Roman
+\RequirePackage{times}
+
+% Load mathptmx to change the equation font to Times New Roman
+\RequirePackage{mathptmx}
+
+% Change the fontsizes for a 10pt base (skip 1.2 x fontsize) (default in nasa-latex-docs.cls = 12pt)
+% Link: https://en.wikibooks.org/wiki/LaTeX/Fonts#Font_families
+\renewcommand\tiny{\@setfontsize\tiny{5pt}{6pt}}
+\renewcommand\scriptsize{\@setfontsize\scriptsize{7pt}{8.4pt}}
+\renewcommand\footnotesize{\@setfontsize\footnotesize{8pt}{9.6pt}}
+\renewcommand\small{\@setfontsize\small{9pt}{10.8pt}}
+\renewcommand\normalsize{\@setfontsize\normalsize{10pt}{12pt}}
+\renewcommand\large{\@setfontsize\large{12pt}{12pt}}
+\renewcommand\Large{\@setfontsize\Large{14.4pt}{17.28pt}}
+\renewcommand\LARGE{\@setfontsize\LARGE{17.28pt}{20.74}}
+\renewcommand\huge{\@setfontsize\huge{20.74pt}{24.88}}
+\renewcommand\Huge{\@setfontsize\Huge{24.88pt}{29.86}}
+
+% Set the depth of the sections
+\setcounter{secnumdepth}{3}
+
+% Define section font styling
+\titleformat{\section}{\centering\normalfont\bfseries\fontsize{11}{12}\selectfont}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\bfseries\normalsize}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\itshape\normalsize}{\thesubsubsection}{1em}{}
+
+% Renew the commands for proper section numbering
+\renewcommand{\thesection}{\Roman{section}.} 
+\renewcommand{\thesubsection}{\Alph{subsection}.} 
+\renewcommand{\thesubsubsection}{\arabic{subsubsection}.} 
+
+% This command is supposed to add period after sections (instead of above) - BUT it is not working for some reason.
+\renewcommand\@seccntformat[1]{\csname the#1\endcsname.\quad}
+
+% Sets the footnote number styles to symbols - create new symbol to wrap around first 9
+\newalphalph{\fnsymbolwrap}[wrap]{\@fnsymbol}{}
+\renewcommand{\thefootnote}{\fnsymbolwrap{\value{footnote}}}
+
+% Define spacing between Section titles and text
+\titlespacing{\section}{0pt}{0.25\baselineskip}{0\baselineskip}
+\titlespacing{\subsection}{0pt}{0.25\baselineskip}{0\baselineskip}
+\titlespacing{\subsubsection}{0pt}{0.25\baselineskip}{0\baselineskip}
+\titlespacing{\paragraph}{0pt}{0.25\baselineskip}{0\baselineskip}
+
+% Define the distance between footer (page number) and text
+\setlength{\footskip}{2\baselineskip}
+
+% Define the headheight - set to zero, no header in this format
+\setlength{\headheight}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{0pt}
+
+% Modify the header and footer lines - set to zero to remove
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Change all quoting environments to be 9pt font
+\AtBeginEnvironment{quote}{\normalsize}
+\AtBeginEnvironment{quotation}{\small}
+\AtBeginEnvironment{verse}{\small}
+
+% Change the figure and table label separation characters to periods
+\captionsetup[table]{labelsep=period}
+\captionsetup[figure]{labelsep=period}
+
+% Make the references fontsize small
+\renewcommand*{\bibfont}{\small}
+
+% Make sure the type-writer font uses computer modern instead of times new roman
+\let\OldTexttt\texttt
+\renewcommand{\texttt}[1]{\OldTexttt{\fontfamily{lmtt}\selectfont #1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TEMPLATE: Define document header and footer settings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Create the Footer - Clear the current header/footer style
+\fancyhf{} 
+
+% Set the current header/footer style
+\pagestyle{fancy}
+
+% Define the centered footer
+\cfoot{\thepage \\ American Institute of Aeronautics and Astronautics}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TEMPLATE: Define custom content commands to be used in template file(s)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\aiaaTitle}{
+   \begin{center}
+      % Create title: 18pt font, bold, centered 
+      \LARGE\bfseries 
+      \@docTitle \vspace{\baselineskip}
+   \end{center}
+}
+
+\newcommand{\aiaaAuthors}{
+   \begin{center}
+      \multido{\ii=1+1}{10}{%
+         \checkdocAuthorName(\ii)
+         \ifemptydata
+            % \docAuthor not defined for this index, skip
+         \else
+            % Funky workaround to get "\thanks" to ready array - sets value to "\cachedata"\setlength{\leftskip}{0.5\baselineskip}
+            \checkdocAuthorPosition(\ii) 
+            \docAuthorName(\ii)\thanks{\small\cachedata}\break
+            % \docAuthorName(\ii)\break
+            \textit{\docAuthorOrganization(\ii), \docAuthorLocation(\ii)} \break
+            % Determine if there is an author after the current index to print "and"
+            \edef\iinext{\number\numexpr\ii+1\relax}
+            \checkdocAuthorName(\iinext)
+            \ifemptydata
+               \break
+            \else
+               \\ \vspace{-0.5\baselineskip} \textit{and} \vspace{0.5\baselineskip} \break
+            \fi    
+         \fi   
+      }
+   \end{center}
+}
+
+\newcommand{\aiaaAbstract}{
+   % Create abstract by putting minipage in centered box
+   \noindent\makebox[\textwidth][c]{
+   % Letter paper width - left margin - right margin - 0.5 inch indent on each side (left/right)
+   % 8.5in - 1in - 1in - 0.5in - 0.5in = 5.5 inch width for abstract
+   \begin{minipage}{5.5in} 
+      \normalsize\bfseries
+      \@docAbstract 
+   \end{minipage}}
+}

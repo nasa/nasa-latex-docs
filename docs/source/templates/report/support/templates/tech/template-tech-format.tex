@@ -1,0 +1,461 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TEMPLATE: Define bibliography options
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Define the options for bibliography and load biblatex package
+\RequirePackage[
+   backend     = bibtex8, 
+   giveninits  = true, 
+   natbib      = true, 
+   style       = aiaa, 
+   autocite    = inline, 
+   bibwarn     = false]{biblatex}
+
+% Allows cite command to control autocite
+\let\cite\autocite
+
+\RequirePackage{ragged2e}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TEMPLATE: Define document format settings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Set the geometry for each page
+\geometry{head=0.5in,foot=0.25in,top=0.65in,left=1in,right=1in,bottom=0.95in,includeheadfoot}
+
+% Set new paragraph indentation to zero
+\setlength{\parindent}{0in}
+
+% Define paragraph skip sizes - space between paragraphs
+\setlength{\parskip}{12pt}
+
+% Create a section break after each "section"
+\let\oldsection\section
+\renewcommand\section{\clearpage\oldsection}
+
+\docExport[true]
+\docITAR[false]
+\docSBU[false]
+
+% Define that figures and tables are numbered based on section e.g. "Table X.X"
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+\counterwithin{equation}{section}
+% Note: counterwithin for lstlisting needs to happen after \begin{document}
+\AtBeginDocument{\counterwithin{lstlisting}{section}}
+
+% Define spacing between Section titles and text
+\titlespacing{\section}{0pt}{0.25\baselineskip}{0\baselineskip}
+\titlespacing{\subsection}{0pt}{0.25\baselineskip}{0\baselineskip}
+\titlespacing{\subsubsection}{0pt}{0.25\baselineskip}{0\baselineskip}
+\titlespacing{\paragraph}{0pt}{0.25\baselineskip}{0\baselineskip}
+
+% This little function splits the last page computation between:
+   % roman: frontmatter
+   % arabic: mainmatter
+\newif\if@mainmatter
+\newcommand{\frontmatter}{%
+  \clearpage
+  \pagenumbering{roman}
+  \edef\computelastpage{%
+    \romannumeral\numexpr\getpagerefnumber{LastFrontPage}-1\relax}}
+\newcommand{\mainmatter}{%
+  \clearpage
+  \immediate\write\@auxout{\noexpand\newlabel{LastFrontPage}{{}{\arabic{page}}}}%
+  \@mainmattertrue
+  \pagenumbering{arabic}
+  \def\computelastpage{\pageref{LastPage}}}
+\newcommand{\backmatter}{%
+  \clearpage
+  \immediate\write\@auxout{\noexpand\newlabel{LastBackPage}{{}{\arabic{page}}}}%
+  \pagenumbering{Roman}
+  \edef\computelastpage{%
+  \romannumeral\numexpr\getpagerefnumber{LastBackPage}-1\relax}}
+
+% Set equation labels in brackets as opposed to parentheses
+\newtagform{brackets}{[}{]}
+\usetagform{brackets}
+
+% Remove space after figure and table environments
+\AfterEndEnvironment{table}{\vspace{-1\baselineskip}}
+\AfterEndEnvironment{figure}{\vspace{-1\baselineskip}}
+\AtBeginEnvironment{quote}{\vspace{-\baselineskip}}
+\AtEndEnvironment{quote}{\vspace{-\baselineskip}}
+\AtBeginEnvironment{center}{\vspace{-0.5\baselineskip}}
+\AtEndEnvironment{center}{\vspace{-0.5\baselineskip}}
+\AtBeginEnvironment{itemize}{\vspace{-0.5\baselineskip}}
+\AtEndEnvironment{itemize}{\vspace{-0.5\baselineskip}}
+\AtBeginEnvironment{enumerate}{\vspace{-0.5\baselineskip}}
+\AtEndEnvironment{enumerate}{\vspace{-0.5\baselineskip}}
+\AtEndEnvironment{listing}{\vspace{-\baselineskip}}
+
+% % Define the headheight - set to zero, no header in this format
+\setlength{\headheight}{60pt}
+% \setlength{\headsep}{0pt}
+% \setlength{\topmargin}{0pt}
+
+% % Modify the header and footer lines - set to zero to remove
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{1pt}
+
+\renewcommand{\PREprintbibliography}{\newpage}  
+\renewcommand{\PREprintNomenclature}{\newpage}  
+
+% Make the references fontsize small
+\renewcommand*{\bibfont}{\small}
+
+\newcommand{\TitlePageGeometry}{\newgeometry{top=0.75in,left=1in,right=1in,bottom=0.75in}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TEMPLATE: Define document header and footer settings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Define size of the header/footer text
+\newcommand{\hfsize}{\footnotesize}
+
+% Create the Footer - Clear the current header/footer style
+\fancyhf{} 
+
+% Set the current header/footer style
+\pagestyle{fancy}
+
+% Define the centered header
+\chead{
+\begin{tabular}{|L{.58\textwidth}|p{.365\textwidth}|}
+   \hline
+   \multicolumn{2}{|c|}{\hfsize\bfseries\@docTypeTitle} \\
+   \hline
+   \multirow{2}{*}{\parbox{.58\textwidth}{\hfsize\hangindent=0.36in \raggedright Title: \@docTitle}}
+   \ifdefstring{\@docNumber}{}{
+      & \hfsize Document No: N/A \\ & \hfsize  Effective Date: \@docDate  \\ 
+   }{
+      & \hfsize  Document No: \@docNumber \\
+      & \hfsize  Effective Date: \@docDate \\
+   }
+   \hline
+\end{tabular}
+\vspace{-22pt}
+}
+
+% Left footer
+\lfoot{\printExportFooter}
+
+% Right Footer
+\rfoot{\hfsize Page: \thepage \hspace{2pt} of \hspace{2pt} \begingroup\hypersetup{linkcolor=black}\computelastpage\endgroup}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TEMPLATE: Settings for TOC, LOF, LOT, Acronyms
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% This command adds dots in TOC for all entries (sections didnt have them)
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+% This command adds "Figure" to front of LoF entries
+% \renewcommand{\cftfigfont}{Figure }
+% This command adds "Table" to front of LoT entries
+%\renewcommand{\cfttabfont}{Table }
+
+% Chnage the space between dotted lines
+\renewcommand\cftdotsep{1.5}
+
+% Create Table of Contents, ToC
+% Change font sizes in ToC
+\renewcommand\cftsecfont         {\fontsize{11pt}{6pt}\selectfont\bfseries}
+\renewcommand\cftsubsecfont      {\fontsize{10pt}{6pt}\selectfont}
+\renewcommand\cftsubsubsecfont   {\fontsize{10pt}{6pt}\selectfont}
+\renewcommand\cftparafont        {\fontsize{10pt}{6pt}\selectfont}
+\renewcommand\cftsubparafont     {\fontsize{10pt}{6pt}\selectfont}
+
+% Add some spacing so the section number and title dont overlap in TOC
+\setlength\cftsecnumwidth{30pt}
+\setlength\cftsubsecnumwidth{32pt}
+\setlength\cftsubsubsecnumwidth{32pt}
+\setlength{\cftbeforetoctitleskip}{1in}
+
+% Change font sizes in LoF and LoT
+\renewcommand\cftfigfont         {\fontsize{10pt}{6pt}\selectfont}
+\renewcommand\cfttabfont         {\fontsize{10pt}{6pt}\selectfont}
+
+% Add some spacing so the figure or table number and title dont overlap in LOF ot LOT
+\setlength\cftfignumwidth{35pt}
+\setlength\cfttabnumwidth{35pt}
+\setlength\cftfigindent{0pt}
+\setlength\cfttabindent{0pt}
+\setlength\cftbeforefigskip{0pt}
+\setlength\cftbeforetabskip{0pt}
+
+% Code listings have to be modified in a diffrent manner to match LOF and LOT format
+\AtBeginDocument{%
+\renewcommand\lstlistoflistings{\bgroup
+  \let\contentsname\lstlistlistingname
+  \def\l@lstlisting##1##2{\@dottedtocline{1}{1.5em}{42pt}{##1}{##2}}
+  \let\lst@temp\@starttoc \def\@starttoc##1{\lst@temp{lol}}%
+  \tableofcontents \egroup}
+}
+
+
+
+% Create List of Tables section separators
+% \renewcommand\cfttabfont\small
+% \preto\table{%
+%   \ifnum\value{table}=0\addtocontents{lot}{{\vskip\baselineskip}}\fi
+% }
+
+% % Create List of Figures section separators
+% \renewcommand\cftfigfont\small
+% \preto\figure{%
+%   \ifnum\value{figure}=0\addtocontents{lof}{{\vskip\baselineskip}}\fi
+% }
+
+% Make the list of acronyms
+\renewcommand{\glsnamefont}[1]{\textbf{#1}} % Set aronyms back to bold
+\renewcommand{\glossarypreamble}{\small} % Change fontsize
+\renewcommand{\arraystretch}{1.2}
+\setlength{\glspagelistwidth}{0.8\textwidth}
+\setlength{\glsdescwidth}{0.8\textwidth}
+\glssetwidest[0]{ALongPlaceHolder}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TEMPLATE: Update the settings for the appendix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% This adds the \backmatter to the begining of appendices to change numbering
+\AtBeginEnvironment{appendices}{
+   % For page numbering - back to roman
+   % \backmatter
+
+   % For subsection numbering - use alphanumeric combination
+   \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+
+   % This helps to setup pdf bookmarks for appendices
+   \titleformat{\section}{\normalfont\Large\bfseries\bookmarksetupnext{level=subsection}}{\thesection}{1em}{}
+   \titleformat{\subsection}{\normalfont\large\bfseries\bookmarksetupnext{level=subsubsection}}{\thesubsection}{1em}{}
+   \titleformat{\subsubsection}{\normalfont\normalsize\bfseries\bookmarksetupnext{level=paragraph}}{\thesubsubsection}{1em}{}
+   }
+   
+% \AtEndEnvironment{appendices}{\backmatter}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TEMPLATE: Define custom content commands to be used in template file(s)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\printRevisionLog}{
+   \ifdefstring{\@docRevisionLog}{}{}{
+      \newpage \null
+      \phantomsection
+      \pdfbookmark[2]{Revision Log}{revision}
+
+      \begin{center}
+         \textbf{REVISION LOG}
+      \end{center}
+
+      \vspace{0.25in}
+
+      \ifdefstring{\@docRevisionLog}{default}{
+         \small\textnormal
+         {\color{input}\textbackslash docRevisionLog[}\\
+         {\color{input}\hspace{0.25in}\textbackslash begin\{versionhistory\}}\\
+         {\color{input}\hspace{0.25in}\textbackslash vhEntry\{{\color{black}\small\it revision}\}\{{\color{black}\small\it date}\}\{{\color{black}\small\it author}\}\{{\color{black}\small\it description}\}}\\
+         {\color{input}\hspace{0.25in}\textbackslash vhEntry\{{\color{black}\small\it revision}\}\{{\color{black}\small\it date}\}\{{\color{black}\small\it author}\}\{{\color{black}\small\it description}\}}\\
+         {\color{input}\hspace{0.25in}\textbackslash end\{versionhistory\}}\\
+         {\color{input}]}
+      }{
+         \@docRevisionLog      
+      }
+   }
+}
+
+\newcommand{\printExecutiveSummary}{
+   \ifdefstring{\@docAbstract}{}{}{
+      \newpage \null
+      \phantomsection
+      \pdfbookmark[2]{Executive Summary}{execsummary}
+
+      \begin{center}
+         \textbf{EXECUTIVE SUMMARY}
+      \end{center}
+
+      \vspace{\baselineskip}
+
+      \@docAbstract      
+   }
+}
+
+\newcommand{\printAuthorPage}{
+\checkdocAuthorName(1)
+\ifemptydata
+  % If not input for docContributorName(1), skip entire section
+\else
+   \newpage \null
+   \phantomsection
+   \pdfbookmark[2]{Author Page}{author}
+
+   \begin{center}
+    \textbf{AUTHOR PAGE}
+   \end{center}
+
+   \textbf{Prepared by:} \vspace{6pt}
+
+   \multido{\ii=1+2}{10}{%
+    \checkdocAuthorName(\ii)
+    \ifemptydata
+       % \docAuthor not defined for this index, skip
+    \else
+       \begin{minipage}{.48\textwidth}%
+       \ifdefstring{\@docSigned}{true}{
+          \textit{/s/ \docAuthorName(\ii)} \hfill \@docSignDate 
+       }{
+          \textit{\small To Sign:} 
+          {\small\textnormal{\color{input}\textbackslash docSigned[{\color{black} true}]}}
+          {\small\textnormal{\color{input}\textbackslash docSignDate[{\color{black} date}]}}  
+       }  
+       \vspace{6pt} \hrule \vspace{5pt}
+       \small\textbf{\docAuthorName(\ii)} \hfill \textbf{Date} \break
+       \docAuthorPosition(\ii) \hfill \break
+       \docAuthorOrganization(\ii) \hfill \break
+       \docAuthorLocation(\ii) \hfill 
+       \end{minipage}%
+       \begin{minipage}{.01\textwidth}%
+       \hfill
+       \end{minipage}%
+       \edef\iinext{\number\numexpr\ii+1\relax}
+       \checkdocAuthorName(\iinext)
+       \ifemptydata
+          \vspace{12pt}
+          \break
+       \else
+          \begin{minipage}{.48\textwidth}%
+          \ifdefstring{\@docSigned}{true}{
+             \textit{/s/ \docAuthorName(\iinext)} \hfill \@docSignDate 
+          }{
+            \textit{\small To Sign:} 
+            {\small\textnormal{\color{input}\textbackslash docSigned[{\color{black} true}]}}
+            {\small\textnormal{\color{input}\textbackslash docSignDate[{\color{black} date}]}} 
+          }  
+            \vspace{6pt} \hrule \vspace{5pt}
+            \small\textbf{\docAuthorName(\iinext)} \hfill \textbf{Date} \break
+            \docAuthorPosition(\iinext) \hfill \break
+            \docAuthorOrganization(\iinext) \hfill \break
+            \docAuthorLocation(\iinext) \hfill 
+            \end{minipage}%
+            \hfill
+            \vspace{12pt}
+       \fi    
+    \fi   
+   }
+\fi     
+}
+
+\newcommand{\printApproverPage}{
+\checkdocApproverName(1)
+\ifemptydata
+ % If not input for docContributorName(1), skip entire section
+\else
+   \newpage \null
+   \phantomsection
+   \pdfbookmark[2]{Signature Page}{signature}
+
+   \begin{center}
+   \textbf{SIGNATURE PAGE}
+   \end{center}
+
+   \textbf{Approved by:} \vspace{6pt}
+
+   \multido{\ii=1+2}{10}{%
+   \checkdocApproverName(\ii)
+   \ifemptydata
+    % \docAuthor not defined for this index, skip
+   \else
+    \begin{minipage}{.48\textwidth}%
+    \ifdefstring{\@docSigned}{true}{
+       \textit{/s/ \docApproverName(\ii)} \hfill \@docSignDate 
+    }{
+       \textit{\small To Sign:} 
+       {\small\textnormal{\color{input}\textbackslash docSigned[{\color{black} true}]}}
+       {\small\textnormal{\color{input}\textbackslash docSignDate[{\color{black} date}]}}  
+    }  
+    \vspace{6pt} \hrule \vspace{5pt}
+    \small\textbf{\docApproverName(\ii)} \hfill \textbf{Date} \break
+    \docApproverPosition(\ii) \hfill \break
+    \docApproverOrganization(\ii) \hfill \break
+    \docApproverLocation(\ii) \hfill 
+    \end{minipage}%
+    \begin{minipage}{.01\textwidth}%
+    \hfill
+    \end{minipage}%
+    \edef\iinext{\number\numexpr\ii+1\relax}
+    \checkdocApproverName(\iinext)
+    \ifemptydata
+       \vspace{12pt}
+       \break
+    \else
+       \begin{minipage}{.48\textwidth}%
+       \ifdefstring{\@docSigned}{true}{
+          \textit{/s/ \docApproverName(\iinext)} \hfill \@docSignDate 
+       }{
+         \textit{\small To Sign:} 
+         {\small\textnormal{\color{input}\textbackslash docSigned[{\color{black} true}]}}
+         {\small\textnormal{\color{input}\textbackslash docSignDate[{\color{black} date}]}} 
+       }  
+         \vspace{6pt} \hrule \vspace{5pt}
+         \small\textbf{\docApproverName(\iinext)} \hfill \textbf{Date} \break
+         \docApproverPosition(\iinext) \hfill \break
+         \docApproverOrganization(\iinext) \hfill \break
+         \docApproverLocation(\iinext) \hfill 
+         \end{minipage}%
+         \hfill
+         \vspace{12pt}
+    \fi    
+   \fi   
+   }
+\fi     
+}
+
+\newcommand{\printContributorPage}{
+\checkdocContributorName(1)
+\ifemptydata
+  % If not input for docContributorName(1), skip entire section
+\else
+   \newpage \null
+   \phantomsection
+   \pdfbookmark[2]{Contributor Page}{contributor}
+
+   \begin{center}
+   \textbf{CONTRIBUTOR PAGE}
+   \end{center}
+
+   \textbf{Contributors:} \vspace{6pt}
+
+   \multido{\ii=1+2}{10}{%
+   \checkdocContributorName(\ii)
+   \ifemptydata
+      % \docAuthor not defined for this index, skip
+   \else
+      \begin{minipage}{.48\textwidth}%
+      \textbf{\docContributorName(\ii)} \hfill \break
+      \docContributorPosition(\ii) \hfill \break
+      \docContributorOrganization(\ii) \hfill \break
+      \docContributorLocation(\ii) \hfill 
+      \end{minipage}%
+      \begin{minipage}{.01\textwidth}%
+      \hfill
+      \end{minipage}%
+      \edef\iinext{\number\numexpr\ii+1\relax}
+      \checkdocContributorName(\iinext)
+      \ifemptydata
+         \vspace{12pt}
+         \break
+      \else
+         \begin{minipage}{.48\textwidth}%
+         \textbf{\docContributorName(\iinext)} \hfill \break
+         \docContributorPosition(\iinext) \hfill \break
+         \docContributorOrganization(\iinext) \hfill \break
+         \docContributorLocation(\iinext) \hfill 
+         \end{minipage}%
+         \hfill
+         \vspace{12pt}
+      \fi    
+   \fi   
+   }
+\fi  
+}

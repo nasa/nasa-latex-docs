@@ -5,10 +5,6 @@ Text
 
 ________________________________________________________
 
-*******************************************
-Documentation Map
-*******************************************
-
 .. toctree::
     :maxdepth: 3
     :caption: Overview
@@ -19,15 +15,18 @@ Documentation Map
 
 .. toctree::
     :caption: Document Templates
+    :maxdepth: 0
 
+    templates/doc-params
     templates/tech-memo
     templates/tech-report
     templates/aiaa-journal
     templates/aiaa-conference
     templates/aiaa-submission
+    templates/custom
 
 .. toctree::
-    :caption: Example Snippets
+    :caption: LaTeX Snippets
 
     examples/figure
     examples/table

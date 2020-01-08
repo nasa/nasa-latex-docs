@@ -1,0 +1,34 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TEMPLATE: Insert the AIAA document parameters - provided by the user
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{template-aiaa-format.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION: Insert the AIAA document parameters - provided by the user
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\AfterEndPreamble{%
+   %
+   \twocolumn[%
+      
+      \vspace{0.5\baselineskip}
+
+      \aiaaTitle
+
+      \vspace{\baselineskip}
+
+      \aiaaAuthors
+
+      \aiaaAbstract
+
+      \vspace{\baselineskip}
+      ]%
+   
+   \printNomenclature
+
+   \saythanks
+
+}
+
+

@@ -1,0 +1,159 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TEMPLATE: Insert the AIAA document parameters - provided by the user
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{template-tech-format}
+
+% Enable various page flags
+\docTOC[false]
+\docLOF[false]
+\docLOT[false]
+\docLOL[false]
+\docLOA[false]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION: Create all the front matter prior to user content
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\AtBeginDocument{
+
+   % Add a PDF bookmark in PDF viewer for all of front matter
+   \pdfbookmark[1]{Front Matter}{front}
+
+   \frontmatter
+
+   \newpage \clearpage \thispagestyle{empty}
+
+   \addtocounter{page}{-1}
+
+   \TitlePageGeometry
+
+   % Add a PDF bookmark in PDF viewer 
+
+   % Create graphics at the top of the page
+
+   \begin{minipage}{.22\textwidth}
+      \begin{flushleft}
+         \includegraphics[height=1in]{\@docOrgLogo}
+      \end{flushleft}
+   \end{minipage}%
+   \begin{minipage}{.55\textwidth}
+      \centering
+      \large\textbf{\@docTypeTitle \\ \vspace{6pt} Technical Memo}
+   \end{minipage}
+   \begin{minipage}{.22\textwidth}
+      \begin{flushright}
+         \includegraphics[height=1in]{\@docLogo}
+      \end{flushright}
+   \end{minipage}
+
+   \vspace{0.35in}
+
+   \textbf{Date:}  \@docDate \hfill \ifdefstring{\@docNumber}{}{}{\textbf{Document Number:} \@docNumber} 
+
+   \textbf{Title:} \@docTitle
+
+   % Draw black line
+   \vspace{12pt} \hrule height 2pt \vspace{6pt}
+
+   \textbf{Executive Summary:}
+
+   \@docAbstract
+   
+   % fill in empty space
+   \vfill
+   
+   % Create the author information section
+   \begin{minipage}{.48\textwidth}%
+      \textbf{Prepared by:} \vspace{6pt}
+
+      \ifdefstring{\@docSigned}{true}{
+         \textit{/s/ \docAuthorName(1)} \hfill \@docSignDate 
+      }{
+         \textit{\small To Sign:} 
+         {\small\textnormal{\color{input}\textbackslash docSigned[{\color{black} true}]}}
+         {\small\textnormal{\color{input}\textbackslash docSignDate[{\color{black} date}]}}  
+      }  
+      \vspace{6pt} \hrule \vspace{5pt}
+      \small\textbf{\docAuthorName(1)} \hfill \textbf{Date} \break
+      \docAuthorPosition(1) \hfill \break
+      \docAuthorOrganization(1) \hfill \break
+      \docAuthorLocation(1) \hfill 
+      \end{minipage}%
+      \begin{minipage}{.01\textwidth}%
+      \hfill
+   \end{minipage}%
+   % Check to see if there is an approver
+   \checkdocApproverName(1)
+   \ifemptydata
+       % \docApproverName not defined
+   \else
+      % Create the approver information section
+      \begin{minipage}{.48\textwidth}%
+         \textbf{Approved by:} \vspace{6pt}
+         
+         \ifdefstring{\@docSigned}{true}{
+            \textit{/s/ \docApproverName(1)} \hfill \@docSignDate 
+         }{
+            \textit{\small To Sign:} 
+            {\small\textnormal{\color{input}\textbackslash docSigned[{\color{black} true}]}}
+            {\small\textnormal{\color{input}\textbackslash docSignDate[{\color{black} date}]}}  
+         }  
+         \vspace{6pt} \hrule \vspace{5pt}
+         \small\textbf{\docApproverName(1)} \hfill \textbf{Date} \break
+         \docApproverPosition(1) \hfill \break
+         \docApproverOrganization(1) \hfill \break
+         \docApproverLocation(1) \hfill 
+         \end{minipage}%
+         \begin{minipage}{.01\textwidth}%
+         \hfill
+      \end{minipage}%
+   \fi
+
+   \vspace{\baselineskip}
+
+   \begin{center}
+      \printExportFooter
+   \end{center}
+
+   \vspace{0.25in} 
+
+   % Change the geometry back
+   \restoregeometry
+
+   % Print the export control information section
+   \printExport
+
+   % Print the revision log page
+   \printRevisionLog
+
+   % Create the Table of Contents
+   \printTOC
+
+   % Create the List of Tables
+   \printLOT
+
+   % Create the List of Figures
+   \printLOF
+
+   % Create the List of Listings
+   \printLOL
+
+   % Create the List of Acronyms
+   \printLOA
+
+   % Create the Nomenclature definition section
+   \printNomenclature
+
+   % remove padding to row height as to no affect other tables
+   \setlength\extrarowheight{0pt} 
+
+   \mainmatter
+
+   % Make all text justified and normalsize
+   \justifying\normalsize
+
+   % Set paragraph indent to zero
+   \setlength{\parindent}{0pt}
+
+}

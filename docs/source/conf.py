@@ -23,7 +23,7 @@ copyright = '2020, NASA'
 author = 'NASA'
 
 # The full version, including alpha/beta/rc tags
-release = '1.0'
+version = 'latest'
 
 # -- General configuration ---------------------------------------------------
 
@@ -31,6 +31,7 @@ release = '1.0'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinxcontrib.programoutput',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -47,7 +48,7 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "sphinx_rtd_theme"
+html_theme = 'sphinx_rtd_theme'
 html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 
@@ -64,7 +65,7 @@ html_theme_options = {
     # Toc options
     'collapse_navigation': True,
     'sticky_navigation': True,
-    'navigation_depth': 4,
+    'navigation_depth': 1,
     'includehidden': True,
     'titles_only': False,
     'prev_next_buttons_location': 'bottom',
@@ -72,22 +73,22 @@ html_theme_options = {
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
+# so a file named 'default.css' will overwrite the builtin 'default.css'.
 html_static_path = ['static']
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
+# so a file named 'default.css' will overwrite the builtin 'default.css'.
 html_context = {
     'css_files': ['_static/style.css'],
-    "github_user": "nasa", # Username
-    "github_repo": "nasa/nasa-latex-docs/", # Repo name
-    "github_version": "gh-pages", # Version
+    'github_user': 'nasa', # Username
+    'github_repo': 'nasa/nasa-latex-docs/', # Repo name
+    'github_version': 'gh-pages', # Version
     'display_github': False, 
 }
 
 # If given, this must be the name of an image file (path relative to the configuration directory) that is the favicon of the docs. 
-html_favicon = "static/favicon.ico"
+html_favicon = 'static/favicon.ico'
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'nasa-latex-docs'

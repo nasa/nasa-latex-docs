@@ -1,8 +1,8 @@
 .. Create reference to page
-.. _AIAASubmission:
+.. _TemplateCustom:
 
 ###########################################
-Template: AIAA Submission
+Template: Custom
 ###########################################
 
 Text

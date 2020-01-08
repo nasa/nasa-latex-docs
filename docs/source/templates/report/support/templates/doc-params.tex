@@ -1,0 +1,151 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION: Common Definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ % Define common colors
+\definecolor{input}{RGB}{61, 98, 233}
+
+% % Formatter for default values fo type input
+\newcommand{\varInput}[2]{{\normalfont\footnotesize\textbf{\color{input}\textbackslash{#1}}[{\normalfont#2}]}}
+\newcommand{\authorInput}[2]{\normalfont\footnotesize\textbf{\color{input}\textbackslash{#1}}=\{{\normalfont#2}\}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION: Document Author Parameters
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Define document authors array and default values
+\newarray\docAuthorName
+\readarray{docAuthorName}{\authorInput{docAuthorName(1)}{name}&\authorInput{docAuthorName(2)}{name}&&&&&&&&}
+
+% Define document author positions array and default values
+\newarray\docAuthorPosition
+\readarray{docAuthorPosition}{\authorInput{docAuthorPosition(1)}{input}&\authorInput{docAuthorPosition(2)}{input}&&&&&&&&}
+
+% Define document author organizations array and default values
+\newarray\docAuthorOrganization
+\readarray{docAuthorOrganization}{\authorInput{docAuthorOrganization(1)}{input}&\authorInput{docAuthorOrganization(2)}{input}&&&&&&&&}
+
+% Define document author locations array and default values
+\newarray\docAuthorLocation
+\readarray{docAuthorLocation}{\authorInput{docAuthorLocation(1)}{input}&\authorInput{docAuthorLocation(2)}{input}&&&&&&&&}
+
+\newcommand{\docAuthor}[5][99]{
+   \docAuthorName(#1)={#2}
+   \docAuthorPosition(#1)={#3}
+   \docAuthorOrganization(#1)={#4}
+   \docAuthorLocation(#1)={#5}
+   \def\@docAuthor{}
+}\docAuthor{}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION: Document Approver Parameters
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Define document approvers array and default values
+\newarray\docApproverName
+\readarray{docApproverName}{\authorInput{docApproverName(1)}{name}&\authorInput{docApproverName(2)}{name}&&&&&&&&}
+
+% Define document approver positions array and default values
+\newarray\docApproverPosition
+\readarray{docApproverPosition}{\authorInput{docApproverPosition(1)}{input}&\authorInput{docApproverPosition(2)}{input}&&&&&&&&}
+
+% Define document approver organizations array and default values
+\newarray\docApproverOrganization
+\readarray{docApproverOrganization}{\authorInput{docApproverOrganization(1)}{input}&\authorInput{docApproverOrganization(2)}{input}&&&&&&&&}
+
+% Define document approver locations array and default values
+\newarray\docApproverLocation
+\readarray{docApproverLocation}{\authorInput{docApproverLocation(1)}{input}&\authorInput{docApproverLocation(2)}{input}&&&&&&&&}
+
+\newcommand{\docApprover}[5][99]{
+   \docApproverName(#1)={#2}
+   \docApproverPosition(#1)={#3}
+   \docApproverOrganization(#1)={#4}
+   \docApproverLocation(#1)={#5}
+   \def\@docApprover{}
+}\docApprover{}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION: Document Contributor Parameters
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Define document contributors array and default values
+\newarray\docContributorName
+\newcommand{\defNameC}[1]{Contributor \##1}
+\readarray{docContributorName}{\authorInput{docContributorName(1)}{input}&\authorInput{docContributorName(2)}{input}&&&&&&&&}
+
+% Define document contributor positions array and default values
+\newarray\docContributorPosition
+\newcommand{\defPosC}[1]{Contributor \##1 Position}
+\readarray{docContributorPosition}{\authorInput{docContributorPosition(1)}{input}&\authorInput{docContributorPosition(2)}{input}&&&&&&&&}
+
+% Define document contributor organizations array and default values
+\newarray\docContributorOrganization
+\newcommand{\defOrgC}[1]{Contributor \##1 Organization}
+\readarray{docContributorOrganization}{\authorInput{docContributorOrganization(1)}{input}&\authorInput{docContributorOrganization(2)}{input}&&&&&&&&}
+
+% Define document contributor locations array and default values
+\newarray\docContributorLocation
+\newcommand{\defLocC}[1]{Contributor \##1 Location}
+\readarray{docContributorLocation}{\authorInput{docContributorLocation(1)}{input}&\authorInput{docContributorLocation(2)}{input}&&&&&&&&}
+
+\newcommand{\docContributor}[5][99]{
+   \docContributorName(#1)={#2}
+   \docContributorPosition(#1)={#3}
+   \docContributorOrganization(#1)={#4}
+   \docContributorLocation(#1)={#5}
+   \def\@docContributor{}
+}\docContributor{}{}
+
+% \newcommand{\varInputTwo}[2][input]{{\textnormal{\color{input}\textbackslash #1[#2]\{\textit{\color{black} input}\}}}}
+
+% % \newcommand{\varInput}[1][input]{{\fontsize{10pt}{12pt}\textnormal{\color{input}\textbackslash #1[\textit{\color{black} input}] }}}
+% % \newcommand{\varInputTwo}[2][input]{{\fontsize{10pt}{12pt}\textnormal{\color{input}\textbackslash #1[#2]\{\textit{\color{black} input}\}}}}
+
+\newcommand{\docExport}[1][false]{\def\@docExport{#1}}\docExport{}
+\newcommand{\docITAR}[1][false]{\def\@docITAR{#1}}\docITAR{}
+\newcommand{\docSBU}[1][false]{\def\@docSBU{#1}}\docSBU{}
+\newcommand{\docTOC}[1][false]{\def\@docTOC{#1}}\docTOC{}
+\newcommand{\docLOT}[1][false]{\def\@docLOT{#1}}\docLOT{}
+\newcommand{\docLOF}[1][false]{\def\@docLOF{#1}}\docLOF{}
+\newcommand{\docLOL}[1][false]{\def\@docLOL{#1}}\docLOL{}
+\newcommand{\docLOA}[1][false]{\def\@docLOA{#1}}\docLOA{}
+
+\newcommand{\docExportText}     [1][]{\def\@docExportText{#1}}\docExportText{}
+
+
+% % Document tracking information
+\newcommand{\docVersion}   [1][\varInput{docVersion}{version}]{\def\@docVersion{#1}}\docVersion{}
+\newcommand{\docSigned}    [1][]{\def\@docSigned{#1}}\docSigned{}
+\newcommand{\docAbstract}[1][\varInput{docAbstract}{abstract}]{\def\@docAbstract{#1}}\docAbstract{}
+
+\newcommand{\docNomenclature}[1][]{\def\@docNomenclature{#1}}\docNomenclature{}   
+\newcommand{\docNomenclatureSeparator}[1][=]{\def\@docNomenclatureSeparator{#1}}\docNomenclatureSeparator{}   
+\newcommand{\docNomenclatureScale}[1][1]{\def\@docNomenclatureScale{#1}}\docNomenclatureScale{}   
+
+
+\newcommand{\docNumber}     [1][\varInput{docNumber}{num}]{\def\@docNumber{#1}}\docNumber{}
+
+\newcommand{\docTitle}     [1][\varInput{docTitle}{title}]{\def\@docTitle{#1}}\docTitle{}
+% \newcommand{\docTitle}     [1][\varInput{docTitle}{Document Title}]{\def\docTitle{#1}}\docTitle{}
+
+\newcommand{\docLogo}     [1][Orion_Logo]{\def\@docLogo{#1}}\docLogo{}
+
+\newcommand{\docOrgLogo}     [1][NASA_Logo]{\def\@docOrgLogo{#1}}\docOrgLogo{}
+
+\newcommand{\docTypeTitle}     [1][\varInput{docTypeTitle}{input}]{\def\@docTypeTitle{#1}}\docTypeTitle{}
+
+\newcommand{\docDate}     [1][\varInput{docDate}{date}]{\def\@docDate{#1}}\docDate{}
+
+\newcommand{\docFooter}     [1][\varInput{docFooter}{input}]{\def\@docFooter{#1}}\docFooter{}
+
+\newcommand{\docOrganization}     [1][\varInput{docOrganization}{Organization Location Info}]{\def\@docOrganization{#1}}\docOrganization{}
+
+\newcommand{\docRevision}     [1][\varInput{docRevision}{input}]{\def\@docRevision{#1}}\docRevision{}
+
+\newcommand{\docRevisionLog}     [1][default]{\def\@docRevisionLog{#1}}\docRevisionLog{}
+
+\newcommand{\docSignDate}  [1][Date]{\def\@docSignDate{#1}}\docSignDate{}
+% \newcommand{\docTo}        [1][{\varInput[docTo]}]{\def\@docTo{#1}}\docTo{}
+% \newcommand{\docFrom}      [1][{\varInput[docFrom]}]{\def\@docFrom{#1}}\docFrom{}
+% \newcommand{\docHistory}   [1][{default}]{\def\@docHistory{#1}}\docHistory{}
