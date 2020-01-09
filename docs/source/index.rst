@@ -6,8 +6,8 @@ Text
 ________________________________________________________
 
 .. toctree::
-    :maxdepth: 3
     :caption: Overview
+    :maxdepth: 0
 
     self
     quick-start
@@ -16,7 +16,9 @@ ________________________________________________________
 .. toctree::
     :caption: Document Templates
     :maxdepth: 0
+    :titlesonly:
 
+    templates/overview
     templates/doc-params
     templates/tech-memo
     templates/tech-report
@@ -26,10 +28,31 @@ ________________________________________________________
     templates/custom
 
 .. toctree::
+    :caption: Additional Features
+    :maxdepth: 0
+    :titlesonly:
+
+    templates/revision-history
+    templates/acronyms
+    templates/nomenclature
+    templates/bibliography
+    templates/appendix
+
+.. toctree::
     :caption: LaTeX Snippets
+    :maxdepth: 0
+    :titlesonly:
 
     examples/figure
     examples/table
-    examples/acronym
     examples/equation
-    examples/nomenclature
+    examples/listing
+
+.. toctree::
+    :caption: Miscellaneous
+    :maxdepth: 0
+    :titlesonly:
+
+    misc/tex-editors
+    misc/contribute
+    

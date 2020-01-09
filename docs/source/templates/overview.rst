@@ -1,8 +1,8 @@
 .. Create reference to page
-.. _LatexEquations:
+.. _TemplateOverview:
 
 ###########################################
-LaTeX Equations
+Templates Overview
 ###########################################
 
 Text

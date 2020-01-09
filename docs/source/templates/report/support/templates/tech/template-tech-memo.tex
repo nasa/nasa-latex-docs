@@ -34,7 +34,7 @@
 
    \begin{minipage}{.22\textwidth}
       \begin{flushleft}
-         \includegraphics[height=1in]{\@docOrgLogo}
+      \ifdefstring{\@docOrgLogo}{}{}{\includegraphics[height=1in]{\@docOrgLogo}}
       \end{flushleft}
    \end{minipage}%
    \begin{minipage}{.55\textwidth}
@@ -43,7 +43,7 @@
    \end{minipage}
    \begin{minipage}{.22\textwidth}
       \begin{flushright}
-         \includegraphics[height=1in]{\@docLogo}
+         \ifdefstring{\@docLogo}{}{}{\includegraphics[height=1in]{\@docLogo}}
       \end{flushright}
    \end{minipage}
 

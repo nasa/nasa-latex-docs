@@ -1,8 +1,8 @@
 .. Create reference to page
-.. _LatexEquations:
+.. _Appendix:
 
 ###########################################
-LaTeX Equations
+Appendix
 ###########################################
 
 Text

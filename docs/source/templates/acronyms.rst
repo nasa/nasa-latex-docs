@@ -1,8 +1,8 @@
 .. Create reference to page
-.. _LatexEquations:
+.. _Acronyms:
 
 ###########################################
-LaTeX Equations
+Acronyms
 ###########################################
 
 Text

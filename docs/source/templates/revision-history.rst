@@ -1,8 +1,8 @@
 .. Create reference to page
-.. _LatexEquations:
+.. _RevisionHistory:
 
 ###########################################
-LaTeX Equations
+Revision History
 ###########################################
 
 Text

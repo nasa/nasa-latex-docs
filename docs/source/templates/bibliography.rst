@@ -1,8 +1,8 @@
 .. Create reference to page
-.. _LatexEquations:
+.. _Bibliography:
 
 ###########################################
-LaTeX Equations
+Bibliography
 ###########################################
 
 Text

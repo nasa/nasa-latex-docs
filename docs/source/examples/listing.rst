@@ -1,8 +1,8 @@
 .. Create reference to page
-.. _LatexEquations:
+.. _LatexListing:
 
 ###########################################
-LaTeX Equations
+LaTeX Listing
 ###########################################
 
 Text
