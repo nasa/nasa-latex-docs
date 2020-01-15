@@ -691,6 +691,12 @@ class buildPDF():
 
    def _print_texfot(self, buildFailFlag):
 
+      if self.args.quiet:
+         return
+
+      if not buildFailFlag and self._standalone:
+         return
+
       # Define a list of strings to remove completely from line
       str_remove = [
       '(see the transcript file for additional information)',
@@ -718,8 +724,7 @@ class buildPDF():
       else:
          log_sum_str = tc.BOLD+"="*25+" Log Summary "+"="*25+tc.ENDC
 
-      if not self.args.quiet:
-         print('\n'+log_sum_str)
+      print('\n'+log_sum_str)
 
       with open(os.path.join(self.ENV['TMPDIR'],'texfot.out')) as texfot:
          i = 0
@@ -750,17 +755,15 @@ class buildPDF():
 
             if line.strip():
                something_to_print = True
-               if not self.args.quiet:
-                  print(line.strip())
+               print(line.strip())
 
-      if not something_to_print and not self.args.quiet:
+      if not something_to_print:
          print("  No warnings or errors to report")
       
-      if not self.args.quiet:
-         if buildFailFlag:
-            print(log_sum_str + '\n')
-         else:
-            print(log_sum_str)
+      if buildFailFlag:
+         print(log_sum_str + '\n')
+      else:
+         print(log_sum_str)
       
    ###################################################################
    # METHOD: runs the passthrough pdflatex build calls from latexmk
