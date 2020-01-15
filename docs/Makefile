@@ -33,10 +33,12 @@ docs:
 	@mkdir tmp
 
 	@# Use latest version of nasa-latex-docs to get current support folder
-	@${NASA_LATEX_DOCS_ROOT}/buildPDF.py --new tmp/test-report
+	@${NASA_LATEX_DOCS_ROOT}/buildPDF.py --new tmp/test-report --quiet
 	@rm -rf source/templates/report/support/
 	@cp -r tmp/test-report/support source/templates/report/
 
+	@echo ' - Report Template: Technical Memo (tech-memo)'
+	@echo ' - Report Template: Technical Report (tech-report)'
 # 	@$(call make_report,tech-memo)
 # 	@$(call make_report,tech-report)
 

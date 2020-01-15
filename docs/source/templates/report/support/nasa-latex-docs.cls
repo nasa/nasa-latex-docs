@@ -26,7 +26,7 @@
 
 \DeclareStringOption[none]{template}
 \DeclareBoolOption[false]{showframe}
-\DeclareBoolOption[false]{standalone}
+\DeclareBoolOption[false]{convert}
 \ProcessKeyvalOptions*
 
 % Process the options - they are now 'live' in the class file
@@ -39,7 +39,15 @@
 % Reference commmad to pass options to package
 % \PassOptionsToPackage{<option=value>{<package name>}
 
-\LoadClass[letterpaper,12pt]{article}
+\ifdefstring{\class@template}{standalone}{
+   \ifclass@convert
+      \LoadClass[preview,margin=3,convert={density=300,subjobname=\jobname-STANDALONECONVERT}]{standalone}
+   \else
+      \LoadClass[preview,margin=3]{standalone}
+   \fi
+}{
+   \LoadClass[letterpaper,12pt]{article}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION: Load Required Packages
@@ -474,8 +482,13 @@
    % Do nothing, no template provided - just load the biblatex package to avoid errors
    \RequirePackage[backend=bibtex8, giveninits=true, natbib=true, style=aiaa, autocite=inline, bibwarn=false]{biblatex}
 }{
-   % Load the user define template file
-   \input{template-\class@template.tex}
+   \ifdefstring{\class@template}{standalone}{
+      % No template for standalone but change some necessary settings to avoid warnings
+      \captionsetup{hypcap=false}
+   }{
+      % Load the user define template file
+      \input{template-\class@template.tex}
+   }
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

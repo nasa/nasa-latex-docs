@@ -4,3 +4,6 @@ tmp/
 env/
 
 docs/build/
+
+docs/source/static/*.pdf
+docs/source/static/*.png

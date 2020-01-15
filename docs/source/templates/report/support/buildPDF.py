@@ -8,6 +8,7 @@ import os
 import re
 import sys
 import time
+import glob
 import shutil
 import inspect
 import argparse
@@ -15,6 +16,8 @@ import mimetypes
 import fnmatch
 from tempfile import mkstemp
 from subprocess import Popen, PIPE
+import subprocess
+import tempfile
 
 try:
    input = raw_input #python 3.x
@@ -45,8 +48,9 @@ def print_error(message, pre='', exit=True):
       print(tc.BOLD+"\nExiting buildPDF.py ..."+tc.ENDC)
       sys.exit(1)
 
-def print_status(title, message, pre=''):
-   print(pre + tc.BOLD + title + tc.ENDC + ' : ' + message)
+def print_status(title, message, pre='',quiet=False):
+   if not quiet:
+      print(pre + tc.BOLD + title + tc.ENDC + ' : ' + message)
 
 def print_warn(message, pre=''):
    print(pre + tc.BOLD + tc.BLUE + "WARNING: " + tc.ENDC + message + tc.ENDC)
@@ -77,7 +81,7 @@ class buildPDF():
    def __init__(self):
 
       # Define version of script and NASA-LaTeX-Docs
-      self.version = 'May 16, 2018 - v1.1'
+      self.version = 'January 15, 2020 - v2.0.1'
 
       # Get the current environment variables to pass to subprocess
       self.ENV = os.environ.copy()
@@ -114,6 +118,8 @@ class buildPDF():
          help="Show this help message and exit\n ")
       argParser.add_argument("-v",  "--verbose", action="store_true", 
          help="Verbose option of build output to screen\n ")
+      argParser.add_argument("-q",  "--quiet", action="store_true", 
+         help="Option to suppress all output during buildPDF.py operations\n ")
       argParser.add_argument("-f",  "--force", action="store_true", 
          help="Force a new build even if no file changes detected\n ")
       argParser.add_argument("-w",  "--watch", action="store_true", 
@@ -130,6 +136,12 @@ class buildPDF():
          help="Option to open pdf viewer program after build\nDefault: Mac=Preview, Linux=Evince, Windows=gsview32\n ")
       argParser.add_argument("-n",  "--new", action="store", nargs='?', default=False, metavar=tc.BLUE+'FOLDER_NAME'+tc.ENDC, 
          help="Creates new document structure, with minimum .tex, .bib, and supporting nasa-latex-docs files\nDefault: A folder named NASA_Latex_Document/ will be created\n ")
+      argParser.add_argument("--standalone-pdf", action="store_true", 
+         help="Build a snippet from file as a standalone output PDF\n ")
+      argParser.add_argument("--standalone-png", action="store_true", 
+         help="Build a snippet from file as a standalone output PNG\n ")
+      argParser.add_argument("--standalone-all", action="store_true", 
+         help="Build a snippet from file as a standalone output PDF and PNG\n ")
 
       # Hidden options that are used for interim latexmk builds
       argParser.add_argument("--latexmk-passthrough-build", nargs='?', help=argparse.SUPPRESS)
@@ -185,6 +197,44 @@ class buildPDF():
       self.output_bare        = ''
       self.output_pdf         = ''
 
+      if self._quiet:
+         self.stdout = subprocess.PIPE
+         self.stderr = subprocess.PIPE
+      else:
+         self.stdout = None
+         self.stderr = None
+
+      # Keep some internal tracking of inputs should they change
+      self._texfilePathRaw = os.path.dirname(os.path.abspath(self.args.texfile))
+
+   #########################################
+   # PROPERTY: standalone
+   #########################################
+
+   @property
+   def _standalone(self):
+      """
+      Convenience boolean to determine if in standalone mode
+      """
+      return (self.args.standalone_pdf or self.args.standalone_png or self.args.standalone_all)
+
+   #########################################
+   # PROPERTY: quiet
+   #########################################
+
+   @property
+   def _quiet(self):
+      """
+      Convenience boolean to determine if in standalone mode
+      """
+      if self.args.quiet:
+         return True
+
+      if self._standalone and not self.args.verbose:
+         return True
+
+      return False 
+
    ###################################################################
    # METHOD: determine the installed TeX version 
    ###################################################################
@@ -206,6 +256,13 @@ class buildPDF():
          if sys.platform == "linux" or sys.platform == "linux2":
             # Possible Linux Install Location(s)
             default_tex_location = [
+            '/usr/local/texlive/2025/bin/x86_64-linux',
+            '/usr/local/texlive/2024/bin/x86_64-linux',
+            '/usr/local/texlive/2023/bin/x86_64-linux',
+            '/usr/local/texlive/2022/bin/x86_64-linux',
+            '/usr/local/texlive/2021/bin/x86_64-linux',
+            '/usr/local/texlive/2020/bin/x86_64-linux',
+            '/usr/local/texlive/2019/bin/x86_64-linux',
             '/usr/local/texlive/2018/bin/x86_64-linux',
             '/usr/local/texlive/2017/bin/x86_64-linux',
             '/usr/local/texlive/2016/bin/x86_64-linux',
@@ -214,6 +271,13 @@ class buildPDF():
          elif sys.platform == "darwin":
             # Possible Mac Install Location(s)
             default_tex_location = [
+            '/usr/local/texlive/2025/bin/x86_64-darwin',
+            '/usr/local/texlive/2024/bin/x86_64-darwin',
+            '/usr/local/texlive/2023/bin/x86_64-darwin',
+            '/usr/local/texlive/2022/bin/x86_64-darwin',
+            '/usr/local/texlive/2021/bin/x86_64-darwin',
+            '/usr/local/texlive/2020/bin/x86_64-darwin',
+            '/usr/local/texlive/2019/bin/x86_64-darwin',
             '/usr/local/texlive/2018/bin/x86_64-darwin',
             '/usr/local/texlive/2017/bin/x86_64-darwin',
             '/usr/local/texlive/2016/bin/x86_64-darwin',
@@ -225,7 +289,17 @@ class buildPDF():
          
             # Possible Windows Install Location(s)
             default_tex_location = [
+            'C:\\texlive\\2025\\bin\\win32',
+            'C:\\texlive\\2024\\bin\\win32',
+            'C:\\texlive\\2023\\bin\\win32',
+            'C:\\texlive\\2022\\bin\\win32',
+            'C:\\texlive\\2021\\bin\\win32',
+            'C:\\texlive\\2020\\bin\\win32',
+            'C:\\texlive\\2019\\bin\\win32',
+            'C:\\texlive\\2018\\bin\\win32',
             'C:\\texlive\\2017\\bin\\win32',
+            'C:\\texlive\\2016\\bin\\win32',
+            'C:\\texlive\\2015\\bin\\win32',
             ]
 
          # Loop through paths to make sure they are on environment system PATH
@@ -239,7 +313,8 @@ class buildPDF():
             
             # See if path exists and is not on current path - if so break loop
             if os.path.isdir(a) and a not in self.ENV['PATH'].split(os.pathsep):
-               print("PATH environment variable updated to include {0}".format(a))
+               if not self._quiet:
+                  print("PATH environment variable updated to include {0}".format(a))
                self.ENV['PATH'] = a + os.pathsep + self.ENV['PATH']
                break
 
@@ -254,14 +329,12 @@ class buildPDF():
          self.ENV['TEX_VERSION']  = str(get_tex.stdout.read().splitlines()[0].strip())
 
       # Make sure the TeX distribution installed is at least from 2015+
-      if any(x in str(self.ENV['TEX_VERSION']) for x in ['2015','2016','2017','2018','2019','2020']):
+      if any(x in str(self.ENV['TEX_VERSION']) for x in ['2015','2016','2017','2018','2019','2020','2021','2022','2023','2024','2025']):
          if not self.latexmk_passthrough:
-            print_status("buildPDF.py file Version",self.version) 
-            print_status("TeX Distribution Version",str(self.ENV['TEX_VERSION']))
+            print_status("buildPDF.py file Version",self.version,quiet=self._quiet) 
+            print_status("TeX Distribution Version",str(self.ENV['TEX_VERSION']),quiet=self._quiet)
       else:
          print_error('Outdated TeX Distribution: {0}\n  NASA-LaTeX-Docs requires TeX distribution versions of 2015+'.format(self.ENV['TEX_VERSION']))
-
-      return
 
    ###################################################################
    # METHOD: get all the various file forms for input tex and output pdf
@@ -301,11 +374,54 @@ class buildPDF():
          self.output_bare        = self.input_bare 
          self.output_pdf         = self.input_bare + '.pdf'
          self.output_abs_path    = os.path.join(self.input_dir_path,self.output_pdf)
-         self.output_dir_path    = os.path.dirname(self.output_abs_path )
+         self.output_dir_path    = os.path.dirname(self.output_abs_path)
 
       # Prior to exit, set TeX_Root to be same as texfile2build method input
       self.TeX_Root =  self.input_abs_path  
-      return
+
+   ###################################################################
+   # METHOD: Prepare for a standalone build
+   ###################################################################
+
+   def _prep_standalone(self):
+      """
+      Perform necessary operations for standalone build
+      """
+
+      if not self._standalone:
+         return
+      
+      bare_input = os.path.basename(self.args.texfile).rsplit('.', 1)[0]
+      tmp_dir = os.path.join(tempfile.gettempdir(),next(tempfile._get_candidate_names()),bare_input)
+      
+      if not self._quiet:
+         print("Temporary Directory: {0}".format(tmp_dir))
+      
+      # Create the temporary document structure
+      create_cmd = Popen([self.buildPDF_abs_path,'--new',tmp_dir], env=self.ENV,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+      create_cmd.wait()
+
+      # Copy the standalone template
+      if self.args.standalone_pdf:
+         shutil.copyfile(os.path.join(self.buildPDF_dir_path,'support','templates','standalone','template-standalone.tex'),os.path.join(tmp_dir,bare_input+'.tex'))
+      else:
+         shutil.copyfile(os.path.join(self.buildPDF_dir_path,'support','templates','standalone','template-standalone-convert.tex'),os.path.join(tmp_dir,bare_input+'.tex'))
+
+      # Remove some items that are not necessary
+      shutil.rmtree(os.path.join(tmp_dir,'bib'))
+      shutil.rmtree(os.path.join(tmp_dir,'fig'))
+      shutil.rmtree(os.path.join(tmp_dir,'tex'))
+
+      # Now copy the original file as the expected standalone file
+      shutil.copyfile(os.path.abspath(self.args.texfile),os.path.join(tmp_dir,'standalone.tex'))
+
+      # Replace the input file
+      self.args.texfile = os.path.join(tmp_dir,bare_input+'.tex')
+
+      if self.args.standalone_pdf or self.args.standalone_all:
+         print_status('PDF',"{0}".format(os.path.join(self._texfilePathRaw,bare_input+'.pdf')),quiet=self.args.quiet)
+      if self.args.standalone_png or self.args.standalone_all:
+         print_status('PNG',"{0}".format(os.path.join(self._texfilePathRaw,bare_input+'.png')),quiet=self.args.quiet)
 
    ###################################################################
    # METHOD: Creates a boilerplate document template
@@ -343,8 +459,7 @@ class buildPDF():
       
       # Copy the entire template directory
       structure_path_support = os.path.join(structure_path,'support')
-      print(structure_path_support)
-      shutil.copytree(os.path.join(self.buildPDF_dir_path ,'support','boilderplate'), structure_path)
+      shutil.copytree(os.path.join(self.buildPDF_dir_path ,'support','boilerplate'), structure_path)
       os.makedirs(structure_path_support)
       shutil.copy(os.path.join(self.buildPDF_dir_path,'buildPDF.py'), structure_path_support)
       shutil.copy(os.path.join(self.buildPDF_dir_path,'support','nasa-latex-docs.cls'), structure_path_support)
@@ -366,11 +481,10 @@ class buildPDF():
          print_error("Invalid input file name: '{0}'".format(self.input_tex))
       
       # Print path to created template and exit
-      print("\nTemplate created in:\n  {0}\n\nTo build PDF run the following from {0}:\n\n  \033[1m./support/buildPDF.py {1}\033[0m\n".format(tc.BLUE+structure_path+tc.ENDC,self.input_tex))
+      if not self._quiet:
+         print("\nTemplate created in:\n  {0}\n\nTo build PDF run the following from {0}:\n\n  \033[1m./support/buildPDF.py {1}\033[0m\n".format(tc.BLUE+structure_path+tc.ENDC,self.input_tex))
 
       sys.exit(0) 
-
-      return
 
    ###################################################################
    # METHOD: determines if there is user comment at top of file for "TEX Root"
@@ -443,7 +557,10 @@ class buildPDF():
       # --verbose user option disables the default silent flag to latexmk
       if self.args.verbose:
          self.ENV['SILENT'] = '0'
-      
+
+      if self._quiet:
+         self.ENV['SILENT'] = '1'
+
       # If --preview is not False (i.e. None or True) enable preview options
       if self.args.preview != False:
          self.ENV['PREVIEW_PDF'] = '1'
@@ -462,8 +579,6 @@ class buildPDF():
          else:
             self.ENV['TEXINPUTS'] += os.pathsep + texinputs_abs_path + os.pathsep
             self._add_path_recursive([texinputs_abs_path], 'TEXINPUTS')
-
-      return
 
    ###################################################################
    # METHOD: runs the wrapper latexmk call 
@@ -492,7 +607,7 @@ class buildPDF():
          else:
             self.latexmkrc_abs_path = matches[0]
 
-      print_status("Building from TeX Root  ",self.input_abs_path) 
+      print_status("Building from TeX Root  ",self.input_abs_path,quiet=self._quiet) 
 
       # Go to directory where input TeX file is located
       os.chdir(self.input_dir_path)
@@ -517,11 +632,10 @@ class buildPDF():
          open(bbl_file, 'a').close()  
 
       try:
-
          if self.args.force:
-            latexmk = Popen(['latexmk',self.input_bare,'-g','-r',self.latexmkrc_abs_path], env=self.ENV)
+            latexmk = Popen(['latexmk',self.input_bare,'-g','-r',self.latexmkrc_abs_path], env=self.ENV,stdout=self.stdout,stderr=self.stderr)
          else:
-            latexmk = Popen(['latexmk',self.input_bare,'-r',self.latexmkrc_abs_path], env=self.ENV)
+            latexmk = Popen(['latexmk',self.input_bare,'-r',self.latexmkrc_abs_path], env=self.ENV,stdout=self.stdout,stderr=self.stderr)
          latexmk.wait()
 
       except KeyboardInterrupt:
@@ -542,8 +656,6 @@ class buildPDF():
          pass
 
       self.latexmk_returncode = latexmk.returncode
-
-      return
 
    ###################################################################
    # METHOD: runs the passthrough pdflatex build calls from latexmk
@@ -572,8 +684,6 @@ class buildPDF():
 
       # Exit with the return code from pdflatex
       sys.exit(pdflatex.returncode) 
-
-      return
 
    ###################################################################
    # METHOD: prints log summary of errors and warnings
@@ -608,7 +718,8 @@ class buildPDF():
       else:
          log_sum_str = tc.BOLD+"="*25+" Log Summary "+"="*25+tc.ENDC
 
-      print('\n'+log_sum_str)
+      if not self.args.quiet:
+         print('\n'+log_sum_str)
 
       with open(os.path.join(self.ENV['TMPDIR'],'texfot.out')) as texfot:
          i = 0
@@ -639,17 +750,18 @@ class buildPDF():
 
             if line.strip():
                something_to_print = True
-               print(line.strip())
+               if not self.args.quiet:
+                  print(line.strip())
 
-      if not something_to_print:
+      if not something_to_print and not self.args.quiet:
          print("  No warnings or errors to report")
       
-      if buildFailFlag:
-         print(log_sum_str + '\n')
-      else:
-         print(log_sum_str)
-      return
-
+      if not self.args.quiet:
+         if buildFailFlag:
+            print(log_sum_str + '\n')
+         else:
+            print(log_sum_str)
+      
    ###################################################################
    # METHOD: runs the passthrough pdflatex build calls from latexmk
    ###################################################################
@@ -689,8 +801,6 @@ class buildPDF():
             if support_file not in support_file_keep:
                delete_file(support_file)
 
-      return
-
    ###################################################################
    # METHOD: class main run method to execute functional code
    ###################################################################
@@ -700,6 +810,9 @@ class buildPDF():
       # Perform a compatibility check for installed TeX version
       self._get_tex_ver() 
 
+      # Prepare for standalone build
+      self._prep_standalone()
+      
       # Get all variations for the input and output file forms
       self._get_file_forms(self.args.texfile)
 
@@ -728,16 +841,24 @@ class buildPDF():
       # Run pdflatex - only executes when --latexmk-passthrough-build option is True
       self._run_pdflatex()
 
+      # Check for any standalone conversion files
+      convert_tmp_files = glob.glob(os.path.join(self.input_dir_path,'*STANDALONECONVERT*'))
+
       # System independent terminal clear
       if self.latexmk_passthrough:
          os.system('cls' if os.name == 'nt' else 'clear')
 
       if self.latexmk_returncode == 0:
          shutil.copyfile(os.path.join(self.ENV['TMPDIR'],self.input_bare+'.pdf'),self.output_abs_path)
-         print_status(tc.GREEN+"\nPDF Built Successfully  ",self.output_abs_path)
+         print_status(tc.GREEN+"\nPDF Built Successfully  ",self.output_abs_path,quiet=self._quiet)
          self._print_texfot(False)
       else:
          print_error("No PDF created on last build attempt", exit=False)
+
+         # Remove any temp conversion files
+         for f in convert_tmp_files:
+            os.remove(f)
+
          self._print_texfot(True)
          sys.exit(self.latexmk_returncode)
 
@@ -745,7 +866,31 @@ class buildPDF():
       if self.args.clean:
          shutil.rmtree(self.ENV['TMPDIR'])   
 
-      return
+      # Perform cleanup for standalone build with convert option
+      for f in convert_tmp_files:
+         if f.endswith('png'):
+            os.rename(f, f.replace('-STANDALONECONVERT',''))
+         else:
+            os.remove(f)
+
+      # Copy standalone files
+      if self._standalone:
+         out_files = []
+         if self.args.standalone_pdf or self.args.standalone_all:
+            out_files.extend(glob.glob(os.path.join(self.output_dir_path,'*.pdf')))
+         if self.args.standalone_png or self.args.standalone_all:
+            out_files.extend(glob.glob(os.path.join(self.output_dir_path,'*.png')))
+         for f in out_files:
+            shutil.copyfile(f,os.path.join(self._texfilePathRaw,os.path.basename(f)))
+
+      # If PNG was created - attempt to trim extra space
+      try:
+         png_file = os.path.join(self._texfilePathRaw,self.input_bare+'.png')
+         if os.path.isfile(png_file):
+            convert_cmd = Popen(['convert','-trim',png_file,png_file], env=self.ENV,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+            convert_cmd.wait()
+      except:
+         print_warn("Failed to trim PNG - please ensure imagemagick is installed")
 
 ###################################################################
 # MAIN: Call to __main__
