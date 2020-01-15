@@ -27,7 +27,7 @@ $ENV{'PREVIEW_PROGRAM'} //= 'DEFAULT';
 
 # Create file containing a list of the files that these programs have read and written
 # For better source file detection
-$recorder   = 1;
+$recorder   = 0;
 
 # Generate a pdf version of the document using pdflatex
 $pdf_mode   = 1;
