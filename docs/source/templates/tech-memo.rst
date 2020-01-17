@@ -5,4 +5,4 @@
 Template: Technical Memo
 ###########################################
 
-Text :download:`A Detailed Example <../static/report-tech-memo.pdf>`.
+Text :download:`A Detailed Example <../static/reports/report-tech-memo.pdf>`.

@@ -1,9 +1,13 @@
-.DS_Store
-
-tmp/
-env/
-
+# Entire build directory
 docs/build/
 
-docs/source/static/*.pdf
-docs/source/static/*.png
+# Temporary build artifacts
+docs/source/static/reports/*.pdf
+docs/source/static/snippets/*.png
+
+# Mac OSX
+.DS_Store
+
+# Other random folder that should not be tracked
+tmp/
+env/

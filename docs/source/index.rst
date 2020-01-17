@@ -95,8 +95,8 @@ Documentation Site Map
     :maxdepth: 0
 
     self
-    quick-start
-    build-script
+    misc/quick-start
+    misc/build-script
 
 .. toctree::
     :caption: Document Templates
@@ -110,6 +110,7 @@ Documentation Site Map
     templates/aiaa-journal
     templates/aiaa-conference
     templates/aiaa-submission
+    templates/standalone
     templates/custom
 
 .. toctree::
@@ -117,14 +118,14 @@ Documentation Site Map
     :maxdepth: 0
     :titlesonly:
 
-    templates/revision-history
-    templates/acronyms
-    templates/nomenclature
-    templates/bibliography
-    templates/appendix
+    features/revision-history
+    features/acronyms
+    features/nomenclature
+    features/bibliography
+    features/appendix
 
 .. toctree::
-    :caption: LaTeX Snippets
+    :caption: LaTeX Snippets & Examples
     :maxdepth: 0
     :titlesonly:
 

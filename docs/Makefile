@@ -8,27 +8,17 @@ SPHINXBUILD   ?= sphinx-build
 SOURCEDIR     = source
 BUILDDIR      = build
 
-define make_report
-    @echo 'Build sample report: $(1)'
-    @cp -r source/templates/report/ tmp/report-$(1)/
-    @sed -i ".bak" "s/documentclass\[\]/documentclass\[template=$(1)\]/g" tmp/report-$(1)/report.tex
-    @${NASA_LATEX_DOCS_ROOT}/buildPDF.py tmp/report-$(1)/report.tex --output ${PWD}/source/static/report-$(1).pdf
-endef
-
 # Put it first so that "make" without argument is like "make help".
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 .PHONY: help Makefile
 
-docs:
+reports:
 	@#
 	###########################################
 	# Prepare Sample Reports
 	###########################################
-
-	@# Remove old artifacts
-	@rm -rf build
 	@rm -rf tmp
 	@mkdir tmp
 
@@ -37,10 +27,29 @@ docs:
 	@rm -rf source/templates/report/support/
 	@cp -r tmp/test-report/support source/templates/report/
 
-	@echo ' - Report Template: Technical Memo (tech-memo)'
-	@echo ' - Report Template: Technical Report (tech-report)'
-# 	@$(call make_report,tech-memo)
-# 	@$(call make_report,tech-report)
+	@# Logic to loop through each template in parallel
+	@printf '%s\0' tech-memo tech-report | xargs -P 10 -0 -I _ ../bin/build-template.sh _ 
+
+
+snippets:
+	@#
+	###########################################
+	# Prepare Snippets
+	###########################################
+
+	@# Loop through .tex snippets and create PNG files - use xargs to do this in parallel
+	@find source/static/snippets/*.tex -maxdepth 1 -type f | xargs -I{} -P 10 ${NASA_LATEX_DOCS_ROOT}/buildPDF.py {} --standalone-png
+
+	@# Loop through PNG files and scale down in size for HTML docs
+	@find source/static/snippets/*.png -maxdepth 1 -type f -exec convert -scale 50% {} {} \;
+
+docs:
+	@# Remove old artifacts
+	@rm -rf build
+
+	@# Prepare the pre-built LaTeX content
+	@make reports
+	@make snippets
 
 	###########################################
 	# Build Sphinx Docs
