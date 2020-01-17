@@ -207,6 +207,10 @@ class buildPDF():
       # Keep some internal tracking of inputs should they change
       self._texfilePathRaw = os.path.dirname(os.path.abspath(self.args.texfile))
 
+      # On standalone builds assume current directory should be included as TEXINPUTS
+      if self._standalone and not self.args.texinputs:
+         self.args.texinputs = self._texfilePathRaw
+
    #########################################
    # PROPERTY: standalone
    #########################################
