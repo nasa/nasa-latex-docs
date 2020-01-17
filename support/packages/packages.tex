@@ -8,7 +8,7 @@
 % for creating hyperlinks (must come before glossaries for proper hyperlinks to work)
 \RequirePackage[pdfencoding=auto,psdextra,hyperfootnotes=false]{hyperref}
 
-% To list and index acronyms			
+% to list and index acronyms            
 \RequirePackage[nomain,nowarn,acronym,style=super,xindy, nonumberlist,nopostdot,toc,nogroupskip] {glossaries} 
 % needed for including graphics e.g. EPS, PS, PDF, PNG, JPEG
 \RequirePackage{graphicx}            
@@ -19,7 +19,7 @@
 % allows control of paper geometry
 \RequirePackage{geometry}
 
-% required for color   			
+% required for color            
 \RequirePackage[table]{xcolor}
 
 % allows detailed control of complex tables      
@@ -28,7 +28,7 @@
 % to thicken table lines           
 \RequirePackage{booktabs}
 
-% for setting table width sizes 			
+% for setting table width sizes             
 \RequirePackage{tabularx}
 
 % Solution for Latex 2018 error due to chngcntr package update
@@ -36,41 +36,44 @@
 \let\counterwithout\relax
 \let\counterwithin\relax
 
-% to reset counter of figures and tables per section			
-\RequirePackage{chngcntr} 		
+% to reset counter of figures and tables per section            
+\RequirePackage{chngcntr}       
 
-% for customizing section titles	
-\RequirePackage{titlesec} 		
+% for customizing section titles    
+\RequirePackage{titlesec}       
 
-% for table of contents material	
-\RequirePackage{titletoc}	
+% for table of contents material    
+\RequirePackage{titletoc}   
 
-% package to toggle figure, table, and equation captions		
-\RequirePackage{caption}				
+% package to toggle figure, table, and equation captions        
+\RequirePackage{caption}                
 
-% package to add figure sub-captions		
+% package to add figure sub-captions        
 \RequirePackage{subcaption}
 
 % to help align tables, figures, pages
-\RequirePackage{float}		
+\RequirePackage{float}      
 
-% for custom verbatim code definitions - block of code		
+% for custom verbatim code definitions - block of code      
 \RequirePackage{fancyvrb}
 
-% for custom verbatim code definitions - inline code			
-\RequirePackage{newverbs}		
+% for custom verbatim code definitions - inline code            
+\RequirePackage{newverbs}       
 
-% manges hyphenation patterns for a wide range of languages	
+% manges hyphenation patterns for a wide range of languages 
 \RequirePackage[english]{babel}
 
-% for creating lists		
-\RequirePackage{enumitem}	
+% for creating lists        
+\RequirePackage{enumitem}   
 
-% typesetting of multi-line and other mathematical statements - also loads amsmath package		
+% typesetting of multi-line and other mathematical statements - also loads amsmath package
 \RequirePackage{mathtools} 
 
 % package used to create math symbols          
-\RequirePackage{amssymb}           	
+\RequirePackage{amssymb}            
+
+% for enhanced reference capability must be loaded after amsmath package
+\RequirePackage[noabbrev,capitalise]{cleveref}
 
 % Fixes issue with quotes not rendering
 \RequirePackage[utf8]{inputenc}
@@ -82,16 +85,16 @@
 \RequirePackage[titles]{tocloft} 
 
 % to list verbatim source code   
-\RequirePackage{listings}			
+\RequirePackage{listings}           
 
 % More configurable table options
-\RequirePackage{array}	
+\RequirePackage{array}  
 
-% Used to generate dummy text			
-\RequirePackage{lipsum}       		
+% Used to generate dummy text           
+\RequirePackage{lipsum}             
 
 % Used for tracking version history of document
-\RequirePackage[nochapter]{vhistory}	
+\RequirePackage[nochapter]{vhistory}    
 
 % To add appendices to docuemnt
 \RequirePackage[toc]{appendix}

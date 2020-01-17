@@ -215,25 +215,41 @@
 
    % Define autoref for default usage   
    \renewcommand{\autoref}{%
-      \def\equationautorefname{Eq.}%
-      \def\figureautorefname{Figure}%
-      \def\subfigureautorefname{Figure}%
-      \def\Itemautorefname{Item}%
-      \def\tableautorefname{Table}%
-      \def\sectionautorefname{Section}%
-      \def\subsectionautorefname{Section}%
-      \def\subsubsectionautorefname{Section}%
-      \def\paragraphautorefname{Section}%
-      \def\chapterautorefname{Section}%
-      \def\partautorefname{Section}%
-      \def\Appendixautorefname{Appendix}%
-      \orgautoref}
+         \def\equationautorefname{Eq.}%
+         \def\figureautorefname{Figure}%
+         \def\subfigureautorefname{Figure}%
+         \def\Itemautorefname{Item}%
+         \def\tableautorefname{Table}%
+         \def\sectionautorefname{Section}%
+         \def\subsectionautorefname{Section}%
+         \def\subsubsectionautorefname{Section}%
+         \def\paragraphautorefname{Section}%
+         \def\chapterautorefname{Section}%
+         \def\partautorefname{Section}%
+         \def\Appendixautorefname{Appendix}%
+         \orgautoref}
+
+   % Define labels for cleveref usage 
+   \crefname{equation}{Equation}{equations}
+   \Crefname{equation}{Equation}{Equations}
+   \crefname{table}{Table}{Tables}
+   \Crefname{table}{Table}{Tables}
+   \crefname{figure}{Figure}{Figures}
+   \Crefname{figure}{Figure}{Figures}
+   \crefname{section}{Section}{Sections}
+   \Crefname{section}{Section}{Sections}
 
    % Pass the "\ref" command to \autoref
    \let\ref\autoref
 
    % Create a new command "\Ref" to call \Autoref - for alternate form
    \let\Ref\Autoref
+
+   % Pass the "\refrange" command to \crefrange
+   \let\refrange\crefrange
+
+   % Update the text that appears in between range of references, default = 'to'
+   \renewcommand{\crefrangeconjunction}{--}
 
    % Disable hyperlinks for acronyms
    \glsdisablehyper 
