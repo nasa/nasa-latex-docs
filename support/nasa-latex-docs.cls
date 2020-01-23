@@ -131,8 +131,8 @@
 \titlespacing{\subparagraph}{0pt}{\baselineskip}{5pt}
 
 % Custom title formatting - to force new line for paragraph and subparagraph
-\titleformat{\paragraph}[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
-\titleformat{\subparagraph}[hang]{\normalfont\normalsize\bfseries}{\thesubparagraph}{1em}{}
+\titleformat{\paragraph}[hang]{\normalfont\normalsize}{\theparagraph}{1em}{}
+\titleformat{\subparagraph}[hang]{\normalfont\normalsize\itshape}{\thesubparagraph}{1em}{}
 
 % Make figure, table, and equation captions bold
 \captionsetup[table]{font={bf,normalsize},position=above,skip=0.5\baselineskip}
