@@ -128,6 +128,7 @@
 \titlespacing{\subsection}{0pt}{\baselineskip}{5pt}
 \titlespacing{\subsubsection}{0pt}{\baselineskip}{5pt}
 \titlespacing{\paragraph}{0pt}{\baselineskip}{5pt}
+\titlespacing{\subparagraph}{0pt}{\baselineskip}{5pt}
 
 % Make figure, table, and equation captions bold
 \captionsetup[table]{font={bf,normalsize},position=above,skip=0.5\baselineskip}
@@ -151,6 +152,9 @@
 % Set up hyperlink options
 \hypersetup{hidelinks}
 \hypersetup{urlcolor=cyan}
+
+% Define the maximum section depth
+\setcounter{secnumdepth}{6} 
 
 \AtBeginDocument{
 
@@ -208,6 +212,7 @@
       \def\subsectionautorefname{Section}%
       \def\subsubsectionautorefname{Section}%
       \def\paragraphautorefname{Section}%
+      \def\subparagraphautorefname{Section}%
       \def\chapterautorefname{Section}%
       \def\partautorefname{Section}%
       \def\Appendixautorefname{Appendix}%
@@ -224,6 +229,7 @@
          \def\subsectionautorefname{Section}%
          \def\subsubsectionautorefname{Section}%
          \def\paragraphautorefname{Section}%
+         \def\subparagraphautorefname{Section}%
          \def\chapterautorefname{Section}%
          \def\partautorefname{Section}%
          \def\Appendixautorefname{Appendix}%

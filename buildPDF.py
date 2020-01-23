@@ -405,11 +405,17 @@ class buildPDF():
       create_cmd = Popen([self.buildPDF_abs_path,'--new',tmp_dir], env=self.ENV,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
       create_cmd.wait()
 
+      # Determine path to standalone
+      if os.path.basename(self.buildPDF_dir_path) == 'support':
+         support_dir = ''
+      else:
+         support_dir = 'support'
+
       # Copy the standalone template
       if self.args.standalone_pdf:
-         shutil.copyfile(os.path.join(self.buildPDF_dir_path,'support','templates','standalone','template-standalone.tex'),os.path.join(tmp_dir,bare_input+'.tex'))
+         shutil.copyfile(os.path.join(self.buildPDF_dir_path, support_dir, 'templates','standalone','template-standalone.tex'),os.path.join(tmp_dir,bare_input+'.tex'))
       else:
-         shutil.copyfile(os.path.join(self.buildPDF_dir_path,'support','templates','standalone','template-standalone-convert.tex'),os.path.join(tmp_dir,bare_input+'.tex'))
+         shutil.copyfile(os.path.join(self.buildPDF_dir_path, support_dir, 'templates','standalone','template-standalone-convert.tex'),os.path.join(tmp_dir,bare_input+'.tex'))
 
       # Remove some items that are not necessary
       shutil.rmtree(os.path.join(tmp_dir,'bib'))
