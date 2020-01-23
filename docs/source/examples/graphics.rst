@@ -1,8 +1,8 @@
 .. Create reference to page
-.. _LatexListing:
+.. _LatexGraphics:
 
 ###########################################
-LaTeX Code Listings
+LaTeX Graphics
 ###########################################
 
 Text

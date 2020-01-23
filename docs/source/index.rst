@@ -129,10 +129,12 @@ Documentation Site Map
     :maxdepth: 0
     :titlesonly:
 
+    examples/section
     examples/figure
     examples/table
     examples/equation
     examples/listing
+    examples/graphics
 
 .. toctree::
     :caption: Miscellaneous

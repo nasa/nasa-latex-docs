@@ -81,7 +81,7 @@ class buildPDF():
    def __init__(self):
 
       # Define version of script and NASA-LaTeX-Docs
-      self.version = 'January 15, 2020 - v2.0.1'
+      self.version = 'January 23, 2020 - v2.1.0'
 
       # Get the current environment variables to pass to subprocess
       self.ENV = os.environ.copy()
@@ -136,6 +136,8 @@ class buildPDF():
          help="Option to open pdf viewer program after build\nDefault: Mac=Preview, Linux=Evince, Windows=gsview32\n ")
       argParser.add_argument("-n",  "--new", action="store", nargs='?', default=False, metavar=tc.BLUE+'FOLDER_NAME'+tc.ENDC, 
          help="Creates new document structure, with minimum .tex, .bib, and supporting nasa-latex-docs files\nDefault: A folder named NASA_Latex_Document/ will be created\n ")
+      argParser.add_argument("--update", action="store_true", 
+         help="Update the document support directory to latest version on Github\n ")
       argParser.add_argument("--standalone-pdf", action="store_true", 
          help="Build a snippet from file as a standalone output PDF\n ")
       argParser.add_argument("--standalone-png", action="store_true", 
@@ -166,10 +168,13 @@ class buildPDF():
       if not self.args.texfile and self.args.new:
          self.args.texfile = self.args.new.split('.')[0]
 
-      if not self.args.texfile:
-         print_error('No buildable .tex file provided\n',exit=False)
-         argParser.print_usage()
-         sys.exit(1)       
+      if not self.args.update:
+         if not self.args.texfile:
+            print_error('No buildable .tex file provided\n',exit=False)
+            argParser.print_usage()
+            sys.exit(1)       
+      else:
+         self.args.texfile = ''
 
       ###################################################################
       # Determine if this is a pass-through build called by latexmk
@@ -206,6 +211,10 @@ class buildPDF():
 
       # Keep some internal tracking of inputs should they change
       self._texfilePathRaw = os.path.dirname(os.path.abspath(self.args.texfile))
+
+      # On standalone builds assume current directory should be included as TEXINPUTS
+      if self._standalone and not self.args.texinputs:
+         self.args.texinputs = self._texfilePathRaw
 
    #########################################
    # PROPERTY: standalone
@@ -403,9 +412,9 @@ class buildPDF():
 
       # Copy the standalone template
       if self.args.standalone_pdf:
-         shutil.copyfile(os.path.join(self.buildPDF_dir_path,'support','templates','standalone','template-standalone.tex'),os.path.join(tmp_dir,bare_input+'.tex'))
+         shutil.copyfile(os.path.join(self.buildPDF_dir_path, 'templates','standalone','template-standalone.tex'),os.path.join(tmp_dir,bare_input+'.tex'))
       else:
-         shutil.copyfile(os.path.join(self.buildPDF_dir_path,'support','templates','standalone','template-standalone-convert.tex'),os.path.join(tmp_dir,bare_input+'.tex'))
+         shutil.copyfile(os.path.join(self.buildPDF_dir_path, 'templates','standalone','template-standalone-convert.tex'),os.path.join(tmp_dir,bare_input+'.tex'))
 
       # Remove some items that are not necessary
       shutil.rmtree(os.path.join(tmp_dir,'bib'))
@@ -459,17 +468,8 @@ class buildPDF():
       
       # Copy the entire template directory
       structure_path_support = os.path.join(structure_path,'support')
-      shutil.copytree(os.path.join(self.buildPDF_dir_path ,'support','boilerplate'), structure_path)
-      os.makedirs(structure_path_support)
-      shutil.copy(os.path.join(self.buildPDF_dir_path,'buildPDF.py'), structure_path_support)
-      shutil.copy(os.path.join(self.buildPDF_dir_path,'support','nasa-latex-docs.cls'), structure_path_support)
-      shutil.copy(os.path.join(self.buildPDF_dir_path,'support','packages','packages.tex'), structure_path_support)
-      shutil.copytree(os.path.join(self.buildPDF_dir_path,'support','templates'), os.path.join(structure_path_support,'templates'))
-      shutil.copytree(os.path.join(self.buildPDF_dir_path,'support','biblatex'), os.path.join(structure_path_support,'biblatex'))
-      shutil.copytree(os.path.join(self.buildPDF_dir_path,'support','export'), os.path.join(structure_path_support,'export'))
-      shutil.copytree(os.path.join(self.buildPDF_dir_path,'support','latexmk'), os.path.join(structure_path_support,'latexmk'))
-      shutil.copytree(os.path.join(self.buildPDF_dir_path,'support','packages','mcode'), os.path.join(structure_path_support,'mcode'))
-      shutil.copytree(os.path.join(self.buildPDF_dir_path,'support','images'), os.path.join(structure_path_support,'templates','images'))
+      shutil.copytree(os.path.join(self.buildPDF_dir_path ,'boilerplate'), structure_path)
+      shutil.copytree(os.path.join(self.buildPDF_dir_path), os.path.join(structure_path_support))
 
       # Rename the files with the given user input name
       try: 
@@ -805,10 +805,36 @@ class buildPDF():
                delete_file(support_file)
 
    ###################################################################
+   # METHOD: _update_support
+   ###################################################################
+
+   def _update_support(self):
+      """
+      Update the support directory according to Github
+      """
+
+      tmp_dir = os.path.join(tempfile.gettempdir(),next(tempfile._get_candidate_names()))
+
+      clone = Popen('git clone https://github.com/nasa/nasa-latex-docs.git {0}'.format(tmp_dir), shell=True, env=self.ENV, stdout=PIPE, stderr=PIPE)
+      clone.wait()
+
+      if clone.returncode > 0:
+         print_error("Could not execute: 'git clones https://github.com/nasa/nasa-latex-docs.git'\n",exit=False)
+         sys.exit(1)
+
+      from distutils.dir_util import copy_tree
+
+      copy_tree(os.path.join(tmp_dir,'support'), self.buildPDF_dir_path)
+
+   ###################################################################
    # METHOD: class main run method to execute functional code
    ###################################################################
 
    def run(self):
+
+      if self.args.update:
+         self._update_support()
+         return
 
       # Perform a compatibility check for installed TeX version
       self._get_tex_ver() 

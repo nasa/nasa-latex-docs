@@ -2,7 +2,7 @@
 .. _LatexFigure:
 
 ###########################################
-LaTeX Figure
+LaTeX Figures
 ###########################################
 
 .. contents:: Quick Links

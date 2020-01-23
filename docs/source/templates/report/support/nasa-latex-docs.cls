@@ -128,6 +128,11 @@
 \titlespacing{\subsection}{0pt}{\baselineskip}{5pt}
 \titlespacing{\subsubsection}{0pt}{\baselineskip}{5pt}
 \titlespacing{\paragraph}{0pt}{\baselineskip}{5pt}
+\titlespacing{\subparagraph}{0pt}{\baselineskip}{5pt}
+
+% Custom title formatting - to force new line for paragraph and subparagraph
+\titleformat{\paragraph}[hang]{\normalfont\normalsize}{\theparagraph}{1em}{}
+\titleformat{\subparagraph}[hang]{\normalfont\normalsize\itshape}{\thesubparagraph}{1em}{}
 
 % Make figure, table, and equation captions bold
 \captionsetup[table]{font={bf,normalsize},position=above,skip=0.5\baselineskip}
@@ -151,6 +156,9 @@
 % Set up hyperlink options
 \hypersetup{hidelinks}
 \hypersetup{urlcolor=cyan}
+
+% Define the maximum section depth
+\setcounter{secnumdepth}{6} 
 
 \AtBeginDocument{
 
@@ -208,6 +216,7 @@
       \def\subsectionautorefname{Section}%
       \def\subsubsectionautorefname{Section}%
       \def\paragraphautorefname{Section}%
+      \def\subparagraphautorefname{Section}%
       \def\chapterautorefname{Section}%
       \def\partautorefname{Section}%
       \def\Appendixautorefname{Appendix}%
@@ -215,25 +224,42 @@
 
    % Define autoref for default usage   
    \renewcommand{\autoref}{%
-      \def\equationautorefname{Eq.}%
-      \def\figureautorefname{Figure}%
-      \def\subfigureautorefname{Figure}%
-      \def\Itemautorefname{Item}%
-      \def\tableautorefname{Table}%
-      \def\sectionautorefname{Section}%
-      \def\subsectionautorefname{Section}%
-      \def\subsubsectionautorefname{Section}%
-      \def\paragraphautorefname{Section}%
-      \def\chapterautorefname{Section}%
-      \def\partautorefname{Section}%
-      \def\Appendixautorefname{Appendix}%
-      \orgautoref}
+         \def\equationautorefname{Eq.}%
+         \def\figureautorefname{Figure}%
+         \def\subfigureautorefname{Figure}%
+         \def\Itemautorefname{Item}%
+         \def\tableautorefname{Table}%
+         \def\sectionautorefname{Section}%
+         \def\subsectionautorefname{Section}%
+         \def\subsubsectionautorefname{Section}%
+         \def\paragraphautorefname{Section}%
+         \def\subparagraphautorefname{Section}%
+         \def\chapterautorefname{Section}%
+         \def\partautorefname{Section}%
+         \def\Appendixautorefname{Appendix}%
+         \orgautoref}
+
+   % Define labels for cleveref usage 
+   \crefname{equation}{Equation}{equations}
+   \Crefname{equation}{Equation}{Equations}
+   \crefname{table}{Table}{Tables}
+   \Crefname{table}{Table}{Tables}
+   \crefname{figure}{Figure}{Figures}
+   \Crefname{figure}{Figure}{Figures}
+   \crefname{section}{Section}{Sections}
+   \Crefname{section}{Section}{Sections}
 
    % Pass the "\ref" command to \autoref
    \let\ref\autoref
 
    % Create a new command "\Ref" to call \Autoref - for alternate form
    \let\Ref\Autoref
+
+   % Pass the "\refrange" command to \crefrange
+   \let\refrange\crefrange
+
+   % Update the text that appears in between range of references, default = 'to'
+   \renewcommand{\crefrangeconjunction}{--}
 
    % Disable hyperlinks for acronyms
    \glsdisablehyper 

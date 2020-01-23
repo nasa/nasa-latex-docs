@@ -23,7 +23,7 @@ reports:
 	@mkdir tmp
 
 	@# Use latest version of nasa-latex-docs to get current support folder
-	@${NASA_LATEX_DOCS_ROOT}/buildPDF.py --new tmp/test-report --quiet
+	@${NASA_LATEX_DOCS_ROOT}/support/buildPDF.py --new tmp/test-report --quiet
 	@rm -rf source/templates/report/support/
 	@cp -r tmp/test-report/support source/templates/report/
 
@@ -38,7 +38,7 @@ snippets:
 	###########################################
 
 	@# Loop through .tex snippets and create PNG files - use xargs to do this in parallel
-	@find source/static/snippets/*.tex -maxdepth 1 -type f | xargs -I{} -P 10 ${NASA_LATEX_DOCS_ROOT}/buildPDF.py {} --standalone-png
+	@find source/static/snippets/*.tex -maxdepth 1 -type f | xargs -I{} -P 10 ${NASA_LATEX_DOCS_ROOT}/support/buildPDF.py {} --standalone-png
 
 	@# Loop through PNG files and scale down in size for HTML docs
 	@find source/static/snippets/*.png -maxdepth 1 -type f -exec convert -scale 50% {} {} \;
