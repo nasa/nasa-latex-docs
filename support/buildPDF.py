@@ -81,7 +81,7 @@ class buildPDF():
    def __init__(self):
 
       # Define version of script and NASA-LaTeX-Docs
-      self.version = 'January 15, 2020 - v2.0.1'
+      self.version = 'January 23, 2020 - v2.1.0'
 
       # Get the current environment variables to pass to subprocess
       self.ENV = os.environ.copy()
@@ -405,17 +405,11 @@ class buildPDF():
       create_cmd = Popen([self.buildPDF_abs_path,'--new',tmp_dir], env=self.ENV,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
       create_cmd.wait()
 
-      # Determine path to standalone
-      if os.path.basename(self.buildPDF_dir_path) == 'support':
-         support_dir = ''
-      else:
-         support_dir = 'support'
-
       # Copy the standalone template
       if self.args.standalone_pdf:
-         shutil.copyfile(os.path.join(self.buildPDF_dir_path, support_dir, 'templates','standalone','template-standalone.tex'),os.path.join(tmp_dir,bare_input+'.tex'))
+         shutil.copyfile(os.path.join(self.buildPDF_dir_path, 'templates','standalone','template-standalone.tex'),os.path.join(tmp_dir,bare_input+'.tex'))
       else:
-         shutil.copyfile(os.path.join(self.buildPDF_dir_path, support_dir, 'templates','standalone','template-standalone-convert.tex'),os.path.join(tmp_dir,bare_input+'.tex'))
+         shutil.copyfile(os.path.join(self.buildPDF_dir_path, 'templates','standalone','template-standalone-convert.tex'),os.path.join(tmp_dir,bare_input+'.tex'))
 
       # Remove some items that are not necessary
       shutil.rmtree(os.path.join(tmp_dir,'bib'))
@@ -469,17 +463,8 @@ class buildPDF():
       
       # Copy the entire template directory
       structure_path_support = os.path.join(structure_path,'support')
-      shutil.copytree(os.path.join(self.buildPDF_dir_path ,'support','boilerplate'), structure_path)
-      os.makedirs(structure_path_support)
-      shutil.copy(os.path.join(self.buildPDF_dir_path,'buildPDF.py'), structure_path_support)
-      shutil.copy(os.path.join(self.buildPDF_dir_path,'support','nasa-latex-docs.cls'), structure_path_support)
-      shutil.copy(os.path.join(self.buildPDF_dir_path,'support','packages','packages.tex'), structure_path_support)
-      shutil.copytree(os.path.join(self.buildPDF_dir_path,'support','templates'), os.path.join(structure_path_support,'templates'))
-      shutil.copytree(os.path.join(self.buildPDF_dir_path,'support','biblatex'), os.path.join(structure_path_support,'biblatex'))
-      shutil.copytree(os.path.join(self.buildPDF_dir_path,'support','export'), os.path.join(structure_path_support,'export'))
-      shutil.copytree(os.path.join(self.buildPDF_dir_path,'support','latexmk'), os.path.join(structure_path_support,'latexmk'))
-      shutil.copytree(os.path.join(self.buildPDF_dir_path,'support','packages','mcode'), os.path.join(structure_path_support,'mcode'))
-      shutil.copytree(os.path.join(self.buildPDF_dir_path,'support','images'), os.path.join(structure_path_support,'templates','images'))
+      shutil.copytree(os.path.join(self.buildPDF_dir_path ,'boilerplate'), structure_path)
+      shutil.copytree(os.path.join(self.buildPDF_dir_path), os.path.join(structure_path_support))
 
       # Rename the files with the given user input name
       try: 
