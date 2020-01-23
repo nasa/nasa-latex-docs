@@ -136,6 +136,8 @@ class buildPDF():
          help="Option to open pdf viewer program after build\nDefault: Mac=Preview, Linux=Evince, Windows=gsview32\n ")
       argParser.add_argument("-n",  "--new", action="store", nargs='?', default=False, metavar=tc.BLUE+'FOLDER_NAME'+tc.ENDC, 
          help="Creates new document structure, with minimum .tex, .bib, and supporting nasa-latex-docs files\nDefault: A folder named NASA_Latex_Document/ will be created\n ")
+      argParser.add_argument("--update", action="store_true", 
+         help="Update the document support directory to latest version on Github\n ")
       argParser.add_argument("--standalone-pdf", action="store_true", 
          help="Build a snippet from file as a standalone output PDF\n ")
       argParser.add_argument("--standalone-png", action="store_true", 
@@ -166,10 +168,13 @@ class buildPDF():
       if not self.args.texfile and self.args.new:
          self.args.texfile = self.args.new.split('.')[0]
 
-      if not self.args.texfile:
-         print_error('No buildable .tex file provided\n',exit=False)
-         argParser.print_usage()
-         sys.exit(1)       
+      if not self.args.update:
+         if not self.args.texfile:
+            print_error('No buildable .tex file provided\n',exit=False)
+            argParser.print_usage()
+            sys.exit(1)       
+      else:
+         self.args.texfile = ''
 
       ###################################################################
       # Determine if this is a pass-through build called by latexmk
@@ -800,10 +805,36 @@ class buildPDF():
                delete_file(support_file)
 
    ###################################################################
+   # METHOD: _update_support
+   ###################################################################
+
+   def _update_support(self):
+      """
+      Update the support directory according to Github
+      """
+
+      tmp_dir = os.path.join(tempfile.gettempdir(),next(tempfile._get_candidate_names()))
+
+      clone = Popen('git clone https://github.com/nasa/nasa-latex-docs.git {0}'.format(tmp_dir), shell=True, env=self.ENV, stdout=PIPE, stderr=PIPE)
+      clone.wait()
+
+      if clone.returncode > 0:
+         print_error("Could not execute: 'git clones https://github.com/nasa/nasa-latex-docs.git'\n",exit=False)
+         sys.exit(1)
+
+      from distutils.dir_util import copy_tree
+
+      copy_tree(os.path.join(tmp_dir,'support'), self.buildPDF_dir_path)
+
+   ###################################################################
    # METHOD: class main run method to execute functional code
    ###################################################################
 
    def run(self):
+
+      if self.args.update:
+         self._update_support()
+         return
 
       # Perform a compatibility check for installed TeX version
       self._get_tex_ver() 
