@@ -248,6 +248,17 @@
    \Crefname{figure}{Figure}{Figures}
    \crefname{section}{Section}{Sections}
    \Crefname{section}{Section}{Sections}
+   \crefname{paragraph}{Section}{Sections}
+   \Crefname{paragraph}{Section}{Sections}
+   \crefname{subparagraph}{Section}{Sections}
+   \Crefname{subparagraph}{Section}{Sections}
+
+   % Define a range formatting
+   \crefrangeformat{section}{\mbox{Sections #3#1#4\@docRefRangeConjunction#5#2#6}}
+   \crefrangeformat{subsection}{\mbox{Sections #3#1#4\@docRefRangeConjunction#5#2#6}}
+   \crefrangeformat{subsubsection}{\mbox{Sections #3#1#4\@docRefRangeConjunction#5#2#6}}
+   \crefrangeformat{paragraph}{\mbox{Sections #3#1#4\@docRefRangeConjunction#5#2#6}}
+   \crefrangeformat{subparagraph}{\mbox{Sections #3#1#4\@docRefRangeConjunction#5#2#6}}
 
    % Pass the "\ref" command to \autoref
    \let\ref\autoref
@@ -257,9 +268,6 @@
 
    % Pass the "\refrange" command to \crefrange
    \let\refrange\crefrange
-
-   % Update the text that appears in between range of references, default = 'to'
-   \renewcommand{\crefrangeconjunction}{--}
 
    % Disable hyperlinks for acronyms
    \glsdisablehyper 
