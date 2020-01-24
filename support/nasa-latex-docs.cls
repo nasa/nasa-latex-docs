@@ -252,6 +252,8 @@
    \Crefname{paragraph}{Section}{Sections}
    \crefname{subparagraph}{Section}{Sections}
    \Crefname{subparagraph}{Section}{Sections}
+   \crefname{lstlisting}{listing}{Listings}
+   \Crefname{lstlisting}{Listing}{Listings}
 
    % Define a range formatting
    \crefrangeformat{section}{\mbox{Sections #3#1#4\@docRefRangeConjunction#5#2#6}}
@@ -262,6 +264,7 @@
    \crefrangeformat{table}{\mbox{Tables #3#1#4\@docRefRangeConjunction#5#2#6}}
    \crefrangeformat{figure}{\mbox{Figures #3#1#4\@docRefRangeConjunction#5#2#6}}
    \crefrangeformat{equation}{\mbox{Equations #3#1#4\@docRefRangeConjunction#5#2#6}}
+   \crefrangeformat{lstlisting}{\mbox{Listings #3#1#4\@docRefRangeConjunction#5#2#6}}
 
    % Pass the "\ref" command to \autoref
    \let\ref\autoref
