@@ -97,10 +97,9 @@
    \def\@docContributor{}
 }\docContributor{}{}
 
-% \newcommand{\varInputTwo}[2][input]{{\textnormal{\color{input}\textbackslash #1[#2]\{\textit{\color{black} input}\}}}}
-
-% % \newcommand{\varInput}[1][input]{{\fontsize{10pt}{12pt}\textnormal{\color{input}\textbackslash #1[\textit{\color{black} input}] }}}
-% % \newcommand{\varInputTwo}[2][input]{{\fontsize{10pt}{12pt}\textnormal{\color{input}\textbackslash #1[#2]\{\textit{\color{black} input}\}}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION: Document Identification Parameters
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\docExport}[1][false]{\def\@docExport{#1}}\docExport{}
 \newcommand{\docITAR}[1][false]{\def\@docITAR{#1}}\docITAR{}
@@ -111,41 +110,41 @@
 \newcommand{\docLOL}[1][false]{\def\@docLOL{#1}}\docLOL{}
 \newcommand{\docLOA}[1][false]{\def\@docLOA{#1}}\docLOA{}
 
-\newcommand{\docExportText}     [1][]{\def\@docExportText{#1}}\docExportText{}
+\newcommand{\docExportText}[1][]{\def\@docExportText{#1}}\docExportText{}
 
-
-% % Document tracking information
-\newcommand{\docVersion}   [1][\varInput{docVersion}{version}]{\def\@docVersion{#1}}\docVersion{}
-\newcommand{\docSigned}    [1][]{\def\@docSigned{#1}}\docSigned{}
+% Document tracking information
+\newcommand{\docVersion}[1][\varInput{docVersion}{version}]{\def\@docVersion{#1}}\docVersion{}
+\newcommand{\docSigned}[1][]{\def\@docSigned{#1}}\docSigned{}
 \newcommand{\docAbstract}[1][\varInput{docAbstract}{abstract}]{\def\@docAbstract{#1}}\docAbstract{}
 
 \newcommand{\docNomenclature}[1][]{\def\@docNomenclature{#1}}\docNomenclature{}   
 \newcommand{\docNomenclatureSeparator}[1][=]{\def\@docNomenclatureSeparator{#1}}\docNomenclatureSeparator{}   
 \newcommand{\docNomenclatureScale}[1][1]{\def\@docNomenclatureScale{#1}}\docNomenclatureScale{}   
 
+\newcommand{\docNumber}[1][\varInput{docNumber}{num}]{\def\@docNumber{#1}}\docNumber{}
 
-\newcommand{\docNumber}     [1][\varInput{docNumber}{num}]{\def\@docNumber{#1}}\docNumber{}
+\newcommand{\docTitle}[1][\varInput{docTitle}{title}]{\def\@docTitle{#1}}\docTitle{}
 
-\newcommand{\docTitle}     [1][\varInput{docTitle}{title}]{\def\@docTitle{#1}}\docTitle{}
-% \newcommand{\docTitle}     [1][\varInput{docTitle}{Document Title}]{\def\docTitle{#1}}\docTitle{}
+\newcommand{\docLogo}[1][Artemis_Logo]{\def\@docLogo{#1}}\docLogo{}
 
-\newcommand{\docLogo}     [1][Artemis_Logo]{\def\@docLogo{#1}}\docLogo{}
+\newcommand{\docOrgLogo}[1][NASA_Logo]{\def\@docOrgLogo{#1}}\docOrgLogo{}
 
-\newcommand{\docOrgLogo}     [1][NASA_Logo]{\def\@docOrgLogo{#1}}\docOrgLogo{}
+\newcommand{\docTypeTitle}[1][\varInput{docTypeTitle}{input}]{\def\@docTypeTitle{#1}}\docTypeTitle{}
 
-\newcommand{\docTypeTitle}     [1][\varInput{docTypeTitle}{input}]{\def\@docTypeTitle{#1}}\docTypeTitle{}
+\newcommand{\docDate}[1][\varInput{docDate}{date}]{\def\@docDate{#1}}\docDate{}
 
-\newcommand{\docDate}     [1][\varInput{docDate}{date}]{\def\@docDate{#1}}\docDate{}
+\newcommand{\docFooter}[1][\varInput{docFooter}{input}]{\def\@docFooter{#1}}\docFooter{}
 
-\newcommand{\docFooter}     [1][\varInput{docFooter}{input}]{\def\@docFooter{#1}}\docFooter{}
+\newcommand{\docOrganization}[1][\varInput{docOrganization}{Organization Location Info}]{\def\@docOrganization{#1}}\docOrganization{}
 
-\newcommand{\docOrganization}     [1][\varInput{docOrganization}{Organization Location Info}]{\def\@docOrganization{#1}}\docOrganization{}
+\newcommand{\docRevision}[1][\varInput{docRevision}{input}]{\def\@docRevision{#1}}\docRevision{}
 
-\newcommand{\docRevision}     [1][\varInput{docRevision}{input}]{\def\@docRevision{#1}}\docRevision{}
+\newcommand{\docRevisionLog}[1][default]{\def\@docRevisionLog{#1}}\docRevisionLog{}
 
-\newcommand{\docRevisionLog}     [1][default]{\def\@docRevisionLog{#1}}\docRevisionLog{}
+\newcommand{\docSignDate}[1][Date]{\def\@docSignDate{#1}}\docSignDate{}
 
-\newcommand{\docSignDate}  [1][Date]{\def\@docSignDate{#1}}\docSignDate{}
-% \newcommand{\docTo}        [1][{\varInput[docTo]}]{\def\@docTo{#1}}\docTo{}
-% \newcommand{\docFrom}      [1][{\varInput[docFrom]}]{\def\@docFrom{#1}}\docFrom{}
-% \newcommand{\docHistory}   [1][{default}]{\def\@docHistory{#1}}\docHistory{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION: Document Style Parameters
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\docRefRangeConjunction}[1][--]{\def\@docRefRangeConjunction{#1}}\docRefRangeConjunction{}

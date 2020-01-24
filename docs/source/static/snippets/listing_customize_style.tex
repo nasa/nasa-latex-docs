@@ -1,0 +1,18 @@
+\lstdefinestyle{myStyle}{
+    belowcaptionskip=1\baselineskip,
+    breaklines=true,
+    frame=none,
+    numbers=none, 
+    basicstyle=\footnotesize\ttfamily,
+    keywordstyle=\bfseries\color{green!40!black},
+    commentstyle=\itshape\color{purple!40!black},
+    identifierstyle=\color{blue},
+    backgroundcolor=\color{gray!10!white},
+}
+
+\lstinputlisting[
+    caption=Example C++,
+    label={lst:listing-cpp},
+    language=C++,
+    style=myStyle,
+    ]{code_sample.cpp}

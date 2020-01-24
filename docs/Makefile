@@ -41,7 +41,7 @@ snippets:
 	@find source/static/snippets/*.tex -maxdepth 1 -type f | xargs -I{} -P 10 ${NASA_LATEX_DOCS_ROOT}/support/buildPDF.py {} --standalone-png
 
 	@# Loop through PNG files and scale down in size for HTML docs
-	@find source/static/snippets/*.png -maxdepth 1 -type f -exec convert -scale 50% {} {} \;
+	@find source/static/snippets/*.png -maxdepth 1 -type f -exec convert -strip -scale 50% {} {} \;
 
 docs:
 	@# Remove old artifacts

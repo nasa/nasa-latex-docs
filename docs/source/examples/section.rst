@@ -12,7 +12,7 @@ LaTeX Sections
 Overview
 ###########################################
 
-Sections in LaTeX are generated using the following commands that are available from the native ``article`` document class:
+Sections in LaTeX are generated using the following commands that are defined in the native ``article`` document class:
 
 * Level 1: ``\section``
 * Level 2: ``\subsection``
@@ -35,6 +35,16 @@ Section labels are generated using the ``\label`` command and can then be refere
 .. literalinclude:: /static/snippets/sections.tex
    :language: latex
    :lines: 1-4
+
+
+Referencing Range of Sections
+###########################################
+
+The example below highlights how the ``\refrange`` command can be used to reference a range of sections.
+
+.. literalinclude:: /static/snippets/sections.tex
+   :language: latex
+   :lines: 27-28
 
 Sample Code and Output
 ###########################################

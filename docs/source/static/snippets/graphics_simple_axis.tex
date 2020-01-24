@@ -1,0 +1,8 @@
+% Import TikZ library for customizing arrow heads
+% i.e. an arrow head may be scaled in width/height via: -{Latex[length=2mm,width=2mm]}
+\usetikzlibrary{arrows.meta}
+
+\begin{tikzpicture}
+    \draw[-{Latex[scale=1.25]}] (0,0) -- (1,0)  node [right] {$x$};
+    \draw[-{Latex[scale=1.25]}] (0,0) -- (0,1)  node [above] {$y$};
+\end{tikzpicture}
