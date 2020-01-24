@@ -259,6 +259,9 @@
    \crefrangeformat{subsubsection}{\mbox{Sections #3#1#4\@docRefRangeConjunction#5#2#6}}
    \crefrangeformat{paragraph}{\mbox{Sections #3#1#4\@docRefRangeConjunction#5#2#6}}
    \crefrangeformat{subparagraph}{\mbox{Sections #3#1#4\@docRefRangeConjunction#5#2#6}}
+   \crefrangeformat{table}{\mbox{Tables #3#1#4\@docRefRangeConjunction#5#2#6}}
+   \crefrangeformat{figure}{\mbox{Figures #3#1#4\@docRefRangeConjunction#5#2#6}}
+   \crefrangeformat{equation}{\mbox{Equations #3#1#4\@docRefRangeConjunction#5#2#6}}
 
    % Pass the "\ref" command to \autoref
    \let\ref\autoref
