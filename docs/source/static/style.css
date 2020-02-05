@@ -15,3 +15,8 @@ div.version a:visited, div.version a{
 .rst-content .section ol p, .rst-content .section ul p {
     margin-bottom: 0px;
 }
+
+/* Custom admonition - banner title (remove icon) */ 
+.banner p.admonition-title:before {
+    content: '';
+}
