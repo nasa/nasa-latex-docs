@@ -1,0 +1,405 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>LaTeX Equations &mdash; NASA-LaTeX-Docs  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+    <link rel="canonical" href="https://nasa.github.io/nasa-latex-docsexamples/equation.html"/>
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="LaTeX Code Listings" href="listing.html" />
+    <link rel="prev" title="LaTeX Tables" href="table.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> NASA-LaTeX-Docs
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                latest
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">NASA-LaTeX-Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/software-requirements.html">Software Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/quick-start.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/build-script.html">Build Script Options</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Document Templates</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../templates/overview.html">Templates Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/doc-params.html">Document Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/tech-memo.html">Template: Technical Memo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/tech-report.html">Template: Technical Report</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/aiaa-journal.html">Template: AIAA Journal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/aiaa-conference.html">Template: AIAA Conference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/aiaa-submission.html">Template: AIAA Submission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/standalone.html">Template: Standalone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/custom.html">Template: Custom</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Additional Features</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../features/revision-history.html">Revision History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features/acronyms.html">Acronyms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features/nomenclature.html">Nomenclature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features/bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features/appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">LaTeX Snippets &amp; Examples</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="section.html">LaTeX Sections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="figure.html">LaTeX Figures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="table.html">LaTeX Tables</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">LaTeX Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="listing.html">LaTeX Code Listings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graphics.html">LaTeX Graphics</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../misc/tex-editors.html">Tex Editor Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/contribute.html">Contribute</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">NASA-LaTeX-Docs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>LaTeX Equations</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="latex-equations">
+<span id="latexequations"></span><h1>LaTeX Equations<a class="headerlink" href="#latex-equations" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="quick-links">
+<p class="topic-title first">Quick Links</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#overview" id="id1">Overview</a></p></li>
+<li><p><a class="reference internal" href="#simple-equation" id="id2">Simple Equation</a></p></li>
+<li><p><a class="reference internal" href="#inline-equation" id="id3">Inline Equation</a></p></li>
+<li><p><a class="reference internal" href="#creating-matrices" id="id4">Creating Matrices</a></p></li>
+<li><p><a class="reference internal" href="#aligning-multiple-equations" id="id5">Aligning Multiple Equations</a></p></li>
+<li><p><a class="reference internal" href="#referencing-equations" id="id6">Referencing Equations</a></p></li>
+<li><p><a class="reference internal" href="#referencing-range-of-equations" id="id7">Referencing Range of Equations</a></p></li>
+</ul>
+</div>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>LaTex’s greatest strength over other typesetting systems is its ability to efficiently and cleanly handle the insertion of high-quality equations into documents. This can be done rather easily using the equation environment.</p>
+</div>
+<div class="section" id="simple-equation">
+<h2>Simple Equation<a class="headerlink" href="#simple-equation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>equation<span class="nb">}</span>
+   <span class="k">\label</span><span class="nb">{</span>eq:pythagorean<span class="nb">}</span>
+   a<span class="nb">_</span>1<span class="nb">^</span>2 + b<span class="nb">_</span>1<span class="nb">^</span>2 = c<span class="nb">_</span>1<span class="nb">^</span>2 
+<span class="k">\end</span><span class="nb">{</span>equation<span class="nb">}</span>
+</pre></div>
+</div>
+<img alt="../_images/equation.png" class="align-center" src="../_images/equation.png" />
+</div>
+<div class="section" id="inline-equation">
+<h2>Inline Equation<a class="headerlink" href="#inline-equation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span>LaTeX&#39;s strength is once again displayed here (<span class="s">$</span><span class="nb">a_</span><span class="m">1</span><span class="nb">^</span><span class="m">2</span><span class="nb"> </span><span class="o">+</span><span class="nb"> b_</span><span class="m">1</span><span class="nb">^</span><span class="m">2</span><span class="nb"> </span><span class="o">=</span><span class="nb"> c_</span><span class="m">1</span><span class="nb">^</span><span class="m">2</span><span class="s">$</span>) when trying to insert an equation
+inline with existing body text. This is done by enclosing the inline equation with a <span class="k">\$</span>.
+</pre></div>
+</div>
+<img alt="../_images/equation_inline.png" class="align-center" src="../_images/equation_inline.png" />
+</div>
+<div class="section" id="creating-matrices">
+<h2>Creating Matrices<a class="headerlink" href="#creating-matrices" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>equation<span class="nb">}</span>
+   <span class="k">\begin</span><span class="nb">{</span>matrix<span class="nb">}</span> 
+   a<span class="nb">_{</span>11<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>12<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>13<span class="nb">}</span>  <span class="k">\\</span>
+   a<span class="nb">_{</span>21<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>22<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>23<span class="nb">}</span>  <span class="k">\\</span>
+   a<span class="nb">_{</span>31<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>32<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>33<span class="nb">}</span>  <span class="k">\\</span>
+   <span class="k">\end</span><span class="nb">{</span>matrix<span class="nb">}</span> 
+<span class="k">\end</span><span class="nb">{</span>equation<span class="nb">}</span>
+</pre></div>
+</div>
+<img alt="../_images/equation_matrix.png" class="align-center" src="../_images/equation_matrix.png" />
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>equation<span class="nb">}</span>
+   <span class="k">\begin</span><span class="nb">{</span>Bmatrix<span class="nb">}</span> 
+   a<span class="nb">_{</span>11<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>12<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>13<span class="nb">}</span>  <span class="k">\\</span>
+   a<span class="nb">_{</span>21<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>22<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>23<span class="nb">}</span>  <span class="k">\\</span>
+   a<span class="nb">_{</span>31<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>32<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>33<span class="nb">}</span>  <span class="k">\\</span>
+   <span class="k">\end</span><span class="nb">{</span>Bmatrix<span class="nb">}</span> 
+<span class="k">\end</span><span class="nb">{</span>equation<span class="nb">}</span>
+</pre></div>
+</div>
+<img alt="../_images/equation_matrix_braces.png" class="align-center" src="../_images/equation_matrix_braces.png" />
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>equation<span class="nb">}</span>
+   <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span> 
+   a<span class="nb">_{</span>11<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>12<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>13<span class="nb">}</span>  <span class="k">\\</span>
+   a<span class="nb">_{</span>21<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>22<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>23<span class="nb">}</span>  <span class="k">\\</span>
+   a<span class="nb">_{</span>31<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>32<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>33<span class="nb">}</span>  <span class="k">\\</span>
+   <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span> 
+<span class="k">\end</span><span class="nb">{</span>equation<span class="nb">}</span>
+</pre></div>
+</div>
+<img alt="../_images/equation_matrix_bracket.png" class="align-center" src="../_images/equation_matrix_bracket.png" />
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>equation<span class="nb">}</span>
+   <span class="k">\begin</span><span class="nb">{</span>vmatrix<span class="nb">}</span> 
+   a<span class="nb">_{</span>11<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>12<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>13<span class="nb">}</span>  <span class="k">\\</span>
+   a<span class="nb">_{</span>21<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>22<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>23<span class="nb">}</span>  <span class="k">\\</span>
+   a<span class="nb">_{</span>31<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>32<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>33<span class="nb">}</span>  <span class="k">\\</span>
+   <span class="k">\end</span><span class="nb">{</span>vmatrix<span class="nb">}</span> 
+<span class="k">\end</span><span class="nb">{</span>equation<span class="nb">}</span>
+</pre></div>
+</div>
+<img alt="../_images/equation_matrix_line.png" class="align-center" src="../_images/equation_matrix_line.png" />
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>equation<span class="nb">}</span>
+   <span class="k">\begin</span><span class="nb">{</span>Vmatrix<span class="nb">}</span> 
+   a<span class="nb">_{</span>11<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>12<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>13<span class="nb">}</span>  <span class="k">\\</span>
+   a<span class="nb">_{</span>21<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>22<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>23<span class="nb">}</span>  <span class="k">\\</span>
+   a<span class="nb">_{</span>31<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>32<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>33<span class="nb">}</span>  <span class="k">\\</span>
+   <span class="k">\end</span><span class="nb">{</span>Vmatrix<span class="nb">}</span> 
+<span class="k">\end</span><span class="nb">{</span>equation<span class="nb">}</span>
+</pre></div>
+</div>
+<img alt="../_images/equation_matrix_double_line.png" class="align-center" src="../_images/equation_matrix_double_line.png" />
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>equation<span class="nb">}</span>
+   <span class="k">\begin</span><span class="nb">{</span>pmatrix<span class="nb">}</span> 
+   a<span class="nb">_{</span>11<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>12<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>13<span class="nb">}</span>  <span class="k">\\</span>
+   a<span class="nb">_{</span>21<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>22<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>23<span class="nb">}</span>  <span class="k">\\</span>
+   a<span class="nb">_{</span>31<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>32<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>33<span class="nb">}</span>  <span class="k">\\</span>
+   <span class="k">\end</span><span class="nb">{</span>pmatrix<span class="nb">}</span> 
+<span class="k">\end</span><span class="nb">{</span>equation<span class="nb">}</span>
+</pre></div>
+</div>
+<img alt="../_images/equation_matrix_parentheses.png" class="align-center" src="../_images/equation_matrix_parentheses.png" />
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>equation<span class="nb">}</span>
+   <span class="k">\begin</span><span class="nb">{</span>smallmatrix<span class="nb">}</span> 
+   a<span class="nb">_{</span>11<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>12<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>13<span class="nb">}</span>  <span class="k">\\</span>
+   a<span class="nb">_{</span>21<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>22<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>23<span class="nb">}</span>  <span class="k">\\</span>
+   a<span class="nb">_{</span>31<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>32<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>33<span class="nb">}</span>  <span class="k">\\</span>
+   <span class="k">\end</span><span class="nb">{</span>smallmatrix<span class="nb">}</span> 
+<span class="k">\end</span><span class="nb">{</span>equation<span class="nb">}</span>
+</pre></div>
+</div>
+<img alt="../_images/equation_matrix_small.png" class="align-center" src="../_images/equation_matrix_small.png" />
+</div>
+<div class="section" id="aligning-multiple-equations">
+<h2>Aligning Multiple Equations<a class="headerlink" href="#aligning-multiple-equations" title="Permalink to this headline">¶</a></h2>
+<p>Multiple equations may be aligned using the <code class="docutils literal notranslate"><span class="pre">split</span></code> environment where the <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> symbol is used to define where the alignment is to take place. This can be very useful for proofs and stepping through derivations.</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>equation<span class="nb">}</span>
+   <span class="k">\begin</span><span class="nb">{</span>split<span class="nb">}</span>
+   a<span class="nb">^</span>2 + b<span class="nb">^</span>2 <span class="nb">&amp;</span>= c<span class="nb">^</span>2 <span class="k">\\</span>
+   a<span class="nb">^</span>2 <span class="nb">&amp;</span>= c<span class="nb">^</span>2 - b<span class="nb">^</span>2<span class="k">\\</span>
+   a <span class="nb">&amp;</span>= <span class="k">\sqrt</span><span class="nb">{</span>c<span class="nb">^</span>2 - b<span class="nb">^</span>2<span class="nb">}</span><span class="k">\\</span> 
+   <span class="k">\end</span><span class="nb">{</span>split<span class="nb">}</span>
+<span class="k">\end</span><span class="nb">{</span>equation<span class="nb">}</span>
+</pre></div>
+</div>
+<img alt="../_images/equation_alignment.png" class="align-center" src="../_images/equation_alignment.png" />
+</div>
+<div class="section" id="referencing-equations">
+<h2>Referencing Equations<a class="headerlink" href="#referencing-equations" title="Permalink to this headline">¶</a></h2>
+<p>The example below highlights how the <code class="docutils literal notranslate"><span class="pre">\label</span></code> command is used to define a <strong>unique</strong> label to this specific equation and how it can be referenced within the text of the document using the <code class="docutils literal notranslate"><span class="pre">\ref</span></code> command.</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>equation<span class="nb">}</span>
+   <span class="k">\label</span><span class="nb">{</span>eq:pythagorean<span class="nb">}</span>
+   a<span class="nb">_</span>1<span class="nb">^</span>2 + b<span class="nb">_</span>1<span class="nb">^</span>2 = c<span class="nb">_</span>1<span class="nb">^</span>2 
+<span class="k">\end</span><span class="nb">{</span>equation<span class="nb">}</span>
+
+An example table can be seen in <span class="k">\ref</span><span class="nb">{</span>eq:pythagorean<span class="nb">}</span>.
+Also note how the &quot;Equation&quot; prefix is automatically added within the document text whenever the reference is called.
+</pre></div>
+</div>
+<img alt="../_images/equation_reference.png" class="align-center" src="../_images/equation_reference.png" />
+</div>
+<div class="section" id="referencing-range-of-equations">
+<h2>Referencing Range of Equations<a class="headerlink" href="#referencing-range-of-equations" title="Permalink to this headline">¶</a></h2>
+<p>The example below highlights how the <code class="docutils literal notranslate"><span class="pre">\refrange</span></code> command can be used to reference a range of equations.</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>equation<span class="nb">}</span>
+   <span class="k">\label</span><span class="nb">{</span>eq:pythagorean<span class="nb">}</span>
+   a<span class="nb">_</span>1<span class="nb">^</span>2 + b<span class="nb">_</span>1<span class="nb">^</span>2 = c<span class="nb">_</span>1<span class="nb">^</span>2 
+<span class="k">\end</span><span class="nb">{</span>equation<span class="nb">}</span>
+
+<span class="k">\begin</span><span class="nb">{</span>equation<span class="nb">}</span>
+   <span class="k">\label</span><span class="nb">{</span>eq:integral<span class="nb">}</span>
+   f(x) = <span class="k">\int</span><span class="nb">^</span>a<span class="nb">_</span>b <span class="k">\frac</span><span class="nb">{</span>1<span class="nb">}{</span>3<span class="nb">}</span>x<span class="nb">^</span>3
+<span class="k">\end</span><span class="nb">{</span>equation<span class="nb">}</span>
+
+<span class="k">\begin</span><span class="nb">{</span>equation<span class="nb">}</span>
+   <span class="k">\label</span><span class="nb">{</span>eq:einstein<span class="nb">}</span>
+   E = mc<span class="nb">^</span>2
+<span class="k">\end</span><span class="nb">{</span>equation<span class="nb">}</span>
+
+We can reference a range of tables as seen here: <span class="k">\refrange</span><span class="nb">{</span>eq:pythagorean<span class="nb">}{</span>eq:einstein<span class="nb">}</span>.
+Also note how the &quot;Equations&quot; prefix is automatically added within the document text whenever the range reference is called.
+</pre></div>
+</div>
+<img alt="../_images/equation_reference_range.png" class="align-center" src="../_images/equation_reference_range.png" />
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="listing.html" class="btn btn-neutral float-right" title="LaTeX Code Listings" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="table.html" class="btn btn-neutral float-left" title="LaTeX Tables" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

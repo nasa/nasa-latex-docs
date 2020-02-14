@@ -1,0 +1,425 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Build Script: buildPDF.py &mdash; NASA-LaTeX-Docs  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+    <link rel="canonical" href="https://nasa.github.io/nasa-latex-docsmisc/build-script.html"/>
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Templates Overview" href="../templates/overview.html" />
+    <link rel="prev" title="Quick Start Guide" href="quick-start.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> NASA-LaTeX-Docs
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                latest
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">NASA-LaTeX-Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="software-requirements.html">Software Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick Start Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Build Script: buildPDF.py</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Document Templates</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../templates/overview.html">Templates Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/doc-params.html">Document Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/tech-memo.html">Template: Technical Memo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/tech-report.html">Template: Technical Report</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/aiaa-journal.html">Template: AIAA Journal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/aiaa-conference.html">Template: AIAA Conference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/aiaa-submission.html">Template: AIAA Submission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/standalone.html">Template: Standalone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/custom.html">Template: Custom</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Additional Features</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../features/revision-history.html">Revision History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features/acronyms.html">Acronyms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features/nomenclature.html">Nomenclature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features/bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features/appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">LaTeX Snippets &amp; Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/section.html">LaTeX Sections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/figure.html">LaTeX Figures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/table.html">LaTeX Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/equation.html">LaTeX Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/listing.html">LaTeX Code Listings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/graphics.html">LaTeX Graphics</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tex-editors.html">Tex Editor Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contribute</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">NASA-LaTeX-Docs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Build Script: buildPDF.py</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="build-script-buildpdf-py">
+<span id="buildpdf"></span><h1>Build Script: buildPDF.py<a class="headerlink" href="#build-script-buildpdf-py" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#overview" id="id1">Overview</a></p></li>
+<li><p><a class="reference internal" href="#general-script-usage" id="id2">General Script Usage</a></p></li>
+<li><p><a class="reference internal" href="#script-options" id="id3">Script Options</a></p>
+<ul>
+<li><p><a class="reference internal" href="#option-h-or-help" id="id4">Option: <code class="docutils literal notranslate"><span class="pre">-h</span></code> or <code class="docutils literal notranslate"><span class="pre">--help</span></code></a></p></li>
+<li><p><a class="reference internal" href="#option-v-or-verbose" id="id5">Option: <code class="docutils literal notranslate"><span class="pre">-v</span></code> or <code class="docutils literal notranslate"><span class="pre">--verbose</span></code></a></p></li>
+<li><p><a class="reference internal" href="#option-q-or-quiet" id="id6">Option: <code class="docutils literal notranslate"><span class="pre">-q</span></code> or <code class="docutils literal notranslate"><span class="pre">--quiet</span></code></a></p></li>
+<li><p><a class="reference internal" href="#option-f-or-force" id="id7">Option: <code class="docutils literal notranslate"><span class="pre">-f</span></code> or <code class="docutils literal notranslate"><span class="pre">--force</span></code></a></p></li>
+<li><p><a class="reference internal" href="#option-w-or-watch" id="id8">Option: <code class="docutils literal notranslate"><span class="pre">-w</span></code> or <code class="docutils literal notranslate"><span class="pre">--watch</span></code></a></p></li>
+<li><p><a class="reference internal" href="#option-c-or-clean" id="id9">Option: <code class="docutils literal notranslate"><span class="pre">-c</span></code> or <code class="docutils literal notranslate"><span class="pre">--clean</span></code></a></p></li>
+<li><p><a class="reference internal" href="#option-l-or-latexpath" id="id10">Option: <code class="docutils literal notranslate"><span class="pre">-l</span></code> or <code class="docutils literal notranslate"><span class="pre">--latexpath</span></code></a></p></li>
+<li><p><a class="reference internal" href="#option-t-or-texinputs" id="id11">Option: <code class="docutils literal notranslate"><span class="pre">-t</span></code> or <code class="docutils literal notranslate"><span class="pre">--texinputs</span></code></a></p></li>
+<li><p><a class="reference internal" href="#option-o-or-output" id="id12">Option: <code class="docutils literal notranslate"><span class="pre">-o</span></code> or <code class="docutils literal notranslate"><span class="pre">--output</span></code></a></p></li>
+<li><p><a class="reference internal" href="#option-p-or-preview" id="id13">Option: <code class="docutils literal notranslate"><span class="pre">-p</span></code> or <code class="docutils literal notranslate"><span class="pre">--preview</span></code></a></p></li>
+<li><p><a class="reference internal" href="#option-n-or-new" id="id14">Option: <code class="docutils literal notranslate"><span class="pre">-n</span></code> or <code class="docutils literal notranslate"><span class="pre">--new</span></code></a></p></li>
+<li><p><a class="reference internal" href="#option-update" id="id15">Option: <code class="docutils literal notranslate"><span class="pre">--update</span></code></a></p></li>
+<li><p><a class="reference internal" href="#option-standalone-pdf" id="id16">Option: <code class="docutils literal notranslate"><span class="pre">--standalone-pdf</span></code></a></p></li>
+<li><p><a class="reference internal" href="#option-standalone-png" id="id17">Option: <code class="docutils literal notranslate"><span class="pre">--standalone-png</span></code></a></p></li>
+<li><p><a class="reference internal" href="#option-standalone-all" id="id18">Option: <code class="docutils literal notranslate"><span class="pre">--standalone-all</span></code></a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">buildPDF.py</span></code> is an incredibly versatile, OS independent, Python build script with preconfigured Latexmk options for easy document type-setting and warning/error detection. The <code class="docutils literal notranslate"><span class="pre">buildPDF.py</span></code> script performs all the required functions for building any LaTeX document including generating the final PDF as well as building the bibliography, glossary, and acronym databases.</p>
+<p>Usage of <code class="docutils literal notranslate"><span class="pre">buildPDF.py</span></code> is simple and a help menu can be generated at any point by running the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python ./support/buildPDF.py --help
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python ./support/buildPDF.py -h
+</pre></div>
+</div>
+<p>This script is an executable and may also be called through the following (if Python environment is already setup). This is the preferred method and, since most users will already have Python environment already configured, likely that way that most users will call the script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./support/buildPDF.py -h
+</pre></div>
+</div>
+</div>
+<div class="section" id="general-script-usage">
+<h2>General Script Usage<a class="headerlink" href="#general-script-usage" title="Permalink to this headline">¶</a></h2>
+<p>Assuming you have created a new document (see <a class="reference internal" href="quick-start.html#createnewdocument"><span class="std std-ref">Create a New Document</span></a>) are trying to build a file named <code class="docutils literal notranslate"><span class="pre">MyDocument.tex</span></code>, the script may be called as follows from within the root of your newly created documented folder:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./support/buildPDF.py MyDocument.tex &lt;OPTIONS&gt;
+</pre></div>
+</div>
+<p>Example usage of passing example <a class="reference internal" href="#buildscriptoptions"><span class="std std-ref">Script Options</span></a></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./support/buildPDF.py MyDocument.tex -f -c -v
+</pre></div>
+</div>
+<p>Or using a combination of short name and long name for the options</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./support/buildPDF.py MyDocument.tex -f --clean -v
+</pre></div>
+</div>
+<p>Or these inputs may even me strung together as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./support/buildPDF.py MyDocument.tex -fcv
+</pre></div>
+</div>
+</div>
+<div class="section" id="script-options">
+<span id="buildscriptoptions"></span><h2>Script Options<a class="headerlink" href="#script-options" title="Permalink to this headline">¶</a></h2>
+<p>The following <code class="docutils literal notranslate"><span class="pre">buildPDF.py</span></code> options are flags the perform certain functions within the script during or after the build.</p>
+<div class="section" id="option-h-or-help">
+<h3>Option: <code class="docutils literal notranslate"><span class="pre">-h</span></code> or <code class="docutils literal notranslate"><span class="pre">--help</span></code><a class="headerlink" href="#option-h-or-help" title="Permalink to this headline">¶</a></h3>
+<p>Prints a simple version of the option descriptions to the user’s screen for quick reference. Whenever this option is passed, no other option is enabled and a <strong>build will not take place</strong>.</p>
+</div>
+<div class="section" id="option-v-or-verbose">
+<h3>Option: <code class="docutils literal notranslate"><span class="pre">-v</span></code> or <code class="docutils literal notranslate"><span class="pre">--verbose</span></code><a class="headerlink" href="#option-v-or-verbose" title="Permalink to this headline">¶</a></h3>
+<p>Prints additional information to screen during the build for debugging and informational purposes.</p>
+</div>
+<div class="section" id="option-q-or-quiet">
+<h3>Option: <code class="docutils literal notranslate"><span class="pre">-q</span></code> or <code class="docutils literal notranslate"><span class="pre">--quiet</span></code><a class="headerlink" href="#option-q-or-quiet" title="Permalink to this headline">¶</a></h3>
+<p>Suppress all console output to screen from build process. Useful when running a batch process or for integration into continuous development pipelines.</p>
+</div>
+<div class="section" id="option-f-or-force">
+<h3>Option: <code class="docutils literal notranslate"><span class="pre">-f</span></code> or <code class="docutils literal notranslate"><span class="pre">--force</span></code><a class="headerlink" href="#option-f-or-force" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes users make changes that do not trigger a build, this options allows a force build not matter if changes are detected by <code class="docutils literal notranslate"><span class="pre">latexmk</span></code>.</p>
+</div>
+<div class="section" id="option-w-or-watch">
+<h3>Option: <code class="docutils literal notranslate"><span class="pre">-w</span></code> or <code class="docutils literal notranslate"><span class="pre">--watch</span></code><a class="headerlink" href="#option-w-or-watch" title="Permalink to this headline">¶</a></h3>
+<p>This option enables a continuous build capability by watching for file changes, i.e. upon a user saving a file, and will automatically trigger a build. In a command prompt, users can run the following command from within their document:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./support/buildPDF.py MyDocument.tex --watch
+</pre></div>
+</div>
+<p>This will run a continuous process in that command prompt and the user can now work on the document in any text editor they choose! Each time they save a file in their text editor, the document will build and the changes reflected in whatever PDF viewer the user has open.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>This essentially allows you to turn <strong>any combination</strong> of text editor and PDF viewer you choose into your own customized <code class="docutils literal notranslate"><span class="pre">LaTeX</span></code> integrated development environment (IDE) and not being forced to use an existing IDE: e.g. <code class="docutils literal notranslate"><span class="pre">TeXShop</span></code>, <code class="docutils literal notranslate"><span class="pre">TexMaker</span></code>, <code class="docutils literal notranslate"><span class="pre">TeXStudio</span></code>, etc…</p>
+</div>
+</div>
+<div class="section" id="option-c-or-clean">
+<h3>Option: <code class="docutils literal notranslate"><span class="pre">-c</span></code> or <code class="docutils literal notranslate"><span class="pre">--clean</span></code><a class="headerlink" href="#option-c-or-clean" title="Permalink to this headline">¶</a></h3>
+<p>This option removes the <code class="docutils literal notranslate"><span class="pre">tmp/</span></code> directory housing the <a class="reference internal" href="quick-start.html#temporarybuildartifacts"><span class="std std-ref">Temporary Build Artifacts</span></a> that is created in each document folder. This folder houses all of the build auxiliary and log files. There is really no reason to ever delete the tmp/ directory unless the document is complete or you suspect that some of the files have become stale and are causing erroneous build failures or unexpected build behavior. When the tmp/ directory is deleted, the document will be re-built from scratch which typically takes longer the first time around - often requiring several passes.</p>
+</div>
+<div class="section" id="option-l-or-latexpath">
+<h3>Option: <code class="docutils literal notranslate"><span class="pre">-l</span></code> or <code class="docutils literal notranslate"><span class="pre">--latexpath</span></code><a class="headerlink" href="#option-l-or-latexpath" title="Permalink to this headline">¶</a></h3>
+<p>This option adds the location of the user desired LaTeX distribution installed on their machine for use when building the document. The user input is added to the <strong>front</strong> of the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment to ensure that it is used.</p>
+<p>Example usage for the typical LaTeX installation location on a Mac:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./support/buildPDF.py MyDocument.tex --latexpath /Library/TeX/texbin
+</pre></div>
+</div>
+</div>
+<div class="section" id="option-t-or-texinputs">
+<h3>Option: <code class="docutils literal notranslate"><span class="pre">-t</span></code> or <code class="docutils literal notranslate"><span class="pre">--texinputs</span></code><a class="headerlink" href="#option-t-or-texinputs" title="Permalink to this headline">¶</a></h3>
+<p>This option may be used to point to a location on the users computer that is not located within the current document to add to the search path. This may be useful for common <code class="docutils literal notranslate"><span class="pre">.tex</span></code> or <code class="docutils literal notranslate"><span class="pre">.bib</span></code> files that are used often across multiple projects. For example, instead of copying an instance of an acronyms database to each new document, you can simply point to the directory path (the :<code class="docutils literal notranslate"><span class="pre">~/Documents/common/latex</span></code> path is used here as an example) with the <code class="docutils literal notranslate"><span class="pre">--texinputs</span></code> option:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./support/buildPDF.py MyDocument.tex --texinputs ~/Documents/common/latex
+</pre></div>
+</div>
+<p>Anything under <code class="docutils literal notranslate"><span class="pre">~/Documents/common/latex</span></code> will be recursively added to the <code class="docutils literal notranslate"><span class="pre">LaTeX</span></code> search path during the build so that it is available for use in your current document. This folder may contain any number of items that you find common across multiple documents.</p>
+</div>
+<div class="section" id="option-o-or-output">
+<h3>Option: <code class="docutils literal notranslate"><span class="pre">-o</span></code> or <code class="docutils literal notranslate"><span class="pre">--output</span></code><a class="headerlink" href="#option-o-or-output" title="Permalink to this headline">¶</a></h3>
+<p>By default a <code class="docutils literal notranslate"><span class="pre">.tex</span></code> file named <code class="docutils literal notranslate"><span class="pre">MyDocument.tex</span></code>, for example,  will be typeset to a PDF file name <code class="docutils literal notranslate"><span class="pre">MyDocument.pdf</span></code>. The <code class="docutils literal notranslate"><span class="pre">--output</span></code> option may be used to rename the output of a given build:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./support/buildPDF.py MyDocument.tex --output Technical_Report_v3.pdf
+</pre></div>
+</div>
+<p>The output may even be rerouted to a new location:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./support/buildPDF.py MyDocument.tex --output ~/Desktop/Technical_Report_v3.pdf
+</pre></div>
+</div>
+</div>
+<div class="section" id="option-p-or-preview">
+<h3>Option: <code class="docutils literal notranslate"><span class="pre">-p</span></code> or <code class="docutils literal notranslate"><span class="pre">--preview</span></code><a class="headerlink" href="#option-p-or-preview" title="Permalink to this headline">¶</a></h3>
+<p>This option launches a PDF previewer after a successful build for the resulting PDF. The default preview program on a Mac is <code class="docutils literal notranslate"><span class="pre">preview</span></code>, on Linux is <code class="docutils literal notranslate"><span class="pre">evince</span></code>, and on Windows <code class="docutils literal notranslate"><span class="pre">SumatraPDF</span></code> (<a class="reference external" href="https://www.sumatrapdfreader.org/download-free-pdf-viewer.html">link</a>). For example, running the following on a Mac:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./support/buildPDF.py MyDocument.tex -p
+</pre></div>
+</div>
+<p>Will result in a Mac <code class="code docutils literal notranslate"><span class="pre">preview</span></code> window opening with the latest PDF build. One issue with using the Mac <code class="code docutils literal notranslate"><span class="pre">preview</span></code> program is that it does not effectively load new PDFs without resetting the document location. A much better option is to use <a class="reference external" href="http://skim-app.sourceforge.net/">Skim</a> if it is installed on the computer. Assuming it is, it may be used as the preview program by simply doing the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./support/buildPDF.py MyDocument.tex -p Skim
+</pre></div>
+</div>
+<p>The same applies for any other platform and user choice of PDF viewer.</p>
+</div>
+<div class="section" id="option-n-or-new">
+<h3>Option: <code class="docutils literal notranslate"><span class="pre">-n</span></code> or <code class="docutils literal notranslate"><span class="pre">--new</span></code><a class="headerlink" href="#option-n-or-new" title="Permalink to this headline">¶</a></h3>
+<p>This option is used to create new documents as described in <a class="reference internal" href="quick-start.html#createnewdocument"><span class="std std-ref">Create a New Document</span></a>.</p>
+</div>
+<div class="section" id="option-update">
+<h3>Option: <code class="docutils literal notranslate"><span class="pre">--update</span></code><a class="headerlink" href="#option-update" title="Permalink to this headline">¶</a></h3>
+<p>Suppose you create a document and start working on it. Some time later the <code class="docutils literal notranslate"><span class="pre">nasa-latex-docs</span></code> <a class="reference external" href="https://github.com/nasa/nasa-latex-docs">Github Repository</a> is updated with a new feature that you want to add to your document. The <code class="docutils literal notranslate"><span class="pre">--update</span></code> option is available to make that easy! Simply call <code class="docutils literal notranslate"><span class="pre">--update</span></code> from within your document and the latest version of the <code class="docutils literal notranslate"><span class="pre">nasa-latex-docs</span></code> will be automatically fetched from <a class="reference external" href="https://github.com/nasa/nasa-latex-docs">Github</a> and update the relevant <code class="docutils literal notranslate"><span class="pre">support</span></code> files in your document.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./support/buildPDF.py --update
+</pre></div>
+</div>
+<p>This option <strong>does not</strong> modify any user content so there is no risk of losing any work. This command will simple replace the <code class="docutils literal notranslate"><span class="pre">support</span></code> directory of your document with the latest version. Now, you can use the new feature in your existing document and continue adding content!</p>
+</div>
+<div class="section" id="option-standalone-pdf">
+<h3>Option: <code class="docutils literal notranslate"><span class="pre">--standalone-pdf</span></code><a class="headerlink" href="#option-standalone-pdf" title="Permalink to this headline">¶</a></h3>
+<p>This option allows you to convert any <code class="docutils literal notranslate"><span class="pre">LaTeX</span></code> snippet into a standalone, cropped, PDF. Suppose you have the following content in a file called <code class="docutils literal notranslate"><span class="pre">snippet.tex</span></code> and nothing more, i.e: no <code class="docutils literal notranslate"><span class="pre">docuemntclass</span></code>, no preamble, no <code class="docutils literal notranslate"><span class="pre">begindocument</span></code>, but rather JUST a raw <code class="docutils literal notranslate"><span class="pre">LaTeX</span></code> snippet:</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>figure<span class="nb">}</span>[H]
+   <span class="k">\centering</span>
+   <span class="k">\includegraphics</span><span class="na">[height=1in]</span><span class="nb">{</span>NASA<span class="nb">_</span>Logo<span class="nb">}</span>
+   <span class="k">\caption</span><span class="nb">{</span>Figure with Caption<span class="nb">}</span> 
+   <span class="k">\label</span><span class="nb">{</span>fig:nasa-logo<span class="nb">}</span>
+<span class="k">\end</span><span class="nb">{</span>figure<span class="nb">}</span>
+</pre></div>
+</div>
+<p>You can then build this small snippet in a “standalone” mode as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./support/buildPDF.py snippet.tex --standalone-pdf
+</pre></div>
+</div>
+<p>The output of the above command will be a <code class="docutils literal notranslate"><span class="pre">snippet.pdf</span></code> (seen below) file that will be fully cropped to only contain the content created by your snippet! This option is incredibly useful for creating cropped <code class="docutils literal notranslate"><span class="pre">LaTeX</span></code> outputs that can then be used in presentations, emails, other documents, and any where else the user may have find useful.</p>
+<img alt="../_images/one_figure_one_caption.png" class="align-center" src="../_images/one_figure_one_caption.png" />
+</div>
+<div class="section" id="option-standalone-png">
+<h3>Option: <code class="docutils literal notranslate"><span class="pre">--standalone-png</span></code><a class="headerlink" href="#option-standalone-png" title="Permalink to this headline">¶</a></h3>
+<p>This option operates just like the example above except the output will be a <code class="docutils literal notranslate"><span class="pre">snippet.png</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./support/buildPDF.py snippet.tex --standalone-png
+</pre></div>
+</div>
+</div>
+<div class="section" id="option-standalone-all">
+<h3>Option: <code class="docutils literal notranslate"><span class="pre">--standalone-all</span></code><a class="headerlink" href="#option-standalone-all" title="Permalink to this headline">¶</a></h3>
+<p>This option operates just like the examples above except will produce <strong>both</strong> outputs: <code class="docutils literal notranslate"><span class="pre">snippet.pdf</span></code> and <code class="docutils literal notranslate"><span class="pre">snippet.png</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./support/buildPDF.py snippet.tex --standalone-all
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../templates/overview.html" class="btn btn-neutral float-right" title="Templates Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="quick-start.html" class="btn btn-neutral float-left" title="Quick Start Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

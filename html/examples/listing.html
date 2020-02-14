@@ -1,0 +1,441 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>LaTeX Code Listings &mdash; NASA-LaTeX-Docs  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+    <link rel="canonical" href="https://nasa.github.io/nasa-latex-docsexamples/listing.html"/>
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="LaTeX Graphics" href="graphics.html" />
+    <link rel="prev" title="LaTeX Equations" href="equation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> NASA-LaTeX-Docs
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                latest
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">NASA-LaTeX-Docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/software-requirements.html">Software Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/quick-start.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/build-script.html">Build Script Options</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Document Templates</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../templates/overview.html">Templates Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/doc-params.html">Document Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/tech-memo.html">Template: Technical Memo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/tech-report.html">Template: Technical Report</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/aiaa-journal.html">Template: AIAA Journal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/aiaa-conference.html">Template: AIAA Conference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/aiaa-submission.html">Template: AIAA Submission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/standalone.html">Template: Standalone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../templates/custom.html">Template: Custom</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Additional Features</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../features/revision-history.html">Revision History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features/acronyms.html">Acronyms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features/nomenclature.html">Nomenclature</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features/bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features/appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">LaTeX Snippets &amp; Examples</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="section.html">LaTeX Sections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="figure.html">LaTeX Figures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="table.html">LaTeX Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="equation.html">LaTeX Equations</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">LaTeX Code Listings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graphics.html">LaTeX Graphics</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../misc/tex-editors.html">Tex Editor Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/contribute.html">Contribute</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">NASA-LaTeX-Docs</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>LaTeX Code Listings</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="latex-code-listings">
+<span id="latexlisting"></span><h1>LaTeX Code Listings<a class="headerlink" href="#latex-code-listings" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="quick-links">
+<p class="topic-title first">Quick Links</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#overview" id="id1">Overview</a></p></li>
+<li><p><a class="reference internal" href="#simple-code-listings" id="id2">Simple Code Listings</a></p></li>
+<li><p><a class="reference internal" href="#customization-options" id="id3">Customization Options</a></p></li>
+<li><p><a class="reference internal" href="#creating-a-predefined-style" id="id4">Creating a Predefined Style</a></p></li>
+<li><p><a class="reference internal" href="#setting-a-local-style" id="id5">Setting a Local Style</a></p></li>
+<li><p><a class="reference internal" href="#setting-a-global-style" id="id6">Setting a Global Style</a></p></li>
+<li><p><a class="reference internal" href="#customization-of-code-listings-style" id="id7">Customization of Code Listings - Style</a></p></li>
+<li><p><a class="reference internal" href="#customization-of-code-listings-manual" id="id8">Customization of Code Listings - Manual</a></p></li>
+<li><p><a class="reference internal" href="#referencing-code-listings" id="id9">Referencing Code Listings</a></p></li>
+<li><p><a class="reference internal" href="#referencing-range-of-code-listings" id="id10">Referencing Range of Code Listings</a></p></li>
+</ul>
+</div>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">lstinputlisting</span></code> command can be used to generated style code listings directly within the document. This feature is great for documenting code or adding it into a document for reference purposes. Useful links: <a class="reference external" href="https://www.overleaf.com/learn/latex/Code_listing#Code_styles_and_colours">Overleaf</a> and <a class="reference external" href="https://en.wikibooks.org/wiki/LaTeX/Source_Code_Listings">Wiki</a>.</p>
+<p>By default <code class="docutils literal notranslate"><span class="pre">lstinputlisting</span></code> only supports <a class="reference external" href="https://www.overleaf.com/learn/latex/Code_listing#Supported_languages">certain languages</a> for syntax highlighting. <code class="docutils literal notranslate"><span class="pre">Matlab</span></code> is not a supported langauge for syntax highlighting, but <code class="docutils literal notranslate"><span class="pre">nasa-latex-docs</span></code> has extended functionality to also support <code class="docutils literal notranslate"><span class="pre">Matlab</span></code> syntax highlighting! Another free benefit of using <code class="docutils literal notranslate"><span class="pre">nasa-latex-docs</span></code>. See examples below.</p>
+</div>
+<div class="section" id="simple-code-listings">
+<h2>Simple Code Listings<a class="headerlink" href="#simple-code-listings" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\lstinputlisting</span><span class="na">[caption=Example C++, label={lst:listing-cpp}, language=C++]</span><span class="nb">{</span>code<span class="nb">_</span>sample.cpp<span class="nb">}</span>
+</pre></div>
+</div>
+<img alt="../_images/listing_cpp.png" class="align-center" src="../_images/listing_cpp.png" />
+</div>
+<div class="section" id="customization-options">
+<span id="latexlistingcustomizemanual"></span><h2>Customization Options<a class="headerlink" href="#customization-options" title="Permalink to this headline">¶</a></h2>
+<p>Code listings can be customized in a variety of ways. The following is a summary of the various options. More details on each can be researched by the end user - this simply serves as a cursory reference.</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span>backgroundcolor=<span class="k">\color</span><span class="nb">{</span>white<span class="nb">}</span>,   <span class="c">% choose the background color</span>
+basicstyle=<span class="k">\footnotesize</span>,        <span class="c">% the size of the fonts that are used for the code</span>
+breakatwhitespace=false,         <span class="c">% sets if automatic breaks should only happen at whitespace</span>
+breaklines=true,                 <span class="c">% sets automatic line breaking</span>
+captionpos=b,                    <span class="c">% sets the caption-position to bottom</span>
+commentstyle=<span class="k">\color</span><span class="nb">{</span>mygreen<span class="nb">}</span>,    <span class="c">% comment style</span>
+deletekeywords=<span class="nb">{</span>...<span class="nb">}</span>,            <span class="c">% if you want to delete keywords from the given language</span>
+escapeinside=<span class="nb">{</span><span class="k">\%*</span><span class="nb">}{</span>*)<span class="nb">}</span>,          <span class="c">% if you want to add LaTeX within your code</span>
+extendedchars=true,              <span class="c">% lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8</span>
+firstnumber=1000,                <span class="c">% start line enumeration with line 1000</span>
+frame=single,                    <span class="c">% adds a frame around the code</span>
+keepspaces=true,                 <span class="c">% keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)</span>
+keywordstyle=<span class="k">\color</span><span class="nb">{</span>blue<span class="nb">}</span>,       <span class="c">% keyword style</span>
+language=Octave,                 <span class="c">% the language of the code</span>
+morekeywords=<span class="nb">{</span>*,...<span class="nb">}</span>,            <span class="c">% if you want to add more keywords to the set</span>
+numbers=left,                    <span class="c">% where to put the line-numbers; possible values are (none, left, right)</span>
+numbersep=5pt,                   <span class="c">% how far the line-numbers are from the code</span>
+numberstyle=<span class="k">\tiny\color</span><span class="nb">{</span>mygray<span class="nb">}</span>, <span class="c">% the style that is used for the line-numbers</span>
+rulecolor=<span class="k">\color</span><span class="nb">{</span>black<span class="nb">}</span>,         <span class="c">% if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))</span>
+showspaces=false,                <span class="c">% show spaces everywhere adding particular underscores; it overrides &#39;showstringspaces&#39;</span>
+showstringspaces=false,          <span class="c">% underline spaces within strings only</span>
+showtabs=false,                  <span class="c">% show tabs within strings adding particular underscores</span>
+stepnumber=2,                    <span class="c">% the step between two line-numbers. If it&#39;s 1, each line will be numbered</span>
+stringstyle=<span class="k">\color</span><span class="nb">{</span>mymauve<span class="nb">}</span>,     <span class="c">% string literal style</span>
+tabsize=2,                       <span class="c">% sets default tabsize to 2 spaces</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="creating-a-predefined-style">
+<h2>Creating a Predefined Style<a class="headerlink" href="#creating-a-predefined-style" title="Permalink to this headline">¶</a></h2>
+<p>In order to reuse styles, the <code class="docutils literal notranslate"><span class="pre">\lstdefinestyle</span></code> command can be used to define a custom style configuration using the options defined in the previous section.</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\lstdefinestyle</span><span class="nb">{</span>myStyle<span class="nb">}{</span>
+    belowcaptionskip=1<span class="k">\baselineskip</span>,
+    breaklines=true,
+    frame=none,
+    numbers=none,
+    basicstyle=<span class="k">\footnotesize\ttfamily</span>,
+    keywordstyle=<span class="k">\bfseries\color</span><span class="nb">{</span>green!40!black<span class="nb">}</span>,
+    commentstyle=<span class="k">\itshape\color</span><span class="nb">{</span>purple!40!black<span class="nb">}</span>,
+    identifierstyle=<span class="k">\color</span><span class="nb">{</span>blue<span class="nb">}</span>,
+    backgroundcolor=<span class="k">\color</span><span class="nb">{</span>gray!10!white<span class="nb">}</span>,
+<span class="nb">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setting-a-local-style">
+<h2>Setting a Local Style<a class="headerlink" href="#setting-a-local-style" title="Permalink to this headline">¶</a></h2>
+<p>User can define a style configuration to be used for a specific code listing using the <code class="docutils literal notranslate"><span class="pre">style</span></code> keyword:</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\lstinputlisting</span><span class="na">[caption=Example C++, label={lst:listing-cpp}, language=C++, style=myStyle]</span><span class="nb">{</span>code<span class="nb">_</span>sample.cpp<span class="nb">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setting-a-global-style">
+<h2>Setting a Global Style<a class="headerlink" href="#setting-a-global-style" title="Permalink to this headline">¶</a></h2>
+<p>User can define a style configuration to be used as the default for all code listings using the <code class="docutils literal notranslate"><span class="pre">lstset</span></code> command:</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\lstset</span><span class="nb">{</span>style=myStyle<span class="nb">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="customization-of-code-listings-style">
+<h2>Customization of Code Listings - Style<a class="headerlink" href="#customization-of-code-listings-style" title="Permalink to this headline">¶</a></h2>
+<p>The following is an example of using an existing pre-defined style to customize a code listing.</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\lstdefinestyle</span><span class="nb">{</span>myStyle<span class="nb">}{</span>
+    belowcaptionskip=1<span class="k">\baselineskip</span>,
+    breaklines=true,
+    frame=none,
+    numbers=none, 
+    basicstyle=<span class="k">\footnotesize\ttfamily</span>,
+    keywordstyle=<span class="k">\bfseries\color</span><span class="nb">{</span>green!40!black<span class="nb">}</span>,
+    commentstyle=<span class="k">\itshape\color</span><span class="nb">{</span>purple!40!black<span class="nb">}</span>,
+    identifierstyle=<span class="k">\color</span><span class="nb">{</span>blue<span class="nb">}</span>,
+    backgroundcolor=<span class="k">\color</span><span class="nb">{</span>gray!10!white<span class="nb">}</span>,
+<span class="nb">}</span>
+
+<span class="k">\lstinputlisting</span>[
+    caption=Example C++,
+    label=<span class="nb">{</span>lst:listing-cpp<span class="nb">}</span>,
+    language=C++,
+    style=myStyle,
+    ]<span class="nb">{</span>code<span class="nb">_</span>sample.cpp<span class="nb">}</span>
+</pre></div>
+</div>
+<img alt="../_images/listing_customize_style.png" class="align-center" src="../_images/listing_customize_style.png" />
+</div>
+<div class="section" id="customization-of-code-listings-manual">
+<h2>Customization of Code Listings - Manual<a class="headerlink" href="#customization-of-code-listings-manual" title="Permalink to this headline">¶</a></h2>
+<p>If a <code class="docutils literal notranslate"><span class="pre">style</span></code> is not define, users can manually apply certain styles. This method can also be used to override default styles.</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\definecolor</span><span class="nb">{</span>codegreen<span class="nb">}{</span>rgb<span class="nb">}{</span>0,0.6,0<span class="nb">}</span>
+<span class="k">\definecolor</span><span class="nb">{</span>codegray<span class="nb">}{</span>rgb<span class="nb">}{</span>0.5,0.5,0.5<span class="nb">}</span>
+<span class="k">\definecolor</span><span class="nb">{</span>codepurple<span class="nb">}{</span>rgb<span class="nb">}{</span>0.58,0,0.82<span class="nb">}</span>
+<span class="k">\definecolor</span><span class="nb">{</span>backcolour<span class="nb">}{</span>rgb<span class="nb">}{</span>0.95,0.95,0.92<span class="nb">}</span>
+
+<span class="k">\lstinputlisting</span>[
+    caption=Example C++,
+    label=<span class="nb">{</span>lst:listing-cpp<span class="nb">}</span>,
+    language=C++,
+    backgroundcolor=<span class="k">\color</span><span class="nb">{</span>backcolour<span class="nb">}</span>,   
+    commentstyle=<span class="k">\color</span><span class="nb">{</span>codegreen<span class="nb">}</span>,
+    keywordstyle=<span class="k">\color</span><span class="nb">{</span>magenta<span class="nb">}</span>,
+    numberstyle=<span class="k">\tiny\color</span><span class="nb">{</span>codegray<span class="nb">}</span>,
+    stringstyle=<span class="k">\color</span><span class="nb">{</span>codepurple<span class="nb">}</span>,
+    basicstyle=<span class="k">\ttfamily\footnotesize</span>,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    keepspaces=true,                 
+    numbers=left,       
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    ]<span class="nb">{</span>code<span class="nb">_</span>sample.cpp<span class="nb">}</span>
+</pre></div>
+</div>
+<img alt="../_images/listing_customize.png" class="align-center" src="../_images/listing_customize.png" />
+</div>
+<div class="section" id="referencing-code-listings">
+<h2>Referencing Code Listings<a class="headerlink" href="#referencing-code-listings" title="Permalink to this headline">¶</a></h2>
+<p>The example below highlights how the <code class="docutils literal notranslate"><span class="pre">\label</span></code> command is used to define a <strong>unique</strong> label to this specific code listing and how it can be referenced within the text of the document using the <code class="docutils literal notranslate"><span class="pre">\ref</span></code> command.</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\lstinputlisting</span><span class="na">[caption=Example C++, label={lst:listing-cpp}, language=C++]</span><span class="nb">{</span>code<span class="nb">_</span>sample.cpp<span class="nb">}</span>
+
+An example table can be seen in <span class="k">\ref</span><span class="nb">{</span>lst:listing-cpp<span class="nb">}</span>.
+Also note how the &quot;Listing&quot; prefix is automatically added within the document text whenever the reference is called.
+</pre></div>
+</div>
+<img alt="../_images/listing_reference.png" class="align-center" src="../_images/listing_reference.png" />
+</div>
+<div class="section" id="referencing-range-of-code-listings">
+<h2>Referencing Range of Code Listings<a class="headerlink" href="#referencing-range-of-code-listings" title="Permalink to this headline">¶</a></h2>
+<p>The example below highlights how the <code class="docutils literal notranslate"><span class="pre">\refrange</span></code> command can be used to reference a range of code listings.</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="c">% Define a custom color</span>
+<span class="k">\definecolor</span><span class="nb">{</span>backcolour<span class="nb">}{</span>rgb<span class="nb">}{</span>0.95,0.95,0.92<span class="nb">}</span>
+<span class="k">\definecolor</span><span class="nb">{</span>codegreen<span class="nb">}{</span>rgb<span class="nb">}{</span>0,0.6,0<span class="nb">}</span>
+
+<span class="c">% Define a custom style</span>
+<span class="k">\lstdefinestyle</span><span class="nb">{</span>myStyle<span class="nb">}{</span>
+    backgroundcolor=<span class="k">\color</span><span class="nb">{</span>backcolour<span class="nb">}</span>,   
+    commentstyle=<span class="k">\color</span><span class="nb">{</span>codegreen<span class="nb">}</span>,
+    basicstyle=<span class="k">\ttfamily\footnotesize</span>,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    keepspaces=true,                 
+    numbers=left,       
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+<span class="nb">}</span>
+
+<span class="c">% Use \lstset to make myStyle the global default</span>
+<span class="k">\lstset</span><span class="nb">{</span>style=myStyle<span class="nb">}</span>
+
+<span class="k">\lstinputlisting</span><span class="na">[caption=Sample Code Listing C++, label={lst:listing-cpp}, language=C++]</span><span class="nb">{</span>code<span class="nb">_</span>sample.cpp<span class="nb">}</span>
+
+<span class="k">\lstinputlisting</span><span class="na">[caption=Sample Code Listing Python, label={lst:listing-python}, language=Python]</span><span class="nb">{</span>code<span class="nb">_</span>sample.py<span class="nb">}</span>
+
+<span class="k">\lstinputlisting</span><span class="na">[caption=Sample Code Listing Matlab, label={lst:listing-matlab}, language=Matlab]</span><span class="nb">{</span>code<span class="nb">_</span>sample.m<span class="nb">}</span>
+
+We can reference a range of tables as seen here: <span class="k">\refrange</span><span class="nb">{</span>lst:listing-cpp<span class="nb">}{</span>lst:listing-matlab<span class="nb">}</span>.
+Also note how the &quot;Listings&quot; prefix is automatically added within the document text whenever the range reference is called.
+</pre></div>
+</div>
+<img alt="../_images/listing_reference_range.png" class="align-center" src="../_images/listing_reference_range.png" />
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="graphics.html" class="btn btn-neutral float-right" title="LaTeX Graphics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="equation.html" class="btn btn-neutral float-left" title="LaTeX Equations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
