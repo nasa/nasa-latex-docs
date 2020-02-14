@@ -31,16 +31,27 @@ This repository is constantly being updated and improved. Be sure to pull the la
 
    git pull
 
+.. _CreateNewDocument:
+
 Create a New Document
 ###########################################
 
-A new document can be simply created as follows:
+.. note::
+   Although new documents *can be created* from within an existing document because each document will have its own ``buildPDF.py`` script, it is **always best to create new documents from the latest version** of ``nasa-latex-docs`` as found on the `Github Repository <https://github.com/nasa/nasa-latex-docs>`_. This way it ensures that all new documents are up to date with the latest features and improvements from the core ``nasa-latex-docs``.
+
+A new document can be simply created as follows using the ``buildPDF.py`` found within the ``nasa-latex-docs`` repository:
+
+.. code-block:: bash
+
+   path/to/nasa-latex-docs/support/buildPDF.py --new <PATH TO NEW DOCUMENT>
+
+So, for example:
 
 .. code-block:: bash
 
    path/to/nasa-latex-docs/support/buildPDF.py --new ~/Desktop/MyDocument
 
-This will create the ``MyDocument/`` directory in the specified path by the user. Within ``MyDocument`` you will find:
+This will create the ``MyDocument/`` directory in the specified path by the user. Within ``MyDocument/`` you will find:
 
 :: 
 
@@ -65,9 +76,9 @@ This will create the ``MyDocument/`` directory in the specified path by the user
 The purpose of this directory is to get users started with a template document and folder structure to begin working. This makes it incredibly easy to get started on new documents with little to no setup overhead.
 
 Build Document
-*******************************************
+###########################################
 
-Now with the document build, we can simply navigate to the document location and build it:
+Now with the document created, we can navigate to the document location and build it! All new documents have sample content so they should be ready to build right away with no user modification:
 
 .. code-block:: bash
 
@@ -79,10 +90,22 @@ From here, we can build the document:
 
    ./support/buildPDF.py MyDocument.tex
 
-Once this completes you will notice the built ``MyDocument.pdf`` file right next to the main `MyDocument.tex` file. That's all there is to it!
+Once this completes you will notice the built ``MyDocument.pdf`` file right next to the main ``MyDocument.tex`` file at the root of the ``MyDocument/`` directory.
+
+.. hint::
+   Please refer to :ref:`BuildPDF` page for details on all the various script options and how to use them.
+
+.. _TemporaryBuildArtifacts:
+
+Temporary Build Artifacts
+###########################################
+
+During the document build process a ``tmp/`` directory is generated to house all of the temporary build artifacts and ``LaTeX`` log files. This directory is **not to be tracked** into any version control software. Advanced ``LaTeX`` users might need to go into this folder to interrogate the log files, but most users should not need to worry about any files within the ``tmp/`` directory.
+
+There is really no reason to ever delete the tmp/ directory unless the document is complete or you suspect that some of the files have become stale and are causing erroneous build failures or unexpected build behavior. When the tmp/ directory is deleted, the document will be re-built from scratch which typically takes longer the first time around - often requiring several passes.
 
 Modify the Document
-*******************************************
+###########################################
 
 From here, you can start to modify your ``LaTeX`` document with your content and configuration and start adding new `.tex` files. The rest of the :ref:`Home` documentation provides details on how to:
 

@@ -23,7 +23,7 @@ The purpose of ``nasa-latex-docs`` is to handle the time consuming process of de
    * Works with :code:`latexmk` under the hood
    * Efficiently builds document, bibliography, glossaries, and acronyms
    * Provides warning and error log summaries after each build
-   * Comes with a variety of user options of enhanced capability (see: :ref:`BuildScriptOptions`)
+   * Comes with a variety of user options of enhanced capability (see: :ref:`BuildPDF`)
 
 * Built in Templates:
 
