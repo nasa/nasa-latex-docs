@@ -1,7 +1,7 @@
 NASA-LaTeX-Docs
 ================
 
-Please refer to the official guide: [NASA-LaTeX-Docs Guide](https://nasa.github.io/nasa-latex-docs/build/html)
+Please refer to the official documentation: [NASA-LaTeX-Docs Documentation](https://nasa.github.io/nasa-latex-docs/html)
 
 Usage:
 -------
@@ -12,9 +12,7 @@ The build script is located in the following directory and can be used to build 
 
     nasa-latex-docs/buildPDF.py
 
-It may be invoked through the command line as follows:
-
-    python /path/to/buildPDF.py texfile [OPTIONS]
+Please see [NASA-LaTeX-Docs Documentation](https://nasa.github.io/nasa-latex-docs/html) for more details, examples, and sample outputs!
 
 System Requirements:
 -------
