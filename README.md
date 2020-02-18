@@ -19,8 +19,3 @@ System Requirements:
 
 - TeX Live Distribution 2015+ (with latest updates)
 - Python 2.6+, Python 3+
-
-License
--------
-
-Software release at NASA is governed by NPR 2210.1C. NPR 2210.1C establishes the roles, responsibilities, and procedures for reporting, reviewing, and releasing software under various conditions, including open source. Every center has a Software Release Authority (SRA). The SRA processes requests for software release and coordinates legal, export control, IT security, 508 compliance, and software engineering standards compliance reviews. Projects hoping to release software should contact their SRA early to discuss their goals and begin the reporting, review, and release process.
