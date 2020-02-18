@@ -81,7 +81,7 @@ class buildPDF():
    def __init__(self):
 
       # Define version of script and NASA-LaTeX-Docs
-      self.version = 'January 23, 2020 - v2.1.0'
+      self.version = 'February 17, 2020 - v2.1.1'
 
       # Get the current environment variables to pass to subprocess
       self.ENV = os.environ.copy()
@@ -340,7 +340,7 @@ class buildPDF():
       # Make sure the TeX distribution installed is at least from 2015+
       if any(x in str(self.ENV['TEX_VERSION']) for x in ['2015','2016','2017','2018','2019','2020','2021','2022','2023','2024','2025']):
          if not self.latexmk_passthrough:
-            print_status("buildPDF.py file Version",self.version,quiet=self._quiet) 
+            print_status("buildPDF.py Version",self.version,quiet=self._quiet)
             print_status("TeX Distribution Version",str(self.ENV['TEX_VERSION']),quiet=self._quiet)
       else:
          print_error('Outdated TeX Distribution: {0}\n  NASA-LaTeX-Docs requires TeX distribution versions of 2015+'.format(self.ENV['TEX_VERSION']))

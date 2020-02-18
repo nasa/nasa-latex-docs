@@ -32,6 +32,9 @@
 % Process the options - they are now 'live' in the class file
 % \ProcessOptions\relax
 
+% Update output PDF version
+\pdfminorversion=7
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION: Setup the general options for each document type
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -514,6 +517,22 @@
    }{}
 }
 
+\newcommand{\printCoverPage}{
+   % Print the custom user defined export control text
+   \ifdefstring{\@docCoverSheet}{}{}{
+      \hypersetup{pageanchor=false}
+      % Add a PDF bookmark in PDF viewer
+      \phantomsection
+      \pdfbookmark[2]{Cover Sheet}{coversheet}
+      % Custom SBU page
+      \LLCornerWallPaper{1.0}{\@docCoverSheet}
+      \mbox{}
+      \newpage
+      \ClearWallPaper
+      \hypersetup{pageanchor=true}
+   }
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION: Load the user defined template file
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -550,7 +569,6 @@
 
    % Reset the glossary entries (acronyms) so that they are re-defined after the executive summary or synopsis
    \glsresetall
-
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -105,3 +105,13 @@ Text
 
 .. literalinclude:: report/preamble/doc-params-docContributor.tex
    :language: tex
+
+*******************************************
+docCoverSheet
+*******************************************
+
+Text
+
+.. code-block:: latex
+
+  \docCoverSheet[coversheet.pdf]

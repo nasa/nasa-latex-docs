@@ -22,10 +22,19 @@
 
    \frontmatter
 
-   \newpage \clearpage \thispagestyle{empty}
+   % Add cover sheet only if defined
+   \ifdefstring{\@docCoverSheet}{}{
+      \newpage \clearpage \thispagestyle{empty}
+      \addtocounter{page}{-1}
+   }{ 
+      \newpage \clearpage \thispagestyle{empty}
+      \addtocounter{page}{-2}
+      \printCoverPage
+      \newpage \clearpage \thispagestyle{empty}
+   }
 
-   \addtocounter{page}{-1}
-
+   \phantomsection
+   \pdfbookmark[2]{Title Page}{titlepage}
    \TitlePageGeometry
 
    % Add a PDF bookmark in PDF viewer 
