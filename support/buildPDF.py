@@ -81,7 +81,7 @@ class buildPDF():
    def __init__(self):
 
       # Define version of script and NASA-LaTeX-Docs
-      self.version = 'February 17, 2020 - v2.1.1'
+      self.version = 'February 19, 2020 - v2.1.2'
 
       # Get the current environment variables to pass to subprocess
       self.ENV = os.environ.copy()
@@ -159,7 +159,7 @@ class buildPDF():
          sys.exit(0)
 
       ###################################################################
-      # Error checking for input TeX file and --structure option
+      # Error checking for input TeX file and --new option
       ###################################################################
 
       if self.args.new is None:
@@ -187,6 +187,14 @@ class buildPDF():
          self.latexmk_passthrough = True
       else:
          self.latexmk_passthrough = False      
+
+      ###################################################################
+      # Error checking for clean option
+      ###################################################################
+
+      if self.args.clean and self.args.preview != False:
+         print_warn("--clean cannot be used with --preview. Disabling --clean")
+         self.args.clean = False
 
       ###################################################################
       # Initialize class parameters utilized by various methods
