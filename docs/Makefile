@@ -30,7 +30,6 @@ reports:
 	@# Logic to loop through each template in parallel
 	@printf '%s\0' tech-memo tech-report | xargs -P 10 -0 -I _ ../bin/build-template.sh _ 
 
-
 snippets:
 	@#
 	###########################################

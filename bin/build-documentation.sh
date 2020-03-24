@@ -10,7 +10,7 @@ cd $DIR'/..'
 cd docs/
 
 # Make the full docs
-# make docs
+make docs
 
 # Remove the old docs and copy the output to the final commit location
 rm -rf ../html

@@ -81,7 +81,7 @@ class buildPDF():
    def __init__(self):
 
       # Define version of script and NASA-LaTeX-Docs
-      self.version = 'February 17, 2020 - v2.1.1'
+      self.version = 'February 19, 2020 - v2.1.2'
 
       # Get the current environment variables to pass to subprocess
       self.ENV = os.environ.copy()
@@ -159,7 +159,7 @@ class buildPDF():
          sys.exit(0)
 
       ###################################################################
-      # Error checking for input TeX file and --structure option
+      # Error checking for input TeX file and --new option
       ###################################################################
 
       if self.args.new is None:
@@ -187,6 +187,14 @@ class buildPDF():
          self.latexmk_passthrough = True
       else:
          self.latexmk_passthrough = False      
+
+      ###################################################################
+      # Error checking for clean option
+      ###################################################################
+
+      if self.args.clean and self.args.preview != False:
+         print_warn("--clean cannot be used with --preview. Disabling --clean")
+         self.args.clean = False
 
       ###################################################################
       # Initialize class parameters utilized by various methods
@@ -468,7 +476,7 @@ class buildPDF():
       
       # Copy the entire template directory
       structure_path_support = os.path.join(structure_path,'support')
-      shutil.copytree(os.path.join(self.buildPDF_dir_path ,'boilerplate'), structure_path)
+      shutil.copytree(os.path.join(self.buildPDF_dir_path ,'document'), structure_path)
       shutil.copytree(os.path.join(self.buildPDF_dir_path), os.path.join(structure_path_support))
 
       # Rename the files with the given user input name
@@ -476,6 +484,9 @@ class buildPDF():
          os.rename(os.path.join(structure_path,'main.tex'), os.path.join(structure_path,self.input_tex))
          os.rename(os.path.join(structure_path,'bib','main.bib'), os.path.join(structure_path,'bib',self.input_bare+'.bib'))
          replace_file_line(os.path.join(structure_path,self.input_tex),r'\addbibresource{}',r'\addbibresource{{{0}}}'.format(self.input_bare+'.bib'))
+         replace_file_line(os.path.join(structure_path,'tex','sample_content.tex'),'../main.tex','../{0}.tex'.format(self.input_bare))
+         with open(os.path.join(structure_path,'.gitignore'), "a") as file:
+             file.write('\n' + self.input_bare+'.pdf' + '\n')
       except: 
          shutil.rmtree(structure_path)
          print_error("Invalid input file name: '{0}'".format(self.input_tex))

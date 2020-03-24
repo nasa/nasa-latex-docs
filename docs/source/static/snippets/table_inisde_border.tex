@@ -1,13 +1,14 @@
 \begin{table}[H]
-   \caption{Example LaTeX Table with \texttt{\textbackslash multicolumn}} 
-   \label{tab:example_multicolumn}
+   \caption{Example LaTeX Table} 
+   \label{tab:example}
    \small
    \centering
-   \begin{tabular}{lccr}
-   \toprule\toprule
+   \begin{tabular}{l|c|c|r}
+   \toprule
    \textbf{Header 1} & \textbf{Header 2} & \textbf{Header 3} & \textbf{Header 4} \\ 
    \midrule
-   \multicolumn{3}{c}{Multiple Column Entry} & Item 4 \\
+   Item 1 & Item 2 & Item 3 & Item 4 \\
+   \midrule
    Item 1 & Item 2 & Item 3 & Item 4\\
    \bottomrule
    \end{tabular}

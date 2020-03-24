@@ -36,7 +36,6 @@ Section labels are generated using the ``\label`` command and can then be refere
    :language: latex
    :lines: 1-4
 
-
 Referencing Range of Sections
 ###########################################
 

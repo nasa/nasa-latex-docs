@@ -72,7 +72,6 @@
 % Command for absolute value
 \newcommand{\abs}[1]{\lvert#1\rvert}
 
-
 %% ----- TEXT COMMANDS ---------------------------------------------------------
 % Command for 'and others'
 \newcommand{\etal}{{et al.}\thinspace}
@@ -84,6 +83,40 @@
 \newcommand{\etc}{{etc.}\thinspace}
 
 \newcommand{\rom}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION: Update tabular rule definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Command: midrule
+
+\def\midruleNew{\noalign{\ifnum0=`}\fi
+  \@aboverulesep=0pt
+  \global\@belowrulesep=0pt
+  \global\@thisruleclass=\@ne
+  \@ifnextchar[{\@BTrule}{\@BTrule[\lightrulewidth]}}
+
+\let\midrule\midruleNew
+
+% Command: toprule
+
+\def\topruleNew{\noalign{\ifnum0=`}\fi
+  \@aboverulesep=0pt
+  \global\@belowrulesep=0pt
+  \global\@thisruleclass=\@ne
+  \@ifnextchar[{\@BTrule}{\@BTrule[1.5pt]}}
+  
+\let\toprule\topruleNew
+
+% Command: bottomrule
+
+\def\bottomruleNew{\noalign{\ifnum0=`}\fi
+  \@aboverulesep=0pt
+  \global\@belowrulesep=0pt
+  \global\@thisruleclass=\@ne
+  \@ifnextchar[{\@BTrule}{\@BTrule[1.5pt]}}
+  
+\let\bottomrule\bottomruleNew
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION: Load document parameters

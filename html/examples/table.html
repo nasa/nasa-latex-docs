@@ -200,50 +200,109 @@
 <ul class="simple">
 <li><p><a class="reference internal" href="#overview" id="id1">Overview</a></p></li>
 <li><p><a class="reference internal" href="#table-with-caption" id="id2">Table with Caption</a></p></li>
-<li><p><a class="reference internal" href="#table-with-row-span" id="id3">Table with Row Span</a></p></li>
-<li><p><a class="reference internal" href="#table-with-column-span" id="id4">Table with Column Span</a></p></li>
-<li><p><a class="reference internal" href="#referencing-tables" id="id5">Referencing Tables</a></p></li>
-<li><p><a class="reference internal" href="#referencing-range-of-tables" id="id6">Referencing Range of Tables</a></p></li>
+<li><p><a class="reference internal" href="#table-with-inside-border" id="id3">Table with Inside Border</a></p></li>
+<li><p><a class="reference internal" href="#table-with-full-border" id="id4">Table with Full Border</a></p></li>
+<li><p><a class="reference internal" href="#table-with-row-span" id="id5">Table with Row Span</a></p></li>
+<li><p><a class="reference internal" href="#table-with-column-span" id="id6">Table with Column Span</a></p></li>
+<li><p><a class="reference internal" href="#referencing-tables" id="id7">Referencing Tables</a></p></li>
+<li><p><a class="reference internal" href="#referencing-range-of-tables" id="id8">Referencing Range of Tables</a></p></li>
 </ul>
 </div>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>Useful reference: <a class="reference external" href="https://en.wikibooks.org/wiki/LaTeX/Tables">Wiki Link</a>.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>The commands: <code class="docutils literal notranslate"><span class="pre">\toprule</span></code>, <code class="docutils literal notranslate"><span class="pre">\midrule</span></code>, and <code class="docutils literal notranslate"><span class="pre">\bottomrule</span></code> are all convenience shortcuts for pre-defined table rule commands (from the <code class="docutils literal notranslate"><span class="pre">booktabs</span></code> package). They define a certain default thickness <strong>and</strong> spacing. Users can use these interchangeably or not at all depending on the type of rule they want. If the spacing is to their liking, users can optionally pass in a thickness argument to override the default thickness of each rule.</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\toprule</span><span class="na">[1pt]</span>
+<span class="k">\midrule</span><span class="na">[3pt]</span>
+<span class="k">\bottomrule</span><span class="na">[5pt]</span>
+</pre></div>
+</div>
+<p>Further, users can specify their own custom rule using the <code class="docutils literal notranslate"><span class="pre">\specialrule</span></code> command (also from the <code class="docutils literal notranslate"><span class="pre">booktabs</span></code> package) for the most amount of control and customization, for example:</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\specialrule</span><span class="nb">{</span>&lt;thickness&gt;<span class="nb">}{</span>&lt;abovespace&gt;<span class="nb">}{</span>&lt;belowspace&gt;<span class="nb">}</span>
+
+<span class="k">\specialrule</span><span class="nb">{</span>10pt<span class="nb">}{</span>0pt<span class="nb">}{</span>0pt<span class="nb">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="table-with-caption">
 <h2>Table with Caption<a class="headerlink" href="#table-with-caption" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>table<span class="nb">}</span>[H]
    <span class="k">\caption</span><span class="nb">{</span>Example LaTeX Table<span class="nb">}</span> 
    <span class="k">\label</span><span class="nb">{</span>tab:example<span class="nb">}</span>
-   <span class="k">\small</span> <span class="c">% text size of table content</span>
-   <span class="k">\centering</span> <span class="c">% center the table</span>
-   <span class="k">\begin</span><span class="nb">{</span>tabular<span class="nb">}{</span>lccr<span class="nb">}</span> <span class="c">% alignment of each column data</span>
-   <span class="k">\toprule</span><span class="na">[\heavyrulewidth]</span><span class="k">\toprule</span><span class="na">[\heavyrulewidth]</span>
+   <span class="k">\small</span>
+   <span class="k">\centering</span>
+   <span class="k">\begin</span><span class="nb">{</span>tabular<span class="nb">}{</span>lccr<span class="nb">}</span>
+   <span class="k">\toprule\toprule</span>
    <span class="k">\textbf</span><span class="nb">{</span>Header 1<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 2<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 3<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 4<span class="nb">}</span> <span class="k">\\</span> 
    <span class="k">\midrule</span>
    Item 1 <span class="nb">&amp;</span> Item 2 <span class="nb">&amp;</span> Item 3 <span class="nb">&amp;</span> Item 4 <span class="k">\\</span>
    Item 1 <span class="nb">&amp;</span> Item 2 <span class="nb">&amp;</span> Item 3 <span class="nb">&amp;</span> Item 4<span class="k">\\</span>
-   <span class="k">\bottomrule</span><span class="na">[\heavyrulewidth]</span> 
+   <span class="k">\bottomrule</span>
    <span class="k">\end</span><span class="nb">{</span>tabular<span class="nb">}</span>
 <span class="k">\end</span><span class="nb">{</span>table<span class="nb">}</span>
 </pre></div>
 </div>
 <img alt="../_images/table_caption.png" class="align-center" src="../_images/table_caption.png" />
 </div>
+<div class="section" id="table-with-inside-border">
+<h2>Table with Inside Border<a class="headerlink" href="#table-with-inside-border" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>table<span class="nb">}</span>[H]
+   <span class="k">\caption</span><span class="nb">{</span>Example LaTeX Table<span class="nb">}</span> 
+   <span class="k">\label</span><span class="nb">{</span>tab:example<span class="nb">}</span>
+   <span class="k">\small</span>
+   <span class="k">\centering</span>
+   <span class="k">\begin</span><span class="nb">{</span>tabular<span class="nb">}{</span>l|c|c|r<span class="nb">}</span>
+   <span class="k">\toprule</span>
+   <span class="k">\textbf</span><span class="nb">{</span>Header 1<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 2<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 3<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 4<span class="nb">}</span> <span class="k">\\</span> 
+   <span class="k">\midrule</span>
+   Item 1 <span class="nb">&amp;</span> Item 2 <span class="nb">&amp;</span> Item 3 <span class="nb">&amp;</span> Item 4 <span class="k">\\</span>
+   <span class="k">\midrule</span>
+   Item 1 <span class="nb">&amp;</span> Item 2 <span class="nb">&amp;</span> Item 3 <span class="nb">&amp;</span> Item 4<span class="k">\\</span>
+   <span class="k">\bottomrule</span>
+   <span class="k">\end</span><span class="nb">{</span>tabular<span class="nb">}</span>
+<span class="k">\end</span><span class="nb">{</span>table<span class="nb">}</span>
+</pre></div>
+</div>
+<img alt="../_images/table_inisde_border.png" class="align-center" src="../_images/table_inisde_border.png" />
+</div>
+<div class="section" id="table-with-full-border">
+<h2>Table with Full Border<a class="headerlink" href="#table-with-full-border" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>table<span class="nb">}</span>[H]
+   <span class="k">\caption</span><span class="nb">{</span>Example LaTeX Table<span class="nb">}</span> 
+   <span class="k">\label</span><span class="nb">{</span>tab:example<span class="nb">}</span>
+   <span class="k">\small</span>
+   <span class="k">\centering</span>
+   <span class="k">\begin</span><span class="nb">{</span>tabular<span class="nb">}{</span>|l|c|c|r|<span class="nb">}</span>
+   <span class="k">\midrule</span>
+   <span class="k">\textbf</span><span class="nb">{</span>Header 1<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 2<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 3<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 4<span class="nb">}</span> <span class="k">\\</span> 
+   <span class="k">\midrule</span>
+   Item 1 <span class="nb">&amp;</span> Item 2 <span class="nb">&amp;</span> Item 3 <span class="nb">&amp;</span> Item 4 <span class="k">\\</span>
+   <span class="k">\midrule</span>
+   Item 1 <span class="nb">&amp;</span> Item 2 <span class="nb">&amp;</span> Item 3 <span class="nb">&amp;</span> Item 4<span class="k">\\</span>
+   <span class="k">\midrule</span>
+   <span class="k">\end</span><span class="nb">{</span>tabular<span class="nb">}</span>
+<span class="k">\end</span><span class="nb">{</span>table<span class="nb">}</span>
+</pre></div>
+</div>
+<img alt="../_images/table_outside_border.png" class="align-center" src="../_images/table_outside_border.png" />
+</div>
 <div class="section" id="table-with-row-span">
 <h2>Table with Row Span<a class="headerlink" href="#table-with-row-span" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>table<span class="nb">}</span>[H]
    <span class="k">\caption</span><span class="nb">{</span>Example LaTeX Table with <span class="k">\texttt</span><span class="nb">{</span><span class="k">\textbackslash</span> multicolumn<span class="nb">}}</span> 
    <span class="k">\label</span><span class="nb">{</span>tab:example<span class="nb">_</span>multicolumn<span class="nb">}</span>
-   <span class="k">\small</span> <span class="c">% text size of table content</span>
-   <span class="k">\centering</span> <span class="c">% center the table</span>
-   <span class="k">\begin</span><span class="nb">{</span>tabular<span class="nb">}{</span>lccr<span class="nb">}</span> <span class="c">% alignment of each column data</span>
-   <span class="k">\toprule</span><span class="na">[\heavyrulewidth]</span><span class="k">\toprule</span><span class="na">[\heavyrulewidth]</span>
+   <span class="k">\small</span>
+   <span class="k">\centering</span>
+   <span class="k">\begin</span><span class="nb">{</span>tabular<span class="nb">}{</span>lccr<span class="nb">}</span>
+   <span class="k">\toprule\toprule</span>
    <span class="k">\textbf</span><span class="nb">{</span>Header 1<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 2<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 3<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 4<span class="nb">}</span> <span class="k">\\</span> 
    <span class="k">\midrule</span>
    <span class="k">\multicolumn</span><span class="nb">{</span>3<span class="nb">}{</span>c<span class="nb">}{</span>Multiple Column Entry<span class="nb">}</span> <span class="nb">&amp;</span> Item 4 <span class="k">\\</span>
    Item 1 <span class="nb">&amp;</span> Item 2 <span class="nb">&amp;</span> Item 3 <span class="nb">&amp;</span> Item 4<span class="k">\\</span>
-   <span class="k">\bottomrule</span><span class="na">[\heavyrulewidth]</span> 
+   <span class="k">\bottomrule</span>
    <span class="k">\end</span><span class="nb">{</span>tabular<span class="nb">}</span>
 <span class="k">\end</span><span class="nb">{</span>table<span class="nb">}</span>
 </pre></div>
@@ -255,15 +314,15 @@
 <div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>table<span class="nb">}</span>[H]
    <span class="k">\caption</span><span class="nb">{</span>Example LaTeX Table with <span class="k">\texttt</span><span class="nb">{</span><span class="k">\textbackslash</span> multirow<span class="nb">}}</span>  
    <span class="k">\label</span><span class="nb">{</span>tab:example<span class="nb">_</span>multirow<span class="nb">}</span>
-   <span class="k">\small</span> <span class="c">% text size of table content</span>
-   <span class="k">\centering</span> <span class="c">% center the table</span>
-   <span class="k">\begin</span><span class="nb">{</span>tabular<span class="nb">}{</span>lccr<span class="nb">}</span> <span class="c">% alignment of each column data</span>
-   <span class="k">\toprule</span><span class="na">[\heavyrulewidth]</span><span class="k">\toprule</span><span class="na">[\heavyrulewidth]</span>
+   <span class="k">\small</span>
+   <span class="k">\centering</span>
+   <span class="k">\begin</span><span class="nb">{</span>tabular<span class="nb">}{</span>lccr<span class="nb">}</span>
+   <span class="k">\toprule\toprule</span>
    <span class="k">\textbf</span><span class="nb">{</span>Header 1<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 2<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 3<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 4<span class="nb">}</span> <span class="k">\\</span> 
    <span class="k">\midrule</span>
    <span class="k">\multirow</span><span class="nb">{</span>2<span class="nb">}{</span>*<span class="nb">}{</span>Multiple Row Entry<span class="nb">}</span> <span class="nb">&amp;</span> Item 2 <span class="nb">&amp;</span> Item 3 <span class="nb">&amp;</span> Item 4 <span class="k">\\</span>
                                        <span class="nb">&amp;</span> Item 2 <span class="nb">&amp;</span> Item 3 <span class="nb">&amp;</span> Item 4<span class="k">\\</span>
-   <span class="k">\bottomrule</span><span class="na">[\heavyrulewidth]</span> 
+   <span class="k">\bottomrule</span>
    <span class="k">\end</span><span class="nb">{</span>tabular<span class="nb">}</span>
 <span class="k">\end</span><span class="nb">{</span>table<span class="nb">}</span>
 </pre></div>
@@ -276,15 +335,15 @@
 <div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>table<span class="nb">}</span>[H]
    <span class="k">\caption</span><span class="nb">{</span>Example LaTeX Table<span class="nb">}</span> 
 <span class="hll">   <span class="k">\label</span><span class="nb">{</span>tab:example<span class="nb">}</span>
-</span>   <span class="k">\small</span> <span class="c">% text size of table content</span>
-   <span class="k">\centering</span> <span class="c">% center the table</span>
-   <span class="k">\begin</span><span class="nb">{</span>tabular<span class="nb">}{</span>lccr<span class="nb">}</span> <span class="c">% alignment of each column data</span>
-   <span class="k">\toprule</span><span class="na">[\heavyrulewidth]</span><span class="k">\toprule</span><span class="na">[\heavyrulewidth]</span>
+</span>   <span class="k">\small</span>
+   <span class="k">\centering</span>
+   <span class="k">\begin</span><span class="nb">{</span>tabular<span class="nb">}{</span>lccr<span class="nb">}</span>
+   <span class="k">\toprule\toprule</span>
    <span class="k">\textbf</span><span class="nb">{</span>Header 1<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 2<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 3<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 4<span class="nb">}</span> <span class="k">\\</span> 
    <span class="k">\midrule</span>
    Item 1 <span class="nb">&amp;</span> Item 2 <span class="nb">&amp;</span> Item 3 <span class="nb">&amp;</span> Item 4 <span class="k">\\</span>
    Item 1 <span class="nb">&amp;</span> Item 2 <span class="nb">&amp;</span> Item 3 <span class="nb">&amp;</span> Item 4<span class="k">\\</span>
-   <span class="k">\bottomrule</span><span class="na">[\heavyrulewidth]</span> 
+   <span class="k">\bottomrule</span>
    <span class="k">\end</span><span class="nb">{</span>tabular<span class="nb">}</span>
 <span class="k">\end</span><span class="nb">{</span>table<span class="nb">}</span>
 
@@ -300,30 +359,30 @@
 <div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>table<span class="nb">}</span>[H]
    <span class="k">\caption</span><span class="nb">{</span>Table A<span class="nb">}</span> 
 <span class="hll">   <span class="k">\label</span><span class="nb">{</span>tab:tab-a<span class="nb">}</span>
-</span>   <span class="k">\small</span> <span class="c">% text size of table content</span>
-   <span class="k">\centering</span> <span class="c">% center the table</span>
-   <span class="k">\begin</span><span class="nb">{</span>tabular<span class="nb">}{</span>lccr<span class="nb">}</span> <span class="c">% alignment of each column data</span>
-   <span class="k">\toprule</span><span class="na">[\heavyrulewidth]</span><span class="k">\toprule</span><span class="na">[\heavyrulewidth]</span>
+</span>   <span class="k">\small</span>
+   <span class="k">\centering</span>
+   <span class="k">\begin</span><span class="nb">{</span>tabular<span class="nb">}{</span>lccr<span class="nb">}</span>
+   <span class="k">\toprule\toprule</span>
    <span class="k">\textbf</span><span class="nb">{</span>Header 1<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 2<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 3<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 4<span class="nb">}</span> <span class="k">\\</span> 
    <span class="k">\midrule</span>
    Item 1 <span class="nb">&amp;</span> Item 2 <span class="nb">&amp;</span> Item 3 <span class="nb">&amp;</span> Item 4 <span class="k">\\</span>
    Item 1 <span class="nb">&amp;</span> Item 2 <span class="nb">&amp;</span> Item 3 <span class="nb">&amp;</span> Item 4<span class="k">\\</span>
-   <span class="k">\bottomrule</span><span class="na">[\heavyrulewidth]</span> 
+   <span class="k">\bottomrule</span>
    <span class="k">\end</span><span class="nb">{</span>tabular<span class="nb">}</span>
 <span class="k">\end</span><span class="nb">{</span>table<span class="nb">}</span>
 
 <span class="k">\begin</span><span class="nb">{</span>table<span class="nb">}</span>[H]
    <span class="k">\caption</span><span class="nb">{</span>Table B<span class="nb">}</span> 
 <span class="hll">   <span class="k">\label</span><span class="nb">{</span>tab:tab-b<span class="nb">}</span>
-</span>   <span class="k">\small</span> <span class="c">% text size of table content</span>
-   <span class="k">\centering</span> <span class="c">% center the table</span>
-   <span class="k">\begin</span><span class="nb">{</span>tabular<span class="nb">}{</span>lccr<span class="nb">}</span> <span class="c">% alignment of each column data</span>
-   <span class="k">\toprule</span><span class="na">[\heavyrulewidth]</span><span class="k">\toprule</span><span class="na">[\heavyrulewidth]</span>
+</span>   <span class="k">\small</span>
+   <span class="k">\centering</span>
+   <span class="k">\begin</span><span class="nb">{</span>tabular<span class="nb">}{</span>lccr<span class="nb">}</span>
+   <span class="k">\toprule\toprule</span>
    <span class="k">\textbf</span><span class="nb">{</span>Header 1<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 2<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 3<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\textbf</span><span class="nb">{</span>Header 4<span class="nb">}</span> <span class="k">\\</span> 
    <span class="k">\midrule</span>
    Item 1 <span class="nb">&amp;</span> Item 2 <span class="nb">&amp;</span> Item 3 <span class="nb">&amp;</span> Item 4 <span class="k">\\</span>
    Item 1 <span class="nb">&amp;</span> Item 2 <span class="nb">&amp;</span> Item 3 <span class="nb">&amp;</span> Item 4<span class="k">\\</span>
-   <span class="k">\bottomrule</span><span class="na">[\heavyrulewidth]</span> 
+   <span class="k">\bottomrule</span>
    <span class="k">\end</span><span class="nb">{</span>tabular<span class="nb">}</span>
 <span class="k">\end</span><span class="nb">{</span>table<span class="nb">}</span>
 

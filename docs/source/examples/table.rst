@@ -14,6 +14,23 @@ Overview
 
 Useful reference: `Wiki Link <https://en.wikibooks.org/wiki/LaTeX/Tables>`_.
 
+.. hint::
+  The commands: ``\toprule``, ``\midrule``, and ``\bottomrule`` are all convenience shortcuts for pre-defined table rule commands (from the ``booktabs`` package). They define a certain default thickness **and** spacing. Users can use these interchangeably or not at all depending on the type of rule they want. If the spacing is to their liking, users can optionally pass in a thickness argument to override the default thickness of each rule.
+
+  .. code-block:: latex
+
+      \toprule[1pt]
+      \midrule[3pt]
+      \bottomrule[5pt]
+
+  Further, users can specify their own custom rule using the ``\specialrule`` command (also from the ``booktabs`` package) for the most amount of control and customization, for example:
+
+  .. code-block:: latex
+
+      \specialrule{<thickness>}{<abovespace>}{<belowspace>}
+
+      \specialrule{10pt}{0pt}{0pt}
+
 Table with Caption
 ###########################################
 
@@ -21,6 +38,24 @@ Table with Caption
    :language: latex
 
 .. image:: /static/snippets/table_caption.png
+   :align: center
+
+Table with Inside Border
+###########################################
+
+.. literalinclude:: /static/snippets/table_inisde_border.tex
+   :language: latex
+
+.. image:: /static/snippets/table_inisde_border.png
+   :align: center
+
+Table with Full Border
+###########################################
+
+.. literalinclude:: /static/snippets/table_outside_border.tex
+   :language: latex
+
+.. image:: /static/snippets/table_outside_border.png
    :align: center
 
 Table with Row Span
