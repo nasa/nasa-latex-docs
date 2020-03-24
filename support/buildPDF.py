@@ -484,6 +484,8 @@ class buildPDF():
          os.rename(os.path.join(structure_path,'main.tex'), os.path.join(structure_path,self.input_tex))
          os.rename(os.path.join(structure_path,'bib','main.bib'), os.path.join(structure_path,'bib',self.input_bare+'.bib'))
          replace_file_line(os.path.join(structure_path,self.input_tex),r'\addbibresource{}',r'\addbibresource{{{0}}}'.format(self.input_bare+'.bib'))
+         with open(os.path.join(structure_path,'.gitignore'), "a") as file:
+             file.write('\n' + self.input_bare+'.pdf' + '\n')
       except: 
          shutil.rmtree(structure_path)
          print_error("Invalid input file name: '{0}'".format(self.input_tex))
