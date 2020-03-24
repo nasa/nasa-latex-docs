@@ -476,7 +476,7 @@ class buildPDF():
       
       # Copy the entire template directory
       structure_path_support = os.path.join(structure_path,'support')
-      shutil.copytree(os.path.join(self.buildPDF_dir_path ,'boilerplate'), structure_path)
+      shutil.copytree(os.path.join(self.buildPDF_dir_path ,'document'), structure_path)
       shutil.copytree(os.path.join(self.buildPDF_dir_path), os.path.join(structure_path_support))
 
       # Rename the files with the given user input name
