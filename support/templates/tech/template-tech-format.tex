@@ -155,8 +155,18 @@
 % This command adds "Table" to front of LoT entries
 %\renewcommand{\cfttabfont}{Table }
 
-% Chnage the space between dotted lines
+% Change the space between dotted lines
 \renewcommand\cftdotsep{1.5}
+
+% Set the table of contents level depth
+\setcounter{tocdepth}{4}
+
+% Set the indent spacing
+\setlength{\cftsecindent}{0cm}
+\setlength{\cftsubsecindent}{0.5cm}
+\setlength{\cftsubsubsecindent}{1cm}
+\setlength{\cftparaindent}{1.5cm}
+\setlength{\cftsubparaindent}{2cm}
 
 % Create Table of Contents, ToC
 % Change font sizes in ToC
@@ -167,9 +177,11 @@
 \renewcommand\cftsubparafont     {\fontsize{10pt}{6pt}\selectfont}
 
 % Add some spacing so the section number and title dont overlap in TOC
-\setlength\cftsecnumwidth{30pt}
-\setlength\cftsubsecnumwidth{32pt}
-\setlength\cftsubsubsecnumwidth{32pt}
+\setlength\cftsecnumwidth{1\baselineskip}
+\setlength\cftsubsecnumwidth{1.5\baselineskip}
+\setlength\cftsubsubsecnumwidth{2\baselineskip}
+\setlength\cftparanumwidth{2.5\baselineskip}
+\setlength\cftsubparanumwidth{3\baselineskip}
 \setlength{\cftbeforetoctitleskip}{1in}
 
 % Change font sizes in LoF and LoT
@@ -192,8 +204,6 @@
   \let\lst@temp\@starttoc \def\@starttoc##1{\lst@temp{lol}}%
   \tableofcontents \egroup}
 }
-
-
 
 % Create List of Tables section separators
 % \renewcommand\cfttabfont\small
