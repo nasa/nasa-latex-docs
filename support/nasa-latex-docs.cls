@@ -173,7 +173,7 @@
 % Make figure, table, and equation captions bold
 \captionsetup[table]{font={bf,normalsize},position=above,skip=0.5\baselineskip}
 \captionsetup[figure]{font={bf,normalsize},position=below}
-\captionsetup[equation]{font={bf,normalsize},position=right}
+\captionsetup[equation]{font={bf,normalsize},position=auto}
 \captionsetup[lstlisting]{font={bf,normalsize},position=above,skip=\baselineskip}
 
 % Add new table columns 
