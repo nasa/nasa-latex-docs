@@ -47,3 +47,16 @@ If you do not have ``root`` access on your machine, you can instead install a se
    * Mac OSX: TexLive (MacTeX) Distribution: `TexLive MacTeX <https://tug.org/mactex/mactex-download.html>`_ 
    * Linux: TexLive Distribution: `TexLive Linux <http://www.tug.org/texlive/>`_  
    * Windows: proTeXt (based on MiKTeX) Distribution: `TexLive proTeXt <https://www.tug.org/protext/>`_
+
+      * Please see the note below regarding Perl dependency on Windows
+
+Windows Perl Dependency
+===========================================
+
+On Windows, TexLive includes a minimal Perl setup. It is sufficient for running the TexLive infrastructure programs written in Perl, such as the installer and tlmgr, but it is not sufficient to run every Perl script. Scripts that come as part of TeX packages **may require additional modules**. It is not feasible to satisfy all those dependencies.
+
+Therefore, you will need to install a full Perl distribution from the following location:
+
+   * https://www.perl.org/get.html
+
+Once installed, please ensure that your new Perl installation is on your PATH.

@@ -346,7 +346,7 @@ class buildPDF():
          self.ENV['TEX_VERSION']  = str(get_tex.stdout.read().splitlines()[0].strip())
 
       # Make sure the TeX distribution installed is at least from 2015+
-      if any(x in str(self.ENV['TEX_VERSION']) for x in ['2015','2016','2017','2018','2019','2020','2021','2022','2023','2024','2025']):
+      if any(x in str(self.ENV['TEX_VERSION']) for x in ['2015','2016','2017','2018','2019','2020','2021','2022','2023','2024','2025','MiKTeX']):
          if not self.latexmk_passthrough:
             print_status("buildPDF.py Version",self.version,quiet=self._quiet)
             print_status("TeX Distribution Version",str(self.ENV['TEX_VERSION']),quiet=self._quiet)
@@ -486,7 +486,7 @@ class buildPDF():
          replace_file_line(os.path.join(structure_path,self.input_tex),r'\addbibresource{}',r'\addbibresource{{{0}}}'.format(self.input_bare+'.bib'))
          replace_file_line(os.path.join(structure_path,'tex','sample_content.tex'),'../main.tex','../{0}.tex'.format(self.input_bare))
          with open(os.path.join(structure_path,'.gitignore'), "a") as file:
-             file.write('\n' + self.input_bare+'.pdf' + '\n')
+             file.write('\n'.join(['.DS_Store','\n'+self.input_bare+'.pdf']))
       except: 
          shutil.rmtree(structure_path)
          print_error("Invalid input file name: '{0}'".format(self.input_tex))

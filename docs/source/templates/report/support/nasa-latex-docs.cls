@@ -173,7 +173,7 @@
 % Make figure, table, and equation captions bold
 \captionsetup[table]{font={bf,normalsize},position=above,skip=0.5\baselineskip}
 \captionsetup[figure]{font={bf,normalsize},position=below}
-\captionsetup[equation]{font={bf,normalsize},position=right}
+\captionsetup[equation]{font={bf,normalsize},position=auto}
 \captionsetup[lstlisting]{font={bf,normalsize},position=above,skip=\baselineskip}
 
 % Add new table columns 
@@ -316,6 +316,31 @@
 
    % Setup bookmarks to be numbered
    \bookmarksetup{numbered}
+
+   % Create custom command to get reference as number
+   % This is analogous to \nameref
+   \newcommand{\numref}[1]{
+   \begingroup
+      \renewcommand{\autoref}{%
+         \def\equationautorefname{}%
+         \def\figureautorefname{}%
+         \def\subfigureautorefname{}%
+         \def\Itemautorefname{}%
+         \def\tableautorefname{}%
+         \def\sectionautorefname{}%
+         \def\subsectionautorefname{}%
+         \def\subsubsectionautorefname{}%
+         \def\paragraphautorefname{}%
+         \def\subparagraphautorefname{}%
+         \def\chapterautorefname{}%
+         \def\partautorefname{}%
+         \def\Appendixautorefname{}%
+         \orgautoref}
+      \let\ref\autoref
+      \ref{#1}
+   \endgroup
+   }
+
 }
 
 
