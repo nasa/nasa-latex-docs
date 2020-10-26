@@ -199,7 +199,11 @@
 <ul class="simple">
 <li><p><a class="reference internal" href="#overview" id="id1">Overview</a></p></li>
 <li><p><a class="reference internal" href="#updating-existing-latex-installation" id="id2">Updating Existing LaTeX Installation</a></p></li>
-<li><p><a class="reference internal" href="#installing-new-latex-installation" id="id3">Installing New LaTeX Installation</a></p></li>
+<li><p><a class="reference internal" href="#installing-new-latex-installation" id="id3">Installing New LaTeX Installation</a></p>
+<ul>
+<li><p><a class="reference internal" href="#windows-perl-dependency" id="id4">Windows Perl Dependency</a></p></li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="section" id="overview">
@@ -237,12 +241,29 @@
 <span id="installlatex"></span><h2>Installing New LaTeX Installation<a class="headerlink" href="#installing-new-latex-installation" title="Permalink to this headline">¶</a></h2>
 <p>If you do not have <code class="docutils literal notranslate"><span class="pre">root</span></code> access on your machine, you can instead install a separate <code class="docutils literal notranslate"><span class="pre">LaTeX</span></code> install somewhere else on the machine and update your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> to this new install location. New installations of <code class="docutils literal notranslate"><span class="pre">LaTeX</span></code> can be found here:</p>
 <blockquote>
-<div><ul class="simple">
+<div><ul>
 <li><p>Mac OSX: TexLive (MacTeX) Distribution: <a class="reference external" href="https://tug.org/mactex/mactex-download.html">TexLive MacTeX</a></p></li>
 <li><p>Linux: TexLive Distribution: <a class="reference external" href="http://www.tug.org/texlive/">TexLive Linux</a></p></li>
-<li><p>Windows: proTeXt (based on MiKTeX) Distribution: <a class="reference external" href="https://www.tug.org/protext/">TexLive proTeXt</a></p></li>
+<li><p>Windows: proTeXt (based on MiKTeX) Distribution: <a class="reference external" href="https://www.tug.org/protext/">TexLive proTeXt</a></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Please see the note below regarding Perl dependency on Windows</p></li>
 </ul>
 </div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<div class="section" id="windows-perl-dependency">
+<h3>Windows Perl Dependency<a class="headerlink" href="#windows-perl-dependency" title="Permalink to this headline">¶</a></h3>
+<p>On Windows, TexLive includes a minimal Perl setup. It is sufficient for running the TexLive infrastructure programs written in Perl, such as the installer and tlmgr, but it is not sufficient to run every Perl script. Scripts that come as part of TeX packages <strong>may require additional modules</strong>. It is not feasible to satisfy all those dependencies.</p>
+<p>Therefore, you will need to install a full Perl distribution from the following location:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://www.perl.org/get.html">https://www.perl.org/get.html</a></p></li>
+</ul>
+</div></blockquote>
+<p>Once installed, please ensure that your new Perl installation is on your PATH.</p>
+</div>
 </div>
 </div>
 
