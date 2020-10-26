@@ -346,7 +346,7 @@ class buildPDF():
          self.ENV['TEX_VERSION']  = str(get_tex.stdout.read().splitlines()[0].strip())
 
       # Make sure the TeX distribution installed is at least from 2015+
-      if any(x in str(self.ENV['TEX_VERSION']) for x in ['2015','2016','2017','2018','2019','2020','2021','2022','2023','2024','2025']):
+      if any(x in str(self.ENV['TEX_VERSION']) for x in ['2015','2016','2017','2018','2019','2020','2021','2022','2023','2024','2025','MiKTeX']):
          if not self.latexmk_passthrough:
             print_status("buildPDF.py Version",self.version,quiet=self._quiet)
             print_status("TeX Distribution Version",str(self.ENV['TEX_VERSION']),quiet=self._quiet)
