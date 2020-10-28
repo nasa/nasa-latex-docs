@@ -43,7 +43,7 @@ $bibtex_use = 1;
 $force_mode = 0;
 
 # Pass specific options to bibtex
-$bibtex     = "bibtex %S > '$ENV{'TMPDIR'}'${filesep}bibtex.out";
+$bibtex     = "bibtex %S > $ENV{'TMPDIR'}${filesep}bibtex.out";
 # $bibtex     = "bibtex %S";
 
 # Define all output directories to be "tmp"

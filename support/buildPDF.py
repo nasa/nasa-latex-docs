@@ -38,6 +38,16 @@ class tc:
    BOLD        = '\033[1m'
    UNDERLINE   = '\033[4m'
 
+if sys.platform == "win32" or sys.platform == 'cygwin':
+   tc.PINK        = ''
+   tc.BLUE        = ''
+   tc.GREEN       = ''
+   tc.YELLOW      = ''
+   tc.RED         = ''
+   tc.ENDC        = ''
+   tc.BOLD        = ''
+   tc.UNDERLINE   = ''
+
 ###################################################################
 # Create methods for printing errors, warnings, and status
 ###################################################################
@@ -166,7 +176,7 @@ class buildPDF():
          self.args.new = 'NASA_Latex_Document'
 
       if not self.args.texfile and self.args.new:
-         self.args.texfile = self.args.new.split('.')[0]
+         self.args.texfile = self.args.new.split('.')[0].replace("'",'')
 
       if not self.args.update:
          if not self.args.texfile:
@@ -360,7 +370,7 @@ class buildPDF():
    def _get_file_forms(self, texfile2build):
       
       # Strip the texfile argument of any extension, then ensure .tex is added
-      texfile_input_bare   = texfile2build.rsplit('.', 1)[0]
+      texfile_input_bare   = texfile2build.rsplit('.', 1)[0].replace("'",'')
       texfile_input_tex    = texfile_input_bare + '.tex'
 
       # Define the relevant input file paths based on texfile argument
@@ -377,14 +387,14 @@ class buildPDF():
       if self.args.output:
          # Get the filename parts from the user input
          output_path, output_filename = os.path.split(self.args.output) 
-         self.output_bare        = os.path.basename(output_filename.rsplit('.', 1)[0])
+         self.output_bare        = os.path.basename(output_filename.rsplit('.', 1)[0].replace("'",''))
          self.output_pdf         = self.output_bare + '.pdf'
          
          # If no output path found, build pdf in directory of texfile input
          if not output_path:
-            self.output_abs_path    = os.path.join(self.input_dir_path,self.output_pdf)
+            self.output_abs_path    = os.path.join(self.input_dir_path,self.output_pdf).replace("'",'')
          else:
-            self.output_abs_path    = os.path.join(output_path,self.output_pdf)
+            self.output_abs_path    = os.path.join(output_path,self.output_pdf).replace("'",'')
          self.output_dir_path    = os.path.dirname(self.output_abs_path)           
       else:
          # If no user input provided, build pdf using texfile input name/location
@@ -408,7 +418,7 @@ class buildPDF():
       if not self._standalone:
          return
       
-      bare_input = os.path.basename(self.args.texfile).rsplit('.', 1)[0]
+      bare_input = os.path.basename(self.args.texfile).rsplit('.', 1)[0].replace("'",'')
       tmp_dir = os.path.join(tempfile.gettempdir(),next(tempfile._get_candidate_names()),bare_input)
       
       if not self._quiet:
@@ -510,9 +520,9 @@ class buildPDF():
       with open(self.input_abs_path, 'r') as f:
          first_line = f.readline().strip()
          
-      # Now check to see if user provided a TeX root commetn
+      # Now check to see if user provided a TeX root comment
       if 'TEX Root ='.lower() in first_line.lower():
-         self.TeX_Root = first_line.rsplit('=', 1)[1].strip()
+         self.TeX_Root = first_line.rsplit('=', 1)[1].strip().replace("'",'')
          if not os.path.isfile(self.TeX_Root):
             print_error("TeX Root file not found: '{0}'\nSearch Path: {1}".format(first_line,os.path.join(self.input_dir_path,self.TeX_Root)))
 
@@ -889,6 +899,7 @@ class buildPDF():
          os.system('cls' if os.name == 'nt' else 'clear')
 
       if self.latexmk_returncode == 0:
+         os.system('cls' if os.name == 'nt' else 'clear')
          shutil.copyfile(os.path.join(self.ENV['TMPDIR'],self.input_bare+'.pdf'),self.output_abs_path)
          print_status(tc.GREEN+"\nPDF Built Successfully  ",self.output_abs_path,quiet=self._quiet)
          self._print_texfot(False)
