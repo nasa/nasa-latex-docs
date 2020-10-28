@@ -563,8 +563,8 @@ class buildPDF():
    def _set_environment(self):
 
       # Define the tmp/ directory where all build output files will be piped to
-      self.ENV['TEXMFOUTPUT']         = os.path.join(self.input_dir_path,'tmp')
-      self.ENV['TMPDIR']              = os.path.join(self.input_dir_path,'tmp')
+      self.ENV['TEXMFOUTPUT']         = os.path.join(self.input_dir_path,'tmp').replace("'",'')
+      self.ENV['TMPDIR']              = os.path.join(self.input_dir_path,'tmp').replace("'",'')
 
       self._add_path_recursive([self.input_dir_path,self.buildPDF_dir_path], 'TEXINPUTS')
       self._add_path_recursive([self.input_dir_path,self.buildPDF_dir_path], 'TEXMFHOME')
