@@ -635,8 +635,8 @@
 
 \ifdef{\printbibliography}{
    % Add the bibliography source file
-   \DeclareNameAlias{sortname}{last-first}
-   \DeclareNameAlias{default}{last-first}
+   \DeclareNameAlias{sortname}{family-given}
+   \DeclareNameAlias{default}{family-given}
    
    % Rename the original \printbibliography command
    \let\oldprintbibliography\printbibliography
