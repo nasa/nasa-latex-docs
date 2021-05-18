@@ -732,6 +732,8 @@ class buildPDF():
       'Overwriting file',
       'Writing text',
       'Tab has been converted to Blank Space',
+      'Over-specification',
+      'Bad type area',
       ]
 
       # Strings to display was warnings
