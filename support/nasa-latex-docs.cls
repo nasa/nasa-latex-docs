@@ -519,7 +519,7 @@
 
 \newcommand{\printExportFooter}{
    \ifdefstring{\@docExport}{true}{
-      \footnotesize \textbf{Export Controlled Information}
+      \footnotesize \textbf{\@docExportLabel}
       \ifdefstring{\@docSBU}{true}{\footnotesize \textbf{- SBU}}{}
       \ifdefstring{\@docITAR}{true}{\footnotesize \textbf{- ITAR}}{}
    }{} 
