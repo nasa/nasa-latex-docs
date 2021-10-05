@@ -91,7 +91,7 @@ class buildPDF():
    def __init__(self):
 
       # Define version of script and NASA-LaTeX-Docs
-      self.version = 'February 19, 2020 - v2.1.2'
+      self.version = 'October 5, 2021 - v2.5'
 
       # Get the current environment variables to pass to subprocess
       self.ENV = os.environ.copy()
@@ -176,7 +176,10 @@ class buildPDF():
          self.args.new = 'NASA_Latex_Document'
 
       if not self.args.texfile and self.args.new:
-         self.args.texfile = self.args.new.split('.')[0].replace("'",'')
+         s = self.args.new
+         if s.endswith(os.sep):
+            s = s[:-1]
+         self.args.texfile = s.split('.')[0].replace("'",'')
 
       if not self.args.update:
          if not self.args.texfile:

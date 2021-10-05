@@ -23,14 +23,16 @@
    \frontmatter
 
    % Add cover sheet only if defined
-   \ifdefstring{\@docCoverSheet}{}{
-      \newpage \clearpage \thispagestyle{empty}
-      \addtocounter{page}{-1}
-   }{ 
+   \ifdefstring{\@docCoverSheet}{}{}{\toggletrue{addCoverPage}}
+   \ifdefstring{\@docCUICoverSheet}{}{}{\toggletrue{addCoverPage}}
+   \iftoggle{addCoverPage}{
       \newpage \clearpage \thispagestyle{empty}
       \addtocounter{page}{-2}
       \printCoverPage
       \newpage \clearpage \thispagestyle{empty}
+   }{ 
+      \newpage \clearpage \thispagestyle{empty}
+      \addtocounter{page}{-1}
    }
 
    \phantomsection

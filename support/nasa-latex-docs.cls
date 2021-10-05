@@ -420,6 +420,10 @@
 % SECTION: Define some useful shortcuts
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Define common toggles
+\newtoggle{addCoverPage}
+\newtoggle{isCUI}
+
 % Option to create new page for bibliography - default is not to
 \newcommand{\PREprintbibliography}{}  
 \newcommand{\PREprintNomenclature}{}
@@ -464,7 +468,7 @@
       \phantomsection
       \bookmarksetupnext{level=subsection}
       \addcontentsline{toc}{section}{List of Figures}
-      % Creat LOF
+      % Create LOF
       \listoffigures
       \setlength{\parskip}{\baselineskip}
    }{}
@@ -479,7 +483,7 @@
       \renewcommand{\lstlistlistingname}{List of Code Listings\vspace{0.25\baselineskip}}
       \bookmarksetupnext{level=subsection}
       \addcontentsline{toc}{section}{List of Code Listings}
-      % Creat LOL
+      % Create LOL
       \lstlistoflistings
       \setlength{\parskip}{\baselineskip}
    }{}
@@ -518,18 +522,29 @@
 }
 
 \newcommand{\printExportFooter}{
-   \ifdefstring{\@docExport}{true}{
-      \footnotesize \textbf{\@docExportLabel}
-      \ifdefstring{\@docSBU}{true}{\footnotesize \textbf{- SBU}}{}
-      \ifdefstring{\@docITAR}{true}{\footnotesize \textbf{- ITAR}}{}
-   }{} 
+   % SBU has been replaced with CUI
+   \ifdefstring{\@docSBU}{true}{\toggletrue{isCUI}}{} 
+   \ifdefstring{\@docITAR}{true}{\toggletrue{isCUI}}{} 
+   \ifdefstring{\@docCUI}{true}{\toggletrue{isCUI}}{} 
+
+   \iftoggle{isCUI}{\footnotesize\textbf{CUI}}{}%
+   \ifdefstring{\@docITAR}{true}{\footnotesize\textbf{//ITAR}}{}%
+   \iftoggle{isCUI}{%
+      \ifdefstring{\@docCUICategoryMarkings}{}{}{\footnotesize\textbf{//\@docCUICategoryMarkings}}%
+   }{}
 }
 
 \newcommand{\printExport}{
+   % SBU has been replaced with CUI
+   \ifdefstring{\@docSBU}{true}{\toggletrue{isCUI}}{} 
+   \ifdefstring{\@docITAR}{true}{\toggletrue{isCUI}}{} 
+   \ifdefstring{\@docCUI}{true}{\toggletrue{isCUI}}{} 
+
    \newtoggle{printExport}
-   \ifdefstring{\@docSBU}{true}{\toggletrue{printExport}}{} 
    \ifdefstring{\@docITAR}{true}{\toggletrue{printExport}}{} 
    \ifdefstring{\@docExportText}{}{}{\toggletrue{printExport}} 
+   \iftoggle{isCUI}{\toggletrue{printExport}}
+
    % Include the Tech Report Export page
    \iftoggle{printExport}{
       \newpage \null
@@ -544,29 +559,31 @@
           \vspace{0.25in}
           \begin{center}
               \fbox{
-              \begin{minipage}{5.5in}
+              \begin{minipage}{5.95in}
                   {\footnotesize\@docExportText}
               \end{minipage}
               }
           \end{center}
       }
-      % Print the SBU information
-      \ifdefstring{\@docSBU}{true}{
-          \vspace{0.25in}
-          \begin{center}
-              \fbox{
-              \begin{minipage}{5.5in}
-                  {\footnotesize\input{sbu.tex}}
-              \end{minipage}
-              }
-          \end{center}
+      % Print the CUI notice
+      \iftoggle{isCUI}{
+         \vspace{0.25in}
+         \begin{center}
+            \fbox{
+               \begin{minipage}{5.95in}
+                  \footnotesize%
+                  \input{cui.tex}%
+                  \ifdefstring{\@docCUIText}{}{}{\newline\newline\@docCUIText}{}%
+               \end{minipage}
+            }
+         \end{center}
       }{}
-      % Print the ITAR information
+      % Print the ITAR notice
       \ifdefstring{\@docITAR}{true}{
           \vspace{0.25in}
           \begin{center}
               \fbox{
-              \begin{minipage}{5.5in}
+              \begin{minipage}{5.95in}
                   {\footnotesize\input{itar.tex}}
               \end{minipage}
               }
@@ -576,8 +593,47 @@
 }
 
 \newcommand{\printCoverPage}{
-   % Print the custom user defined export control text
-   \ifdefstring{\@docCoverSheet}{}{}{
+   % SBU has been replaced with CUI
+   \ifdefstring{\@docSBU}{true}{\toggletrue{isCUI}}{} 
+   \ifdefstring{\@docITAR}{true}{\toggletrue{isCUI}}{} 
+   \ifdefstring{\@docCUI}{true}{\toggletrue{isCUI}}{} 
+
+   \ifdefstring{\@docCoverSheet}{}{
+      % Add CUI cover sheet
+      \iftoggle{isCUI}{
+         \ifdefstring{\@docCUICoverSheet}{true}{
+            \hypersetup{pageanchor=false}
+            % Add a PDF bookmark in PDF viewer
+            \phantomsection
+            \pdfbookmark[2]{Cover Sheet}{coversheet}
+            % Custom CUI cover sheet template
+            \LLCornerWallPaper{1.0}{cui_cover.pdf}
+
+            % Add the custom CUI cover text
+            \begin{center}%
+            \begin{minipage}{5.05in}%
+               \vspace{0.75in}%
+               \fontfamily{ptm}\fontsize{9}{11}\selectfont%
+               \ifdefstring{\@docCUICategoryMarkings}{}{}{
+                  \vspace{0.25in}%
+                  \begin{center}%
+                     \printExportFooter%
+                  \end{center}%
+                  \vspace{0.25in}%
+               }{}%
+               \ifdefstring{\@docCUIText}{}{}{\@docCUIText\newline\newline}{}%
+               \ifdefstring{\@docITAR}{true}{\input{itar.tex}}{}%
+            \end{minipage}%
+            \end{center}%
+            
+            \mbox{}
+            \newpage
+            \ClearWallPaper
+            \hypersetup{pageanchor=true}
+         }{}
+      }{}
+   }{
+      % Add user defined cover sheet PDF
       \hypersetup{pageanchor=false}
       % Add a PDF bookmark in PDF viewer
       \phantomsection

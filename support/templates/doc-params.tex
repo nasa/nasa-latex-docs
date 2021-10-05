@@ -105,10 +105,16 @@
 \newcommand{\docCoverSheet}[1][]{\def\@docCoverSheet{#1}}\docCoverSheet{}
 
 % Define export control variables
-\newcommand{\docExport}[1][false]{\def\@docExport{#1}}\docExport{}
-\newcommand{\docITAR}[1][false]{\def\@docITAR{#1}}\docITAR{}
-\newcommand{\docSBU}[1][false]{\def\@docSBU{#1}}\docSBU{}
 \newcommand{\docExportText}[1][]{\def\@docExportText{#1}}\docExportText{}
+\newcommand{\docITAR}[1][false]{\def\@docITAR{#1}}\docITAR{}
+\newcommand{\docCUI}[1][false]{\def\@docCUI{#1}}\docCUI{}
+\newcommand{\docCUICoverSheet}[1][false]{\def\@docCUICoverSheet{#1}}\docCUICoverSheet{}
+\newcommand{\docCUIText}[1][]{\def\@docCUIText{#1}}\docCUIText{}
+\newcommand{\docCUICategoryMarkings}[1][]{\def\@docCUICategoryMarkings{#1}}\docCUICategoryMarkings{}
+
+% DEPRECATED - All of the following parameters are deprecated in favor of CUI related parameters
+\newcommand{\docSBU}[1][false]{\def\@docSBU{#1}}\docSBU{}
+\newcommand{\docExport}[1][false]{\def\@docExport{#1}}\docExport{}
 \newcommand{\docExportLabel}[1][Export Controlled Information]{\def\@docExportLabel{#1}}\docExportLabel{}
 
 % Define visualization content listing variables

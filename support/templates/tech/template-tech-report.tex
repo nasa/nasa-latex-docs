@@ -23,14 +23,16 @@
    \frontmatter
 
    % Add cover sheet only if defined
-   \ifdefstring{\@docCoverSheet}{}{
-      \newpage \clearpage \thispagestyle{empty}
-      \addtocounter{page}{-1}
-   }{ 
+   \ifdefstring{\@docCoverSheet}{}{}{\toggletrue{addCoverPage}}
+   \ifdefstring{\@docCUICoverSheet}{}{}{\toggletrue{addCoverPage}}
+   \iftoggle{addCoverPage}{
       \newpage \clearpage \thispagestyle{empty}
       \addtocounter{page}{-2}
       \printCoverPage
       \newpage \clearpage \thispagestyle{empty}
+   }{ 
+      \newpage \clearpage \thispagestyle{empty}
+      \addtocounter{page}{-1}
    }
 
    \phantomsection
@@ -88,13 +90,13 @@
 
    \end{flushleft}
 
-   \vspace{-12pt}
+   \vspace{0.1in} 
 
    \begin{center}
       \printExportFooter
    \end{center}
 
-   \vspace{0.25in} 
+   \vspace{0.15in} 
 
    % Change the geometry back
    \restoregeometry
