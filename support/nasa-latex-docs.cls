@@ -527,11 +527,10 @@
    \ifdefstring{\@docITAR}{true}{\toggletrue{isCUI}}{} 
    \ifdefstring{\@docCUI}{true}{\toggletrue{isCUI}}{} 
 
-   \iftoggle{isCUI}{\footnotesize\textbf{CUI}}{}%
-   \ifdefstring{\@docITAR}{true}{\footnotesize\textbf{//ITAR}}{}%
-   \iftoggle{isCUI}{%
+   \iftoggle{isCUI}{
+      \footnotesize\textbf{CUI}%
       \ifdefstring{\@docCUICategoryMarkings}{}{}{\footnotesize\textbf{//\@docCUICategoryMarkings}}%
-   }{}
+   }{}%
 }
 
 \newcommand{\printExport}{
@@ -612,14 +611,14 @@
             % Add the custom CUI cover text
             \begin{center}%
             \begin{minipage}{5.05in}%
-               \vspace{0.75in}%
+               \vspace{\docCoverTopPaddingCUI}
                \fontfamily{ptm}\fontsize{9}{11}\selectfont%
                \ifdefstring{\@docCUICategoryMarkings}{}{}{
-                  \vspace{0.25in}%
+                  \vspace{1.25\baselineskip}%
                   \begin{center}%
                      \printExportFooter%
                   \end{center}%
-                  \vspace{0.25in}%
+                  \vspace{1.25\baselineskip}%
                }{}%
                \ifdefstring{\@docCUIText}{}{}{\@docCUIText\newline\newline}{}%
                \ifdefstring{\@docITAR}{true}{\input{itar.tex}}{}%
