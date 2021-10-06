@@ -46,7 +46,11 @@
       \end{flushleft}
    \end{minipage}%
    \begin{minipage}{.55\textwidth}
-      \centering
+      \centering%
+      \iftoggle{isCUI}{
+         \footnotesize\textbf{CUI}%
+         \ifdefstring{\@docCUICategoryMarkings}{}{}{\footnotesize\textbf{//\@docCUICategoryMarkings\\\vspace{0.1in}}}%
+      }{}%
       \large\textbf{\@docTypeTitle \\ \vspace{6pt} Technical Memo}
    \end{minipage}
    \begin{minipage}{.22\textwidth}

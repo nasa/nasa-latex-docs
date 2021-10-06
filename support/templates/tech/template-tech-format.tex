@@ -125,7 +125,13 @@
 \chead{
 \begin{tabular}{|L{.58\textwidth}|p{.365\textwidth}|}
    \hline
-   \multicolumn{2}{|c|}{\hfsize\bfseries\@docTypeTitle} \\
+   \multicolumn{2}{|c|}{
+      \iftoggle{isCUI}{
+         \printCUIMarkings
+      }{
+         \hfsize\bfseries\@docHeader
+      }
+   } \\
    \hline
    \multirow{2}{*}{\parbox{.58\textwidth}{\hfsize\hangindent=0.36in \raggedright Title: \@docTitle}}
    \ifdefstring{\@docNumber}{}{

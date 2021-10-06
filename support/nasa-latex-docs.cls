@@ -522,6 +522,10 @@
 }
 
 \newcommand{\printExportFooter}{
+   \ifdefstring{\@docFooter}{}{}{\footnotesize\textbf{\@docFooter}}
+}
+
+\newcommand{\printCUIMarkings}{
    % SBU has been replaced with CUI
    \ifdefstring{\@docSBU}{true}{\toggletrue{isCUI}}{} 
    \ifdefstring{\@docITAR}{true}{\toggletrue{isCUI}}{} 
@@ -616,7 +620,7 @@
                \ifdefstring{\@docCUICategoryMarkings}{}{}{
                   \vspace{1.25\baselineskip}%
                   \begin{center}%
-                     \printExportFooter%
+                     \printCUIMarkings%
                   \end{center}%
                   \vspace{1.25\baselineskip}%
                }{}%
