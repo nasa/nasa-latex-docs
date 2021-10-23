@@ -631,7 +631,13 @@ To build PDF run the following:
 
       # Run pdflatex command with all the appropriate options
       # Wrap call to pdflatex with texfot in order to generate texfot error/warning log file
-      pdflatex = Popen("texfot --tee=\"{0}\" pdflatex -synctex=1 -file-line-error --shell-escape {1} \"{2}\" > \"{3}\"".format(pdflatex_out,self.args.latexmk_passthrough_build,self.input_abs_path,texfot_out), env=self.ENV, shell=True, stdout=PIPE, stderr=PIPE)
+      pdflatex = Popen("{0} --tee=\"{1}\" pdflatex -synctex=1 -file-line-error --shell-escape {2} \"{3}\" > \"{4}\"".format(
+         os.path.join(os.path.dirname(os.path.realpath(__file__)),'packages','tex_filter.pl'),
+         pdflatex_out,
+         self.args.latexmk_passthrough_build,
+         self.input_abs_path,
+         texfot_out),
+         env=self.ENV, shell=True, stdout=PIPE, stderr=PIPE)
       pdflatex.wait()
 
       # For persistence across interim builds, write the exit status to file
@@ -654,6 +660,11 @@ To build PDF run the following:
       if not buildFailFlag and self._standalone:
          return
 
+      # Check for file first
+      texfot_out = os.path.join(self.ENV['TMPDIR'],'texfot.out')
+      if not os.path.isfile(texfot_out):
+         return
+
       # Define a list of strings to remove completely from line
       str_remove = [
       '(see the transcript file for additional information)',
@@ -670,6 +681,7 @@ To build PDF run the following:
       'Tab has been converted to Blank Space',
       'Over-specification',
       'Bad type area',
+      'begin{document}'
       ]
 
       # Strings to display was warnings
@@ -685,7 +697,7 @@ To build PDF run the following:
 
       print('\n'+log_sum_str)
 
-      with open(os.path.join(self.ENV['TMPDIR'],'texfot.out')) as texfot:
+      with open(texfot_out) as texfot:
          i = 0
          first_line = True
          something_to_print = False
