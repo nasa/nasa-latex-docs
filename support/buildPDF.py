@@ -833,10 +833,10 @@ To build PDF run the following:
       convert_tmp_files = glob.glob(os.path.join(self.input_dir_path,'*STANDALONECONVERT*'))
 
       # System independent terminal clear
-      if self.latexmk_passthrough:
+      if self.latexmk_passthrough and self.latexmk_returncode == 0 and not self.args.verbose:
          os.system('cls' if os.name == 'nt' else 'clear')
 
-      if self.latexmk_returncode == 0:
+      if self.latexmk_returncode == 0 and not self.args.verbose:
          os.system('cls' if os.name == 'nt' else 'clear')
          shutil.copyfile(os.path.join(self.ENV['TMPDIR'],self.input_bare+'.pdf'),self.output_abs_path)
          print_status(tc.GREEN+"\nPDF Built Successfully  ",self.output_abs_path,quiet=self._quiet)
