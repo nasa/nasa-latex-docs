@@ -90,9 +90,6 @@ class buildPDF():
 
    def __init__(self):
 
-      # Define version of script and NASA-LaTeX-Docs
-      self.version = 'October 5, 2021 - v2.5'
-
       # Get the current environment variables to pass to subprocess
       self.ENV = os.environ.copy()
 
@@ -115,7 +112,6 @@ class buildPDF():
   - - - - - - - - -
   GitHub Repository: https://github.com/nasa/nasa-latex-docs
   Comprehensive Doc: https://nasa.github.io/nasa-latex-docs """,
-         epilog=tc.BOLD+"buildPDF.py Version Information: "+tc.ENDC+self.version,
          formatter_class=argparse.RawTextHelpFormatter, add_help=False)
 
       argParser._optionals.title = tc.BOLD+"Optional Arguments"+tc.ENDC
@@ -136,8 +132,6 @@ class buildPDF():
          help="Enables continuous builds on any file changes\n ")
       argParser.add_argument("-c",  "--clean", action="store_true", 
          help="Removes the tmp/ directory after successful build\n ")
-      argParser.add_argument("-l",  "--latexpath", type=str, metavar=tc.BLUE+'LATEX_PATH'+tc.ENDC, 
-         help="LaTeX installation on computer to add to PATH environment\nExample: Mac location = /Library/TeX/texbin,\notherwise will use the current PATH environment\n ")
       argParser.add_argument("-t",  "--texinputs", type=str, metavar=tc.BLUE+'TEXINPUTS_PATH'+tc.ENDC, 
          help="User defined directory path to append to TEXINPUTS environment\nTEXINPUTS controls where LaTeX searches for input files\n ")
       argParser.add_argument("-o",  "--output", type=str, metavar=tc.BLUE+'OUTPUT_PDF_NAME'+tc.ENDC, 
@@ -272,99 +266,33 @@ class buildPDF():
    def _get_tex_ver(self):
 
       # Set default system command for texlive version
-      texcmd = ['tex --version']
+      tex_which_cmd = ['which tex']
+      tex_version_cmd = ['tex --version']
 
-      # Update the path information if --latexpath provided
-      if self.args.latexpath:
-         latexpath_abs_path = os.path.abspath(self.args.latexpath)
-         if not os.path.isdir(latexpath_abs_path):
-            print_warn("User defined LATEX_PATH entry does not exist: '{0}'".format(latexpath_abs_path))
-         else:
-            self.ENV['PATH'] = self.args.latexpath + os.pathsep + self.ENV['PATH']
-      else:
-         # Prior to throwing error - attempt to see if binaries are installed in default location
-         if sys.platform == "linux" or sys.platform == "linux2":
-            # Possible Linux Install Location(s)
-            default_tex_location = [
-            '/usr/local/texlive/2025/bin/x86_64-linux',
-            '/usr/local/texlive/2024/bin/x86_64-linux',
-            '/usr/local/texlive/2023/bin/x86_64-linux',
-            '/usr/local/texlive/2022/bin/x86_64-linux',
-            '/usr/local/texlive/2021/bin/x86_64-linux',
-            '/usr/local/texlive/2020/bin/x86_64-linux',
-            '/usr/local/texlive/2019/bin/x86_64-linux',
-            '/usr/local/texlive/2018/bin/x86_64-linux',
-            '/usr/local/texlive/2017/bin/x86_64-linux',
-            '/usr/local/texlive/2016/bin/x86_64-linux',
-            '/usr/local/texlive/2015/bin/x86_64-linux',
-            ]
-         elif sys.platform == "darwin":
-            # Possible Mac Install Location(s)
-            default_tex_location = [
-            '/usr/local/texlive/2025/bin/x86_64-darwin',
-            '/usr/local/texlive/2024/bin/x86_64-darwin',
-            '/usr/local/texlive/2023/bin/x86_64-darwin',
-            '/usr/local/texlive/2022/bin/x86_64-darwin',
-            '/usr/local/texlive/2021/bin/x86_64-darwin',
-            '/usr/local/texlive/2020/bin/x86_64-darwin',
-            '/usr/local/texlive/2019/bin/x86_64-darwin',
-            '/usr/local/texlive/2018/bin/x86_64-darwin',
-            '/usr/local/texlive/2017/bin/x86_64-darwin',
-            '/usr/local/texlive/2016/bin/x86_64-darwin',
-            '/usr/local/texlive/2015/bin/x86_64-darwin',
-            ]
-         elif sys.platform == "win32" or sys.platform == 'cygwin':
-            # Override system command for tex live version for Windows
-            texcmd = ['cmd','/c'] + texcmd
-         
-            # Possible Windows Install Location(s)
-            default_tex_location = [
-            'C:\\texlive\\2025\\bin\\win32',
-            'C:\\texlive\\2024\\bin\\win32',
-            'C:\\texlive\\2023\\bin\\win32',
-            'C:\\texlive\\2022\\bin\\win32',
-            'C:\\texlive\\2021\\bin\\win32',
-            'C:\\texlive\\2020\\bin\\win32',
-            'C:\\texlive\\2019\\bin\\win32',
-            'C:\\texlive\\2018\\bin\\win32',
-            'C:\\texlive\\2017\\bin\\win32',
-            'C:\\texlive\\2016\\bin\\win32',
-            'C:\\texlive\\2015\\bin\\win32',
-            ]
+      # Attempt to determine if TeX found on PATH
+      tex_which_out = Popen(tex_which_cmd, env=self.ENV, shell=True, stdout=PIPE, stderr=PIPE)
+      tex_which_out.wait()
 
-         # Loop through paths to make sure they are on environment system PATH
-         for a in default_tex_location:
-            # Get the fully resolved path name
-            a = os.path.abspath(a)
-            
-            # See if path exists and is already on current path - if so break loop
-            if os.path.isdir(a) and a in self.ENV['PATH'].split(os.pathsep):
-               break
-            
-            # See if path exists and is not on current path - if so break loop
-            if os.path.isdir(a) and a not in self.ENV['PATH'].split(os.pathsep):
-               if not self._quiet:
-                  print("PATH environment variable updated to include {0}".format(a))
-               self.ENV['PATH'] = a + os.pathsep + self.ENV['PATH']
-               break
-
-      # Attempt to get the TeX version with command line call
-      get_tex = Popen(texcmd, env=self.ENV, shell=True, stdout=PIPE, stderr=PIPE)
-      get_tex.wait()
-      
       # Check the return status of the TeX version call
-      if get_tex.returncode > 0:
-         print_error('No TeX distribution installation found, check PATH environment')
+      if tex_which_out.returncode > 0:
+         print_error("""No TeX distribution installation found, check PATH environment
+Standard TeX installation locations can be found in:
+  • Linux: /usr/local/texlive/2025/bin/x86_64-linux
+  • macOS: /usr/local/texlive/2025/bin/x86_64-darwin
+  • Windows: C:\\texlive\\2025\\bin\\win32"""
+            )
       else:
-         self.ENV['TEX_VERSION']  = str(get_tex.stdout.read().splitlines()[0].strip())
 
-      # Make sure the TeX distribution installed is at least from 2015+
-      if any(x in str(self.ENV['TEX_VERSION']) for x in ['2015','2016','2017','2018','2019','2020','2021','2022','2023','2024','2025','MiKTeX']):
-         if not self.latexmk_passthrough:
-            print_status("buildPDF.py Version",self.version,quiet=self._quiet)
-            print_status("TeX Distribution Version",str(self.ENV['TEX_VERSION']),quiet=self._quiet)
-      else:
-         print_error('Outdated TeX Distribution: {0}\n  NASA-LaTeX-Docs requires TeX distribution versions of 2015+'.format(self.ENV['TEX_VERSION']))
+         tex_which = tex_which_out.stdout.read().decode()
+
+         # Attempt to get the TeX version with command line call
+         tex_version_out = Popen(tex_version_cmd, env=self.ENV, shell=True, stdout=PIPE, stderr=PIPE)
+         tex_version_out.wait()
+         tex_version = str(tex_version_out.stdout.read().decode().splitlines()[0].strip())
+
+      if not self.latexmk_passthrough:
+         print_status("TeX Version",tex_version,quiet=self._quiet)
+         print_status("TeX Install",tex_which,quiet=self._quiet)
 
    ###################################################################
    # METHOD: get all the various file forms for input tex and output pdf
@@ -506,7 +434,12 @@ class buildPDF():
       
       # Print path to created template and exit
       if not self._quiet:
-         print("\nTemplate created in:\n  {0}\n\nTo build PDF run the following from {0}:\n\n  \033[1m./support/buildPDF.py {1}\033[0m\n".format(tc.BLUE+structure_path+tc.ENDC,self.input_tex))
+         print("""Template created in:
+  • {0}
+To build PDF run the following:
+  • cd {0}
+  • ./support/buildPDF.py {1}
+""".format(tc.BLUE+structure_path+tc.ENDC,self.input_tex))
 
       sys.exit(0) 
 
