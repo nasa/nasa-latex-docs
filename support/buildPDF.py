@@ -638,12 +638,19 @@ To build PDF run the following:
          self.input_abs_path,
          texfot_out),
          env=self.ENV, shell=True, stdout=PIPE, stderr=PIPE)
-      pdflatex.wait()
+      
+      stdout, stderr = pdflatex.communicate()
 
       # For persistence across interim builds, write the exit status to file
       f = open(build_status, 'w')
       f.write(str(pdflatex.returncode))
       f.close()
+
+      # Write output to pdflatex
+      if pdflatex.returncode:
+         with open(pdflatex_out, 'w') as pf:
+            pf.write(stdout.decode())
+            pf.write(stderr.decode())
 
       # Exit with the return code from pdflatex
       sys.exit(pdflatex.returncode) 
@@ -729,7 +736,10 @@ To build PDF run the following:
                print(line.strip())
 
       if not something_to_print:
-         print("  No warnings or errors to report")
+         if buildFailFlag:
+            print("  Please see tmp/pdflatex.out for more details")
+         else:
+            print("  No warnings or errors to report")
       
       if buildFailFlag:
          print(log_sum_str + '\n')
