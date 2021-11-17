@@ -277,9 +277,9 @@ class buildPDF():
       if tex_which_out.returncode > 0:
          print_error("""No TeX distribution installation found, check PATH environment
 Standard TeX installation locations can be found in:
-  • Linux: /usr/local/texlive/2025/bin/x86_64-linux
-  • macOS: /usr/local/texlive/2025/bin/x86_64-darwin
-  • Windows: C:\\texlive\\2025\\bin\\win32"""
+  * Linux: /usr/local/texlive/2025/bin/x86_64-linux
+  * macOS: /usr/local/texlive/2025/bin/x86_64-darwin
+  * Windows: C:\\texlive\\2025\\bin\\win32"""
             )
       else:
 
@@ -435,10 +435,10 @@ Standard TeX installation locations can be found in:
       # Print path to created template and exit
       if not self._quiet:
          print("""Template created in:
-  • {0}
+  * {0}
 To build PDF run the following:
-  • cd {0}
-  • ./support/buildPDF.py {1}
+  * cd {0}
+  * ./support/buildPDF.py {1}
 """.format(tc.BLUE+structure_path+tc.ENDC,self.input_tex))
 
       sys.exit(0) 
