@@ -13,5 +13,3 @@ cp ../support/templates/aiaa/* .
 cp ../support/templates/standalone/* .
 cp ../support/templates/tech/* .
 cp ../support/citations/aiaa/* .
-
-
