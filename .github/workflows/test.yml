@@ -1,0 +1,21 @@
+name: compile_test
+on: [push]
+
+jobs:
+  compilation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v3
+      - run: cd ./test && chmod +x copy_files.sh && ./copy_files.sh
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: test.tex
+          working_directory: test
+      - name: upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: PDF
+          path: test/test.pdf
